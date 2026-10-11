@@ -1,7 +1,7 @@
 # Spec: Rebrand meliclaw decision router
 
 > feature: rebrand-meliclaw-decision-router
-> status: pronto
+> status: pronta
 
 ## Contexto
 
@@ -75,6 +75,11 @@ na VPS Scaleway, para publicar o serviço fora do ambiente local.
 
 - Renomear o CRD group `vllm.ai` ou o diretório do chart Helm
   `deploy/helm/semantic-router/` (mudança estrutural, feature futura).
+- Rebrandear strings de marca dentro do código-fonte Go/Python (`src/`) —
+  centenas de arquivos (comentários, mensagens de log, help text do CLI,
+  nomes de teste). `website/docs/api/cli.md` e `.../apiserver.md` são
+  gerados a partir desse código e continuam citando "vLLM Semantic Router"
+  até uma feature dedicada ao rebrand do código-fonte.
 - Traduzir o conteúdo técnico de `deploy/kserve/inference-examples/` além da
   substituição de texto de marca.
 - Provisionar a VPS Scaleway em si (criar a instância, DNS, etc.) — só o

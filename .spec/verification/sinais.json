@@ -20993,19 +20993,19 @@
       "codigo": "GLOB_SEM_ARQUIVOS",
       "feature": "—",
       "ref": "P-002",
-      "ocorrencias": 7,
+      "ocorrencias": 8,
       "primeiraVez": "2026-10-11T19:32:03.738Z",
-      "ultimaVez": "2026-10-11T20:01:37.330Z",
-      "gitRev": "8b9458583"
+      "ultimaVez": "2026-10-11T21:16:41.467Z",
+      "gitRev": "fa47eb590"
     },
     "VERIFY_FALHOU::rebrand-meliclaw-decision-router::AC-001": {
       "codigo": "VERIFY_FALHOU",
       "feature": "rebrand-meliclaw-decision-router",
       "ref": "AC-001",
-      "ocorrencias": 2,
+      "ocorrencias": 3,
       "primeiraVez": "2026-10-11T19:35:23.903Z",
-      "ultimaVez": "2026-10-11T19:54:53.504Z",
-      "gitRev": "8b9458583"
+      "ultimaVez": "2026-10-11T21:14:57.127Z",
+      "gitRev": "fa47eb590"
     },
     "VERIFY_FALHOU::rebrand-meliclaw-decision-router::AC-002": {
       "codigo": "VERIFY_FALHOU",
@@ -21141,6 +21141,15 @@
       "primeiraVez": "2026-10-11T19:35:24.179Z",
       "ultimaVez": "2026-10-11T19:35:24.179Z",
       "gitRev": "554bff52b"
+    },
+    "STATUS_INVALIDO::rebrand-meliclaw-decision-router::.spec/features/rebrand-meliclaw-decision-router/spec.md": {
+      "codigo": "STATUS_INVALIDO",
+      "feature": "rebrand-meliclaw-decision-router",
+      "ref": ".spec/features/rebrand-meliclaw-decision-router/spec.md",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-10-11T21:16:41.466Z",
+      "ultimaVez": "2026-10-11T21:16:41.467Z",
+      "gitRev": "fa47eb590"
     }
   }
 }
