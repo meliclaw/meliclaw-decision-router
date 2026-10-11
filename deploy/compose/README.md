@@ -10,10 +10,13 @@ Two Compose setups, both using `deploy/compose/Dockerfile.local`
 - **Scaleway VPS**: `docker-compose.scaleway.yml` in this directory. Standalone
   — no dependency on the other `meliclaw-ai-gateway-core` services. Builds the
   image on the VPS itself (arm64 host, same architecture as local dev, no
-  cross-arch build needed). Uses the full `config/config.yaml` (TLS listener
-  included — point `config/certs/` at real certs, or terminate TLS at a
-  Scaleway Load Balancer in front of this service and drop the `8443`
-  listener from the config instead).
+  cross-arch build needed). Reachable only over Tailscale (no public IP/domain
+  provisioned) — WireGuard covers transport encryption, so this runs
+  `config/config.dev.yaml` in `-gateway=standalone` mode (HTTP only, same as
+  local). If/when this is exposed to the public internet, revisit TLS: either
+  terminate at a Scaleway Load Balancer in front, or mount real certs and
+  switch to `config/config.yaml`'s `https-8443` listener — see `ASM-003` in
+  `.spec/features/rebrand-meliclaw-decision-router/spec.md`.
 
 ## Deploying to the VPS
 
@@ -25,8 +28,5 @@ docker compose -f deploy/compose/docker-compose.scaleway.yml up -d --build
 
 ## Open items
 
-- TLS termination point (at the router vs. a Scaleway LB) — decide before
-  exposing `8443` publicly; see `ASM-003` in
-  `.spec/features/rebrand-meliclaw-decision-router/spec.md`.
 - Model/kernel cache (`meliclaw-decision-router-models` volume) is local to
   the VPS — back it up or re-warm it after a VPS rebuild.

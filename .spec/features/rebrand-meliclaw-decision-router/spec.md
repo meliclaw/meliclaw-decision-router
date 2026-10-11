@@ -86,7 +86,7 @@ na VPS Scaleway, para publicar o serviço fora do ambiente local.
 |---|---|---|---|
 | ASM-001 | A imagem `ubuntu:26.04` tem suporte oficial multi-arch (arm64) nos mirrors apt disponíveis no momento do build | confirmada | VPS Scaleway e Orbstack local são ambos arm64 — mesma base, sem build cross-arch. |
 | ASM-002 | A VPS Scaleway roda apenas CPU (sem GPU dedicada) | confirmada | Instância arm64 confirmada pelo usuário; sem menção de GPU. |
-| ASM-003 | TLS termina em frente ao router (load balancer Scaleway ou proxy), não dentro do container | aberta | — |
+| ASM-003 | TLS termina em frente ao router (load balancer Scaleway ou proxy), não dentro do container | invalidada | VPS só é alcançável via Tailscale (WireGuard cobre o cifrado em trânsito); sem IP pública/domínio por ora, o router roda apenas HTTP (config.dev.yaml). TLS real fica para quando (se) o serviço for exposto à internet pública. |
 
 ## Perguntas em aberto
 
