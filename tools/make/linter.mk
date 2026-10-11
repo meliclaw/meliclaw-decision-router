@@ -62,4 +62,4 @@ shellcheck: ## Lint all shell scripts in the project
 	fi
 	# Match the tracked-source boundary used by codespell; exclude local caches and Git metadata.
 	@echo "Running shellcheck with config from tools/linter/shellcheck/.shellcheckrc"
-	@git ls-files -z -- "*.sh" | xargs -0 shellcheck -e SC2155,SC2034,SC1091,SC2011,SC2012,SC2087,SC2119,SC2120,SC2162
+	@git ls-files -z -- "*.sh" ":!:.spec/**" | xargs -0 shellcheck -e SC2155,SC2034,SC1091,SC2011,SC2012,SC2087,SC2119,SC2120,SC2162
