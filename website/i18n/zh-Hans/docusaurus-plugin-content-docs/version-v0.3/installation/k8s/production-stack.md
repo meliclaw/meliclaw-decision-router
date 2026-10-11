@@ -102,12 +102,12 @@ kubectl get svc vllm-router-service
    # （可选）如果使用镜像代理，请添加：--set global.imageRegistry=<your-registry>
    helm install semantic-router oci://ghcr.io/vllm-project/charts/semantic-router \
      --version v0.0.0-latest \
-     --namespace meliclaw-decision-router-system \
+     --namespace vllm-semantic-router-system \
      --create-namespace \
      -f https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/ai-gateway/semantic-router-values/values.yaml
 
    kubectl wait --for=condition=Available deployment/semantic-router \
-     -n meliclaw-decision-router-system --timeout=600s
+     -n vllm-semantic-router-system --timeout=600s
 
    # 安装 Envoy Gateway
    helm upgrade -i eg oci://docker.io/envoyproxy/gateway-helm \
@@ -181,7 +181,7 @@ kubectl delete -f https://raw.githubusercontent.com/vllm-project/semantic-router
 kubectl delete -f https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/ai-gateway/aigw-resources/base-model.yaml
 
 # 删除Decision Router 
-helm uninstall semantic-router -n meliclaw-decision-router-system
+helm uninstall semantic-router -n vllm-semantic-router-system
 
 # 删除 AI gateway
 helm uninstall aieg -n envoy-ai-gateway-system

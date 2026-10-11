@@ -16,7 +16,7 @@ This reference is generated from the registered CLI commands. Command descriptio
 
 | Command | Description |
 | --- | --- |
-| [`vllm-sr`](#vllm-sr) | Meliclaw Decision Router CLI - Signal-driven routing across LLM providers, with a built-in model runtime. |
+| [`vllm-sr`](#vllm-sr) | vLLM Semantic Router CLI - Signal-driven routing across LLM providers, with a built-in model runtime. |
 | [`vllm-sr benchmark`](#vllm-sr-benchmark) | Prepare, run, inspect, and compare sr-bench 1.0 evaluations. |
 | [`vllm-sr benchmark cancel`](#vllm-sr-benchmark-cancel) | Cancel remaining work while retaining all existing evidence. |
 | [`vllm-sr benchmark candidate-plan`](#vllm-sr-benchmark-candidate-plan) | Reuse a terminal baseline's frozen protocol without repeating its requests. |
@@ -74,7 +74,7 @@ This reference is generated from the registered CLI commands. Command descriptio
 | [`vllm-sr instance`](#vllm-sr-instance) | Inspect the serving state of an existing local instance. |
 | [`vllm-sr instance models`](#vllm-sr-instance-models) | Print actual native model cards for readiness checks, without inference. |
 | [`vllm-sr instance status`](#vllm-sr-instance-status) | Print desired/observed mode and durable operation state. |
-| [`vllm-sr logs`](#vllm-sr-logs) | Show logs from Meliclaw Decision Router service. |
+| [`vllm-sr logs`](#vllm-sr-logs) | Show logs from vLLM Semantic Router service. |
 | [`vllm-sr optimize`](#vllm-sr-optimize) | Analyze routing evidence and produce candidate recipe changes. |
 | [`vllm-sr optimize recipe-learning`](#vllm-sr-optimize-recipe-learning) | Analyze replay and outcomes to produce recipe-learning artifacts. |
 | [`vllm-sr recipe`](#vllm-sr-recipe) | Validate, plan, apply, inspect, or package routing recipes. |
@@ -94,9 +94,9 @@ This reference is generated from the registered CLI commands. Command descriptio
 | [`vllm-sr route`](#vllm-sr-route) | Preview routing decisions or probe the routed inference path. |
 | [`vllm-sr route preview`](#vllm-sr-route-preview) | Preview signals and model selection without generating an answer. |
 | [`vllm-sr route probe`](#vllm-sr-route-probe) | Probe a real route and assert complete assistant delivery for expected 2xx. |
-| [`vllm-sr serve`](#vllm-sr-serve) | Start Meliclaw Decision Router. |
-| [`vllm-sr status`](#vllm-sr-status) | Show status of Meliclaw Decision Router services. |
-| [`vllm-sr stop`](#vllm-sr-stop) | Stop Meliclaw Decision Router. |
+| [`vllm-sr serve`](#vllm-sr-serve) | Start vLLM Semantic Router. |
+| [`vllm-sr status`](#vllm-sr-status) | Show status of vLLM Semantic Router services. |
+| [`vllm-sr stop`](#vllm-sr-stop) | Stop vLLM Semantic Router. |
 | [`vllm-sr storage`](#vllm-sr-storage) | Inspect Router storage or manage local storage credentials. |
 | [`vllm-sr storage rotate`](#vllm-sr-storage-rotate) | Replace this stack's storage credentials with freshly generated ones. |
 | [`vllm-sr storage vector-stores`](#vllm-sr-storage-vector-stores) | List vector stores known to the Router management API. |
@@ -107,7 +107,7 @@ This reference is generated from the registered CLI commands. Command descriptio
 Usage: vllm-sr [OPTIONS] [COMMAND] [ARGS]...
 ```
 
-Meliclaw Decision Router CLI - Signal-driven routing across LLM providers, with a built-in model runtime.
+vLLM Semantic Router CLI - Signal-driven routing across LLM providers, with a built-in model runtime.
 
 | Parameter | Description |
 | --- | --- |
@@ -1021,7 +1021,7 @@ Print desired/observed mode and durable operation state.
 Usage: vllm-sr logs [OPTIONS] {envoy|router|dashboard}
 ```
 
-Show logs from Meliclaw Decision Router service.
+Show logs from vLLM Semantic Router service.
 
 Examples:
 
@@ -1384,13 +1384,13 @@ Probe a real route and assert complete assistant delivery for expected 2xx.
 Usage: vllm-sr serve [OPTIONS] [MODEL]
 ```
 
-Start Meliclaw Decision Router.
+Start vLLM Semantic Router.
 
 Serve uses --config or config.yaml and preserves the Dashboard-first setup flow.
 Connect physical models and publish Mixture-of-Model entrypoints in the
 Dashboard, then keep the same stack running with this single command.
 
-Virtual models are routing policies. Decision Router starts the Router, which
+Virtual models are routing policies. Semantic Router starts the Router, which
 serves the OpenAI-compatible API itself, the Dashboard and supporting services;
 it does not download or launch the physical LLM engines referenced by provider
 backends. Connect user-owned single or multiple model endpoints through one
@@ -1523,7 +1523,7 @@ Backend LLMs, named deployments, listeners and API grants belong in --config.
 Usage: vllm-sr status [OPTIONS] [envoy|router|dashboard|all]
 ```
 
-Show status of Meliclaw Decision Router services.
+Show status of vLLM Semantic Router services.
 
 Examples:
 
@@ -1550,7 +1550,7 @@ vllm-sr status --target kubernetes  # Show Kubernetes status
 Usage: vllm-sr stop [OPTIONS]
 ```
 
-Stop Meliclaw Decision Router.
+Stop vLLM Semantic Router.
 
 Examples:
 

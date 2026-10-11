@@ -152,10 +152,10 @@ kubectl apply -f deploy/kubernetes/llmd-base/dest-rule-epp-phi4.yaml
 kubectl apply -k deploy/kubernetes/istio/
 
 # 等待部署就绪（模型下载可能需要几分钟）
-kubectl wait --for=condition=Available deployment/semantic-router -n meliclaw-decision-router-system --timeout=600s
+kubectl wait --for=condition=Available deployment/semantic-router -n vllm-semantic-router-system --timeout=600s
 
 # 验证部署状态
-kubectl get pods -n meliclaw-decision-router-system
+kubectl get pods -n vllm-semantic-router-system
 ```
 
 ## 步骤 6：VSR 连接的额外 Istio 配置
@@ -258,7 +258,7 @@ vllm-phi4-mini-epp-6f5dd6bbb9-8pv27            1/1     Running   0          14h
 ```
 
 ```bash
-$ kubectl get pods -n meliclaw-decision-router-system
+$ kubectl get pods -n vllm-semantic-router-system
 NAME                              READY   STATUS    RESTARTS   AGE
 semantic-router-bf6cdd5b9-t5hpg   1/1     Running   0          5d23h
 ```
@@ -308,13 +308,13 @@ kubectl logs deploy/inference-gateway-istio -c istio-proxy
 
 ```bash
 # 检查 Decision Router  pod
-kubectl get pods -n meliclaw-decision-router-system
+kubectl get pods -n vllm-semantic-router-system
 
 # 检查 Decision Router 服务
-kubectl get svc -n meliclaw-decision-router-system
+kubectl get svc -n vllm-semantic-router-system
 
 # 检查 Decision Router 日志
-kubectl logs -n meliclaw-decision-router-system deployment/semantic-router
+kubectl logs -n vllm-semantic-router-system deployment/semantic-router
 ```
 
 ## 清理

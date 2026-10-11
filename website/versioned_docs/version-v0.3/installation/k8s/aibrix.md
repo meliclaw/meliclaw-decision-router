@@ -59,15 +59,15 @@ Deploy the semantic router service with all required components using Helm:
 # (Optional) If you use a registry mirror/proxy, append: --set global.imageRegistry=<your-registry>
 helm install semantic-router oci://ghcr.io/vllm-project/charts/semantic-router \
   --version v0.0.0-latest \
-  --namespace meliclaw-decision-router-system \
+  --namespace vllm-semantic-router-system \
   --create-namespace \
   -f https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/aibrix/semantic-router-values/values.yaml
 
 # Wait for deployment to be ready (this may take several minutes for model downloads)
-kubectl wait --for=condition=Available deployment/semantic-router -n meliclaw-decision-router-system --timeout=600s
+kubectl wait --for=condition=Available deployment/semantic-router -n vllm-semantic-router-system --timeout=600s
 
 # Verify deployment status
-kubectl get pods -n meliclaw-decision-router-system
+kubectl get pods -n vllm-semantic-router-system
 ```
 
 **Note**: The values file contains the configuration for the semantic router, including model settings, categories, and routing rules. You can download and customize it from [values.yaml](https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/aibrix/semantic-router-values/values.yaml).
@@ -167,7 +167,7 @@ kubectl delete -f https://raw.githubusercontent.com/vllm-project/semantic-router
 kubectl delete -f https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/aibrix/aigw-resources/base-model.yaml
 
 # Remove semantic router
-helm uninstall semantic-router -n meliclaw-decision-router-system
+helm uninstall semantic-router -n vllm-semantic-router-system
 
 # Delete kind cluster (optional)
 kind delete cluster --name semantic-router-cluster

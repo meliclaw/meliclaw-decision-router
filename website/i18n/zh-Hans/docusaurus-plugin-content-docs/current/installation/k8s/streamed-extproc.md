@@ -73,7 +73,7 @@ spec:
             allowModeOverride: true
             grpcService:
               envoyGrpc:
-                authority: semantic-router.meliclaw-decision-router-system:50051
+                authority: semantic-router.vllm-semantic-router-system:50051
                 clusterName: semantic-router
               timeout: 60s
             messageTimeout: 60s
@@ -230,7 +230,7 @@ routing:
 2. 确认 Decision Router 已启用流式 body 处理：
 
  ```bash
-   kubectl logs deploy/semantic-router -n meliclaw-decision-router-system | grep -i streamed
+   kubectl logs deploy/semantic-router -n vllm-semantic-router-system | grep -i streamed
    ```
 
 3. 发送带 `"model": "vllm-sr/auto"` 的大型或分片请求，并验证其正常路由。

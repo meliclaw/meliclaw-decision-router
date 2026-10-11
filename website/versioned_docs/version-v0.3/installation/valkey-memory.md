@@ -67,7 +67,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: valkey-memory
-  namespace: meliclaw-decision-router-system
+  namespace: vllm-semantic-router-system
 spec:
   serviceName: valkey-memory
   replicas: 1
@@ -110,7 +110,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: valkey-memory
-  namespace: meliclaw-decision-router-system
+  namespace: vllm-semantic-router-system
 spec:
   selector:
     app: valkey-memory

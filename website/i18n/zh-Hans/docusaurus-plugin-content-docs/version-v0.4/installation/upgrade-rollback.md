@@ -40,8 +40,8 @@ translation:
 ### Helm release
 
 ```bash
-helm list -n meliclaw-decision-router-system
-helm history semantic-router -n meliclaw-decision-router-system
+helm list -n vllm-semantic-router-system
+helm history semantic-router -n vllm-semantic-router-system
 ```
 
 `CHART` 列显示 chart 版本（例如 `semantic-router-0.2.0`），`APP VERSION` 显示该 chart 部署的镜像标签。
@@ -50,7 +50,7 @@ helm history semantic-router -n meliclaw-decision-router-system
 
 ```bash
 # 获取 extproc deployment 当前使用的镜像标签
-kubectl get deployment -n meliclaw-decision-router-system \
+kubectl get deployment -n vllm-semantic-router-system \
   -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.spec.template.spec.containers[0].image}{"\n"}{end}'
 ```
 
@@ -80,7 +80,7 @@ helm show chart oci://ghcr.io/vllm-project/charts/semantic-router --version 0.3.
 helm upgrade semantic-router \
   oci://ghcr.io/vllm-project/charts/semantic-router \
   --version 0.3.0 \
-  --namespace meliclaw-decision-router-system \
+  --namespace vllm-semantic-router-system \
   --reset-then-reuse-values \
   --wait \
   --timeout 10m
@@ -93,8 +93,8 @@ helm upgrade semantic-router \
 升级后验证：
 
 ```bash
-helm status semantic-router -n meliclaw-decision-router-system
-kubectl rollout status deployment/semantic-router -n meliclaw-decision-router-system
+helm status semantic-router -n vllm-semantic-router-system
+kubectl rollout status deployment/semantic-router -n vllm-semantic-router-system
 ```
 
 ### 2b. Docker 镜像升级（非 Helm 部署）
@@ -185,17 +185,17 @@ Helm 为每个 revision 存储发行 values 和清单。回滚会创建一次新
 
 ```bash
 # 查看历史
-helm history semantic-router -n meliclaw-decision-router-system
+helm history semantic-router -n vllm-semantic-router-system
 
 # 回滚到上一个 revision
-helm rollback semantic-router -n meliclaw-decision-router-system --wait
+helm rollback semantic-router -n vllm-semantic-router-system --wait
 
 # 回滚到特定 revision 编号（例如 revision 3）
-helm rollback semantic-router 3 -n meliclaw-decision-router-system --wait
+helm rollback semantic-router 3 -n vllm-semantic-router-system --wait
 
 # 验证
-helm status semantic-router -n meliclaw-decision-router-system
-kubectl rollout status deployment/semantic-router -n meliclaw-decision-router-system
+helm status semantic-router -n vllm-semantic-router-system
+kubectl rollout status deployment/semantic-router -n vllm-semantic-router-system
 ```
 
 如果 Helm 历史不可用，仅用为该发行保存并测试过的 values 安装较旧的 chart：
@@ -204,7 +204,7 @@ kubectl rollout status deployment/semantic-router -n meliclaw-decision-router-sy
 helm upgrade semantic-router \
   oci://ghcr.io/vllm-project/charts/semantic-router \
   --version 0.2.0 \
-  --namespace meliclaw-decision-router-system \
+  --namespace vllm-semantic-router-system \
   -f values-0.2.0.yaml \
   --wait
 ```
@@ -215,17 +215,17 @@ helm upgrade semantic-router \
 
 ```bash
 # 查看发布历史
-kubectl rollout history deployment/semantic-router -n meliclaw-decision-router-system
+kubectl rollout history deployment/semantic-router -n vllm-semantic-router-system
 
 # 撤销上一次发布
-kubectl rollout undo deployment/semantic-router -n meliclaw-decision-router-system
+kubectl rollout undo deployment/semantic-router -n vllm-semantic-router-system
 
 # 撤销到特定 revision
 kubectl rollout undo deployment/semantic-router \
-  --to-revision=3 -n meliclaw-decision-router-system
+  --to-revision=3 -n vllm-semantic-router-system
 
 # 验证
-kubectl rollout status deployment/semantic-router -n meliclaw-decision-router-system
+kubectl rollout status deployment/semantic-router -n vllm-semantic-router-system
 ```
 
 如果使用固定的镜像 digest，将清单更新为先前的镜像 digest 并 `kubectl apply`。
@@ -258,7 +258,7 @@ helm upgrade semantic-router \
   oci://ghcr.io/vllm-project/charts/semantic-router \
   --version 0.3.0 \
   -f values-production.yaml \
-  --namespace meliclaw-decision-router-system
+  --namespace vllm-semantic-router-system
 ```
 
 ---
@@ -290,7 +290,7 @@ helm show chart oci://ghcr.io/vllm-project/charts/semantic-router \
 helm install semantic-router \
   oci://ghcr.io/vllm-project/charts/semantic-router \
   --version "0.0.0-nightly.${NIGHTLY_DATE}" \
-  --namespace meliclaw-decision-router-system --create-namespace
+  --namespace vllm-semantic-router-system --create-namespace
 ```
 
 Nightly 构建不会自动晋升为带版本的发行。将它们用于预发行验证，而不是作为未固定的生产通道。
@@ -312,14 +312,14 @@ helm show chart oci://ghcr.io/vllm-project/charts/semantic-router --version 0.3.
 ### Helm：失败升级后 release 处于损坏状态
 
 ```bash
-helm rollback semantic-router -n meliclaw-decision-router-system --wait
+helm rollback semantic-router -n vllm-semantic-router-system --wait
 # 如果回滚也因不良状态失败，强制重新安装：
-helm uninstall semantic-router -n meliclaw-decision-router-system
+helm uninstall semantic-router -n vllm-semantic-router-system
 helm install semantic-router \
   oci://ghcr.io/vllm-project/charts/semantic-router \
   --version <last-known-good> \
   -f your-values.yaml \
-  --namespace meliclaw-decision-router-system --create-namespace
+  --namespace vllm-semantic-router-system --create-namespace
 ```
 
 ### Kubernetes：升级后出现 `ImagePullBackOff`
@@ -327,12 +327,12 @@ helm install semantic-router \
 镜像标签可能尚不存在（发行仍在发布），或缺少 pull secret。检查：
 
 ```bash
-kubectl describe pod -n meliclaw-decision-router-system <pod-name>
+kubectl describe pod -n vllm-semantic-router-system <pod-name>
 # 查找 "ErrImagePull" 以及失败的精确标签
 ```
 
 如果标签确实不存在，在发行完成期间回滚：
 
 ```bash
-helm rollback semantic-router -n meliclaw-decision-router-system
+helm rollback semantic-router -n vllm-semantic-router-system
 ```

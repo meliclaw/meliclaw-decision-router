@@ -124,12 +124,12 @@ kubectl -n llm-backends wait --for=condition=Ready pods --all --timeout=10m
 ```bash
 helm upgrade -i semantic-router oci://ghcr.io/vllm-project/charts/semantic-router \
   --version v0.0.0-latest \
-  --namespace meliclaw-decision-router-system \
+  --namespace vllm-semantic-router-system \
   --create-namespace \
   -f https://raw.githubusercontent.com/vllm-project/semantic-router/main/deploy/kubernetes/ai-gateway/semantic-router-values/values.yaml
 
 # 等待路由就绪
-kubectl -n meliclaw-decision-router-system wait --for=condition=Available deploy/semantic-router --timeout=10m
+kubectl -n vllm-semantic-router-system wait --for=condition=Available deploy/semantic-router --timeout=10m
 ```
 
 ## 步骤 6：部署 Gateway 和路由逻辑
@@ -224,7 +224,7 @@ kubectl logs $ISTIO_GW_POD -c istio-proxy | grep ext_proc
 
 ```bash
 # 检查 vSR 日志
-kubectl logs deploy/semantic-router -n meliclaw-decision-router-system
+kubectl logs deploy/semantic-router -n vllm-semantic-router-system
 
 # 检查 Llama3 后端日志
 kubectl logs -n llm-backends -l app=vllm-llama3-8b-instruct
@@ -246,7 +246,7 @@ kubectl delete -f https://raw.githubusercontent.com/vllm-project/semantic-router
 kubectl delete ns llm-backends
 
 # 2. 卸载 Helm releases
-helm uninstall semantic-router -n meliclaw-decision-router-system
+helm uninstall semantic-router -n vllm-semantic-router-system
 
 # 3. 卸载 Istio
 istioctl uninstall -y --purge

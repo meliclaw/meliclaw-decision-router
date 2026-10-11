@@ -132,7 +132,7 @@ curl -fsSL \
 开发环境可安装持续发布的 Decision Router chart：
 
 ```bash
-export SEMANTIC_ROUTER_NAMESPACE=meliclaw-decision-router-system
+export SEMANTIC_ROUTER_NAMESPACE=vllm-semantic-router-system
 
 helm upgrade --install semantic-router \
   oci://ghcr.io/vllm-project/charts/semantic-router \

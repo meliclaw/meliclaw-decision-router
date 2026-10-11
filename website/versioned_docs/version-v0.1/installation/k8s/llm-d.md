@@ -142,10 +142,10 @@ Deploy the semantic router service with all required components:
 kubectl apply -k deploy/kubernetes/istio/
 
 # Wait for deployment to be ready (this may take several minutes for model downloads)
-kubectl wait --for=condition=Available deployment/semantic-router -n meliclaw-decision-router-system --timeout=600s
+kubectl wait --for=condition=Available deployment/semantic-router -n vllm-semantic-router-system --timeout=600s
 
 # Verify deployment status
-kubectl get pods -n meliclaw-decision-router-system
+kubectl get pods -n vllm-semantic-router-system
 ```
 
 ## Step 6: Additional Istio configuration for the VSR connection
@@ -248,7 +248,7 @@ vllm-phi4-mini-epp-6f5dd6bbb9-8pv27            1/1     Running   0          14h
 ```
 
 ```bash
-$ kubectl get pods -n meliclaw-decision-router-system
+$ kubectl get pods -n vllm-semantic-router-system
 NAME                              READY   STATUS    RESTARTS   AGE
 semantic-router-bf6cdd5b9-t5hpg   1/1     Running   0          5d23h
 ```
@@ -298,13 +298,13 @@ kubectl logs deploy/inference-gateway-istio -c istio-proxy
 
 ```bash
 # Check semantic router pod
-kubectl get pods -n meliclaw-decision-router-system
+kubectl get pods -n vllm-semantic-router-system
 
 # Check semantic router service
-kubectl get svc -n meliclaw-decision-router-system
+kubectl get svc -n vllm-semantic-router-system
 
 # Check semantic router logs
-kubectl logs -n meliclaw-decision-router-system deployment/semantic-router
+kubectl logs -n vllm-semantic-router-system deployment/semantic-router
 ```
 
 ## Cleanup

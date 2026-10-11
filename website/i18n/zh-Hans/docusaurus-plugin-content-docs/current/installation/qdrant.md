@@ -79,7 +79,7 @@ helm repo add qdrant https://qdrant.github.io/qdrant-helm
 helm repo update
 
 helm install qdrant qdrant/qdrant \
-  --namespace meliclaw-decision-router-system --create-namespace \
+  --namespace vllm-semantic-router-system --create-namespace \
   --set persistence.size=10Gi
 ```
 
@@ -90,7 +90,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: qdrant
-  namespace: meliclaw-decision-router-system
+  namespace: vllm-semantic-router-system
 spec:
   serviceName: qdrant
   replicas: 1
@@ -131,7 +131,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: qdrant
-  namespace: meliclaw-decision-router-system
+  namespace: vllm-semantic-router-system
 spec:
   selector:
     app: qdrant

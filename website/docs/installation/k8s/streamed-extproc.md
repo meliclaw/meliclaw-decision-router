@@ -94,7 +94,7 @@ spec:
           allowModeOverride: true
           grpcService:
             envoyGrpc:
-              authority: semantic-router.meliclaw-decision-router-system:50051
+              authority: semantic-router.vllm-semantic-router-system:50051
               clusterName: semantic-router
             timeout: 60s
           messageTimeout: 60s
@@ -273,7 +273,7 @@ With `request_body_mode: STREAMED` or `requestBodyMode: FullDuplexStreamed`, Dec
 2. Confirm Decision Router has streamed body handling enabled:
 
    ```bash
-   kubectl logs deploy/semantic-router -n meliclaw-decision-router-system | grep -i streamed
+   kubectl logs deploy/semantic-router -n vllm-semantic-router-system | grep -i streamed
    ```
 
 3. Send a large or chunked request with `"model": "vllm-sr/auto"` and verify it routes normally.

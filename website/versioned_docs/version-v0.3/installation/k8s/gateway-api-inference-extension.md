@@ -124,12 +124,12 @@ Deploy the Meliclaw Decision Router using its official Helm chart. This componen
 ```bash
 helm upgrade -i semantic-router oci://ghcr.io/vllm-project/charts/semantic-router \
   --version v0.0.0-latest \
-  --namespace meliclaw-decision-router-system \
+  --namespace vllm-semantic-router-system \
   --create-namespace \
   -f https://raw.githubusercontent.com/vllm-project/semantic-router/main/deploy/kubernetes/ai-gateway/semantic-router-values/values.yaml
 
 # Wait for the router to be ready
-kubectl -n meliclaw-decision-router-system wait --for=condition=Available deploy/semantic-router --timeout=10m
+kubectl -n vllm-semantic-router-system wait --for=condition=Available deploy/semantic-router --timeout=10m
 ```
 
 ## Step 6: Deploy Gateway and Routing Logic
@@ -224,7 +224,7 @@ Check the logs for the Meliclaw Decision Router and the backend models.
 
 ```bash
 # Check vSR logs
-kubectl logs deploy/semantic-router -n meliclaw-decision-router-system
+kubectl logs deploy/semantic-router -n vllm-semantic-router-system
 
 # Check Llama3 backend logs
 kubectl logs -n llm-backends -l app=vllm-llama3-8b-instruct
@@ -246,7 +246,7 @@ kubectl delete -f https://raw.githubusercontent.com/vllm-project/semantic-router
 kubectl delete ns llm-backends
 
 # 2. Uninstall Helm releases
-helm uninstall semantic-router -n meliclaw-decision-router-system
+helm uninstall semantic-router -n vllm-semantic-router-system
 
 # 3. Uninstall Istio
 istioctl uninstall -y --purge

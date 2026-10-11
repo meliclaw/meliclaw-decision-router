@@ -53,7 +53,7 @@ helm install milvus-semantic-cache milvus/milvus \
   --set minio.mode=standalone \
   --set pulsar.enabled=false \
   --set metrics.serviceMonitor.enabled=false \
-  --namespace meliclaw-decision-router-system --create-namespace
+  --namespace vllm-semantic-router-system --create-namespace
 ```
 
 **有 Prometheus Operator** (用于带监控的生产环境)：
@@ -64,7 +64,7 @@ helm install milvus-semantic-cache milvus/milvus \
   --set etcd.replicaCount=1 \
   --set minio.mode=standalone \
   --set pulsar.enabled=false \
-  --namespace meliclaw-decision-router-system --create-namespace
+  --namespace vllm-semantic-router-system --create-namespace
 ```
 
 ### 集群模式 (Cluster Mode)
@@ -90,7 +90,7 @@ helm install milvus-semantic-cache milvus/milvus \
   --set pulsar.enabled=false \
   --set pulsarv3.enabled=true \
   --set metrics.serviceMonitor.enabled=false \
-  --namespace meliclaw-decision-router-system --create-namespace
+  --namespace vllm-semantic-router-system --create-namespace
 ```
 
 **有 Prometheus Operator** (用于带监控的生产环境)：
@@ -102,7 +102,7 @@ helm install milvus-semantic-cache milvus/milvus \
   --set minio.mode=distributed \
   --set pulsar.enabled=false \
   --set pulsarv3.enabled=true \
-  --namespace meliclaw-decision-router-system --create-namespace
+  --namespace vllm-semantic-router-system --create-namespace
 ```
 
 ## 使用 Milvus Operator 部署
@@ -114,7 +114,7 @@ helm install milvus-semantic-cache milvus/milvus \
 **单机 (Standalone):**
 
 ```bash
-kubectl apply -n meliclaw-decision-router-system -f - <<EOF
+kubectl apply -n vllm-semantic-router-system -f - <<EOF
 apiversion: milvus.io/v1beta1
 kind: Milvus
 metadata:
@@ -141,7 +141,7 @@ EOF
 **集群 (Cluster):**
 
 ```bash
-kubectl apply -n meliclaw-decision-router-system -f - <<EOF
+kubectl apply -n vllm-semantic-router-system -f - <<EOF
 apiversion: milvus.io/v1beta1
 kind: Milvus
 metadata:
@@ -175,7 +175,7 @@ EOF
 ### 应用 Milvus 客户端配置
 
 ```bash
-kubectl apply -n meliclaw-decision-router-system -f - <<EOF
+kubectl apply -n vllm-semantic-router-system -f - <<EOF
 apiversion: v1
 kind: ConfigMap
 metadata:
@@ -183,7 +183,7 @@ metadata:
 data:
   milvus.yaml: |
     connection:
-      host: "milvus-semantic-cache.meliclaw-decision-router-system.svc.cluster.local"
+      host: "milvus-semantic-cache.vllm-semantic-router-system.svc.cluster.local"
       port: 19530
       timeout: 60
       auth:
@@ -230,7 +230,7 @@ semantic_cache:
 限制对 Milvus 的访问：
 
 ```bash
-kubectl apply -n meliclaw-decision-router-system -f - <<EOF
+kubectl apply -n vllm-semantic-router-system -f - <<EOF
 apiversion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -245,7 +245,7 @@ spec:
     - from:
         - namespaceSelector:
             matchLabels:
-              kubernetes.io/metadata.name: meliclaw-decision-router-system
+              kubernetes.io/metadata.name: vllm-semantic-router-system
           podSelector:
             matchLabels:
               app.kubernetes.io/name: semantic-router
@@ -261,12 +261,12 @@ EOF
 
 ```bash
 # 身份验证凭据
-kubectl create secret generic milvus-auth -n meliclaw-decision-router-system \
+kubectl create secret generic milvus-auth -n vllm-semantic-router-system \
   --from-literal=username="YOUR_USERNAME" \
   --from-literal=password="YOUR_PASSWORD"
 
 # TLS 证书
-kubectl create secret generic milvus-tls -n meliclaw-decision-router-system \
+kubectl create secret generic milvus-tls -n vllm-semantic-router-system \
   --from-file=ca.crt=/path/to/ca.crt \
   --from-file=client.crt=/path/to/client.crt \
   --from-file=client.key=/path/to/client.key
@@ -276,7 +276,7 @@ kubectl create secret generic milvus-tls -n meliclaw-decision-router-system \
 
 ```yaml
 connection:
-  host: "milvus-cluster.meliclaw-decision-router-system.svc.cluster.local"
+  host: "milvus-cluster.vllm-semantic-router-system.svc.cluster.local"
   port: 19530
   timeout: 60
   auth:
@@ -323,13 +323,13 @@ helm install milvus-semantic-cache milvus/milvus \
   --set etcd.replicaCount=1 \
   --set minio.mode=standalone \
   --set pulsar.enabled=false \
-  --namespace meliclaw-decision-router-system --create-namespace
+  --namespace vllm-semantic-router-system --create-namespace
 ```
 
 ### 验证 ServiceMonitor
 
 ```bash
-kubectl get servicemonitor -n meliclaw-decision-router-system
+kubectl get servicemonitor -n vllm-semantic-router-system
 ```
 
 ### 禁用监控 (可选)
@@ -343,7 +343,7 @@ helm install milvus-semantic-cache milvus/milvus \
   --set minio.mode=standalone \
   --set pulsar.enabled=false \
   --set metrics.serviceMonitor.enabled=false \
-  --namespace meliclaw-decision-router-system --create-namespace
+  --namespace vllm-semantic-router-system --create-namespace
 ```
 
 ## 从内存缓存迁移
@@ -364,24 +364,24 @@ helm install milvus-semantic-cache milvus/milvus \
   --set minio.mode=standalone \
   --set pulsar.enabled=false \
   --set metrics.serviceMonitor.enabled=false \
-  --namespace meliclaw-decision-router-system --create-namespace
+  --namespace vllm-semantic-router-system --create-namespace
 
 # 步骤 2: 等待就绪
 kubectl wait --for=condition=ready pod -l app.kubernetes.io/name=milvus \
-  -n meliclaw-decision-router-system --timeout=300s
+  -n vllm-semantic-router-system --timeout=300s
 
 # 步骤 3: 更新路由配置 (设置 backend_type: "milvus")
-kubectl edit configmap semantic-router-config -n meliclaw-decision-router-system
+kubectl edit configmap semantic-router-config -n vllm-semantic-router-system
 
 # 步骤 4: 重启路由
-kubectl rollout restart deployment/semantic-router -n meliclaw-decision-router-system
+kubectl rollout restart deployment/semantic-router -n vllm-semantic-router-system
 ```
 
 ### 验证
 
 ```bash
 # 检查日志以获取 Milvus 连接
-kubectl logs -l app=semantic-router -n meliclaw-decision-router-system | grep -i milvus
+kubectl logs -l app=semantic-router -n vllm-semantic-router-system | grep -i milvus
 
 # 测试缓存功能
 curl -X POST http://<router-endpoint>/v1/chat/completions \
@@ -404,14 +404,14 @@ curl -X POST http://<router-endpoint>/v1/chat/completions \
 
 ```bash
 # 恢复到内存后端
-kubectl patch configmap semantic-router-config -n meliclaw-decision-router-system \
+kubectl patch configmap semantic-router-config -n vllm-semantic-router-system \
   --type merge -p '{"data":{"config.yaml":"semantic_cache:\n  backend_type: \"memory\""}}'
 
 # 重启路由
-kubectl rollout restart deployment/semantic-router -n meliclaw-decision-router-system
+kubectl rollout restart deployment/semantic-router -n vllm-semantic-router-system
 
 # 验证
-kubectl logs -l app=semantic-router -n meliclaw-decision-router-system | grep -i "cache"
+kubectl logs -l app=semantic-router -n vllm-semantic-router-system | grep -i "cache"
 ```
 
 :::note
@@ -433,7 +433,7 @@ tar -xzf milvus-backup_Linux_x86_64.tar.gz
 
 # 创建备份
 ./milvus-backup create -n semantic_cache_backup \
-  --milvus.address milvus-cluster.meliclaw-decision-router-system.svc.cluster.local:19530
+  --milvus.address milvus-cluster.vllm-semantic-router-system.svc.cluster.local:19530
 
 # 列出 / 恢复
 ./milvus-backup list
@@ -449,7 +449,7 @@ apiversion: snapshot.storage.k8s.io/v1
 kind: VolumeSnapshot
 metadata:
   name: milvus-data-snapshot
-  namespace: meliclaw-decision-router-system
+  namespace: vllm-semantic-router-system
 spec:
   volumeSnapshotClassName: csi-snapclass
   source:
@@ -472,13 +472,13 @@ mc replicate add myminio/milvus-bucket --remote-bucket milvus-bucket-dr \
 
 ```bash
 # 停止路由
-kubectl scale deployment/semantic-router -n meliclaw-decision-router-system --replicas=0
+kubectl scale deployment/semantic-router -n vllm-semantic-router-system --replicas=0
 
 # 恢复
 ./milvus-backup restore -n semantic_cache_backup --restore_index
 
 # 重启路由
-kubectl scale deployment/semantic-router -n meliclaw-decision-router-system --replicas=3
+kubectl scale deployment/semantic-router -n vllm-semantic-router-system --replicas=3
 ```
 
 **从卷快照恢复：**
@@ -489,7 +489,7 @@ apiversion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: milvus-data-restored
-  namespace: meliclaw-decision-router-system
+  namespace: vllm-semantic-router-system
 spec:
   dataSource:
     name: milvus-data-snapshot
@@ -518,7 +518,7 @@ EOF
 **症状**: 在集群模式下，`pulsar` 和 `pulsarv3` pod 都在运行
 
 ```bash
-kubectl get pods -n meliclaw-decision-router-system | grep pulsar
+kubectl get pods -n vllm-semantic-router-system | grep pulsar
 # 显示 milvus-semantic-cache-pulsar-* 和 milvus-semantic-cache-pulsarv3-* pod
 ```
 
@@ -528,7 +528,7 @@ kubectl get pods -n meliclaw-decision-router-system | grep pulsar
 
 ```bash
 # 卸载现有发布
-helm uninstall milvus-semantic-cache -n meliclaw-decision-router-system
+helm uninstall milvus-semantic-cache -n vllm-semantic-router-system
 
 # 使用正确配置重新安装
 helm install milvus-semantic-cache milvus/milvus \
@@ -538,7 +538,7 @@ helm install milvus-semantic-cache milvus/milvus \
   --set pulsar.enabled=false \
   --set pulsarv3.enabled=true \
   --set metrics.serviceMonitor.enabled=false \
-  --namespace meliclaw-decision-router-system --create-namespace
+  --namespace vllm-semantic-router-system --create-namespace
 ```
 
 ### ServiceMonitor CRD 未找到
@@ -547,7 +547,7 @@ helm install milvus-semantic-cache milvus/milvus \
 
 ```
 Error: INSTALLATION FAILED: unable to build kubernetes objects from release manifest: 
-resource mapping not found for name: "milvus-semantic-cache-milvus-standalone" namespace: "meliclaw-decision-router-system" 
+resource mapping not found for name: "milvus-semantic-cache-milvus-standalone" namespace: "vllm-semantic-router-system" 
 from "": no matches for kind "ServiceMonitor" in version "monitoring.coreos.com/v1"
 ensure CRDs are installed first
 ```
@@ -562,7 +562,7 @@ helm install milvus-semantic-cache milvus/milvus \
   --set minio.mode=standalone \
   --set pulsar.enabled=false \
   --set metrics.serviceMonitor.enabled=false \
-  --namespace meliclaw-decision-router-system --create-namespace
+  --namespace vllm-semantic-router-system --create-namespace
 
 # 选项 2: 先安装 Prometheus Operator
 kubectl apply -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/main/bundle.yaml
@@ -574,21 +574,21 @@ kubectl apply -f https://raw.githubusercontent.com/prometheus-operator/prometheu
 
 ```bash
 # 验证 Milvus 正在运行
-kubectl get pods -l app.kubernetes.io/name=milvus -n meliclaw-decision-router-system
+kubectl get pods -l app.kubernetes.io/name=milvus -n vllm-semantic-router-system
 
 # 检查服务端点
-kubectl get svc -l app.kubernetes.io/name=milvus -n meliclaw-decision-router-system
+kubectl get svc -l app.kubernetes.io/name=milvus -n vllm-semantic-router-system
 
 # 从 router pod 测试连接
-kubectl exec -it deploy/semantic-router -n meliclaw-decision-router-system -- \
-  nc -zv milvus-cluster.meliclaw-decision-router-system.svc.cluster.local 19530
+kubectl exec -it deploy/semantic-router -n vllm-semantic-router-system -- \
+  nc -zv milvus-cluster.vllm-semantic-router-system.svc.cluster.local 19530
 
 # 检查 NetworkPolicy
-kubectl get networkpolicy -n meliclaw-decision-router-system
+kubectl get networkpolicy -n vllm-semantic-router-system
 
 # 验证 DNS
-kubectl exec -it deploy/semantic-router -n meliclaw-decision-router-system -- \
-  nslookup milvus-cluster.meliclaw-decision-router-system.svc.cluster.local
+kubectl exec -it deploy/semantic-router -n vllm-semantic-router-system -- \
+  nslookup milvus-cluster.vllm-semantic-router-system.svc.cluster.local
 ```
 
 ### 身份验证失败
@@ -597,13 +597,13 @@ kubectl exec -it deploy/semantic-router -n meliclaw-decision-router-system -- \
 
 ```bash
 # 验证凭据
-kubectl get secret milvus-auth -n meliclaw-decision-router-system -o jsonpath='{.data.username}' | base64 -d
+kubectl get secret milvus-auth -n vllm-semantic-router-system -o jsonpath='{.data.username}' | base64 -d
 
 # 在 Milvus 日志中检查 auth
-kubectl logs -l app.kubernetes.io/component=proxy -n meliclaw-decision-router-system | grep -i auth
+kubectl logs -l app.kubernetes.io/component=proxy -n vllm-semantic-router-system | grep -i auth
 
 # 验证路由配置
-kubectl get configmap milvus-client-config -n meliclaw-decision-router-system -o yaml
+kubectl get configmap milvus-client-config -n vllm-semantic-router-system -o yaml
 ```
 
 ### 性能问题
@@ -612,10 +612,10 @@ kubectl get configmap milvus-client-config -n meliclaw-decision-router-system -o
 
 ```bash
 # 检查资源使用情况
-kubectl top pods -l app.kubernetes.io/name=milvus -n meliclaw-decision-router-system
+kubectl top pods -l app.kubernetes.io/name=milvus -n vllm-semantic-router-system
 
 # 查看指标
-kubectl port-forward svc/milvus-cluster 9091:9091 -n meliclaw-decision-router-system
+kubectl port-forward svc/milvus-cluster 9091:9091 -n vllm-semantic-router-system
 # 访问 http://localhost:9091/metrics
 ```
 
@@ -635,11 +635,11 @@ print(col.index())
 
 ```bash
 # 列出集合
-kubectl exec -it deploy/milvus-cluster-proxy -n meliclaw-decision-router-system -- \
+kubectl exec -it deploy/milvus-cluster-proxy -n vllm-semantic-router-system -- \
   curl -s localhost:9091/api/v1/collections
 
 # 检查 auto_create 设置
-kubectl get configmap milvus-client-config -n meliclaw-decision-router-system -o yaml | grep auto_create
+kubectl get configmap milvus-client-config -n vllm-semantic-router-system -o yaml | grep auto_create
 ```
 
 手动创建集合：
@@ -668,16 +668,16 @@ collection.create_index("embedding", {
 
 ```bash
 # 检查 PVC 状态
-kubectl get pvc -n meliclaw-decision-router-system
+kubectl get pvc -n vllm-semantic-router-system
 
 # 检查 StorageClass
 kubectl get sc
 
 # 检查可用存储
-kubectl exec -it deploy/milvus-cluster-datanode -n meliclaw-decision-router-system -- df -h
+kubectl exec -it deploy/milvus-cluster-datanode -n vllm-semantic-router-system -- df -h
 
 # 扩容 PVC
-kubectl patch pvc milvus-data -n meliclaw-decision-router-system \
+kubectl patch pvc milvus-data -n vllm-semantic-router-system \
   -p '{"spec":{"resources":{"requests":{"storage":"50Gi"}}}}'
 ```
 
@@ -687,13 +687,13 @@ kubectl patch pvc milvus-data -n meliclaw-decision-router-system \
 
 ```bash
 # 检查事件
-kubectl describe pod -l app.kubernetes.io/name=milvus -n meliclaw-decision-router-system
+kubectl describe pod -l app.kubernetes.io/name=milvus -n vllm-semantic-router-system
 
 # 检查之前的日志
-kubectl logs -l app.kubernetes.io/name=milvus -n meliclaw-decision-router-system --previous
+kubectl logs -l app.kubernetes.io/name=milvus -n vllm-semantic-router-system --previous
 
 # 增加内存
-kubectl patch deployment milvus-cluster-proxy -n meliclaw-decision-router-system \
+kubectl patch deployment milvus-cluster-proxy -n vllm-semantic-router-system \
   --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/resources/limits/memory", "value":"4Gi"}]'
 ```
 
@@ -701,18 +701,18 @@ kubectl patch deployment milvus-cluster-proxy -n meliclaw-decision-router-system
 
 ```bash
 # 整体健康状况
-kubectl get all -l app.kubernetes.io/name=milvus -n meliclaw-decision-router-system
+kubectl get all -l app.kubernetes.io/name=milvus -n vllm-semantic-router-system
 
 # 组件日志
-kubectl logs -l app.kubernetes.io/component=proxy -n meliclaw-decision-router-system --tail=100
-kubectl logs -l app.kubernetes.io/component=datanode -n meliclaw-decision-router-system --tail=100
-kubectl logs -l app.kubernetes.io/component=querynode -n meliclaw-decision-router-system --tail=100
+kubectl logs -l app.kubernetes.io/component=proxy -n vllm-semantic-router-system --tail=100
+kubectl logs -l app.kubernetes.io/component=datanode -n vllm-semantic-router-system --tail=100
+kubectl logs -l app.kubernetes.io/component=querynode -n vllm-semantic-router-system --tail=100
 
 # etcd 健康状况 (集群模式)
-kubectl exec -it milvus-cluster-etcd-0 -n meliclaw-decision-router-system -- etcdctl endpoint health
+kubectl exec -it milvus-cluster-etcd-0 -n vllm-semantic-router-system -- etcdctl endpoint health
 
 # MinIO 健康状况 (集群模式)
-kubectl exec -it milvus-cluster-minio-0 -n meliclaw-decision-router-system -- mc admin info local
+kubectl exec -it milvus-cluster-minio-0 -n vllm-semantic-router-system -- mc admin info local
 ```
 
 ## 下一步

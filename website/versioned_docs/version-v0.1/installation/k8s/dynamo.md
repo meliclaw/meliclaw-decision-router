@@ -316,15 +316,15 @@ Deploy the Decision Router with Dynamo-specific configuration:
 # Install Decision Router from GHCR OCI registry
 helm install semantic-router oci://ghcr.io/vllm-project/charts/semantic-router \
   --version v0.0.0-latest \
-  --namespace meliclaw-decision-router-system \
+  --namespace vllm-semantic-router-system \
   --create-namespace \
   -f https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/dynamo/semantic-router-values/values.yaml
 
 # Wait for deployment to be ready
-kubectl wait --for=condition=Available deployment/semantic-router -n meliclaw-decision-router-system --timeout=600s
+kubectl wait --for=condition=Available deployment/semantic-router -n vllm-semantic-router-system --timeout=600s
 
 # Verify deployment status
-kubectl get pods -n meliclaw-decision-router-system
+kubectl get pods -n vllm-semantic-router-system
 ```
 
 **Note:** The values file configures Decision Router to route to the TinyLlama model served by Dynamo workers.
@@ -425,7 +425,7 @@ transfer-encoding: chunked
 
 ```bash
 # View classification and routing decisions
-kubectl logs -n meliclaw-decision-router-system deployment/semantic-router -f | grep -E "category|routing_decision"
+kubectl logs -n vllm-semantic-router-system deployment/semantic-router -f | grep -E "category|routing_decision"
 ```
 
 Expected output:
@@ -468,7 +468,7 @@ kubectl delete -f https://raw.githubusercontent.com/vllm-project/semantic-router
 kubectl delete -f https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/dynamo/dynamo-resources/rbac.yaml
 
 # Remove Decision Router
-helm uninstall semantic-router -n meliclaw-decision-router-system
+helm uninstall semantic-router -n vllm-semantic-router-system
 
 # Remove Envoy Gateway
 helm uninstall envoy-gateway -n envoy-gateway-system
@@ -478,7 +478,7 @@ helm uninstall dynamo-platform -n dynamo-system
 helm uninstall dynamo-crds -n dynamo-system
 
 # Delete namespaces
-kubectl delete namespace meliclaw-decision-router-system
+kubectl delete namespace vllm-semantic-router-system
 kubectl delete namespace envoy-gateway-system
 kubectl delete namespace dynamo-system
 

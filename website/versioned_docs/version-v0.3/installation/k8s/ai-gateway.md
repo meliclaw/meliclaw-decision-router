@@ -107,15 +107,15 @@ Deploy the semantic router service with all required components using Helm:
 # (Optional) If you use a registry mirror/proxy, append: --set global.imageRegistry=<your-registry>
 helm install semantic-router oci://ghcr.io/vllm-project/charts/semantic-router \
   --version v0.0.0-latest \
-  --namespace meliclaw-decision-router-system \
+  --namespace vllm-semantic-router-system \
   --create-namespace \
   -f https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/ai-gateway/semantic-router-values/values.yaml
 
 # Wait for deployment to be ready (this may take several minutes for model downloads)
-kubectl wait --for=condition=Available deployment/semantic-router -n meliclaw-decision-router-system --timeout=600s
+kubectl wait --for=condition=Available deployment/semantic-router -n vllm-semantic-router-system --timeout=600s
 
 # Verify deployment status
-kubectl get pods -n meliclaw-decision-router-system
+kubectl get pods -n vllm-semantic-router-system
 ```
 
 **Note**: The values file contains the configuration for the semantic router, including model settings, categories, and routing rules. You can download and customize it from [values.yaml](https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/ai-gateway/semantic-router-values/values.yaml).
@@ -229,10 +229,10 @@ kubectl get deployment -n envoy-ai-gateway-system
 
 ```bash
 # Check semantic router pod status
-kubectl get pods -n meliclaw-decision-router-system
+kubectl get pods -n vllm-semantic-router-system
 
 # Check semantic router logs
-kubectl logs -n meliclaw-decision-router-system deployment/semantic-router
+kubectl logs -n vllm-semantic-router-system deployment/semantic-router
 ```
 
 ## Cleanup
@@ -245,7 +245,7 @@ kubectl delete -f https://raw.githubusercontent.com/vllm-project/semantic-router
 kubectl delete -f https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/ai-gateway/aigw-resources/base-model.yaml
 
 # Remove semantic router
-helm uninstall semantic-router -n meliclaw-decision-router-system
+helm uninstall semantic-router -n vllm-semantic-router-system
 
 # Remove AI gateway
 helm uninstall aieg -n envoy-ai-gateway-system

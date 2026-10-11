@@ -369,15 +369,15 @@ kubectl wait --for=condition=Available deployment/envoy-gateway -n envoy-gateway
 # 从 GHCR OCI registry 安装 Decision Router
 helm install semantic-router oci://ghcr.io/vllm-project/charts/semantic-router \
   --version v0.0.0-latest \
-  --namespace meliclaw-decision-router-system \
+  --namespace vllm-semantic-router-system \
   --create-namespace \
   -f https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/dynamo/semantic-router-values/values.yaml
 
 # 等待部署就绪
-kubectl wait --for=condition=Available deployment/semantic-router -n meliclaw-decision-router-system --timeout=600s
+kubectl wait --for=condition=Available deployment/semantic-router -n vllm-semantic-router-system --timeout=600s
 
 # 验证部署状态
-kubectl get pods -n meliclaw-decision-router-system
+kubectl get pods -n vllm-semantic-router-system
 ```
 
 **注意**：values 文件配置 Decision Router 将请求路由到由 Dynamo Worker 服务的 TinyLlama 模型。
@@ -755,7 +755,7 @@ print(f'总连接数: {data.get(\"num_connections\", 0)}')
 ### 检查 Decision Router 日志
 
 ```bash
-kubectl logs -n meliclaw-decision-router-system deployment/semantic-router -f | grep -E "category|routing_decision|pii"
+kubectl logs -n vllm-semantic-router-system deployment/semantic-router -f | grep -E "category|routing_decision|pii"
 ```
 
 ## Helm Chart 配置参考
@@ -797,7 +797,7 @@ helm uninstall dynamo-vllm -n dynamo-system
 kubectl delete -f https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/dynamo/dynamo-resources/rbac.yaml
 
 # 删除 Decision Router
-helm uninstall semantic-router -n meliclaw-decision-router-system
+helm uninstall semantic-router -n vllm-semantic-router-system
 
 # 删除 Envoy Gateway
 helm uninstall envoy-gateway -n envoy-gateway-system
@@ -807,7 +807,7 @@ helm uninstall dynamo-platform -n dynamo-system
 helm uninstall dynamo-crds -n dynamo-system
 
 # 删除命名空间
-kubectl delete namespace meliclaw-decision-router-system
+kubectl delete namespace vllm-semantic-router-system
 kubectl delete namespace envoy-gateway-system
 kubectl delete namespace dynamo-system
 

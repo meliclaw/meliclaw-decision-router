@@ -115,7 +115,7 @@ docker compose -f deploy/docker-compose/docker-compose.yml --profile testing up 
 
 用于 K8s 集群的生产就绪 Prometheus + Grafana。
 
-> **命名空间**：`meliclaw-decision-router-system`
+> **命名空间**：`vllm-semantic-router-system`
 
 ### 组件
 
@@ -132,7 +132,7 @@ docker compose -f deploy/docker-compose/docker-compose.yml --profile testing up 
 kubectl apply -k deploy/kubernetes/observability/
 
 # 验证
-kubectl get pods -n meliclaw-decision-router-system
+kubectl get pods -n vllm-semantic-router-system
 ```
 
 ### 访问
@@ -140,8 +140,8 @@ kubectl get pods -n meliclaw-decision-router-system
 **端口转发：**
 
 ```bash
-kubectl port-forward svc/prometheus 9090:9090 -n meliclaw-decision-router-system
-kubectl port-forward svc/grafana 3000:3000 -n meliclaw-decision-router-system
+kubectl port-forward svc/prometheus 9090:9090 -n vllm-semantic-router-system
+kubectl port-forward svc/grafana 3000:3000 -n vllm-semantic-router-system
 ```
 
 **Ingress：** 使用您的域名和 TLS 自定义 `ingress.yaml`
@@ -156,14 +156,14 @@ scrape_configs:
     kubernetes_sd_configs:
       - role: endpoints
         namespaces:
-          names: [meliclaw-decision-router-system]
+          names: [vllm-semantic-router-system]
 ```
 
 **Grafana** 凭据（生产环境中请更改）：
 
 ```bash
 kubectl create secret generic grafana-admin \
-  --namespace meliclaw-decision-router-system \
+  --namespace vllm-semantic-router-system \
   --from-literal=admin-user=admin \
   --from-literal=admin-password='your-password'
 ```

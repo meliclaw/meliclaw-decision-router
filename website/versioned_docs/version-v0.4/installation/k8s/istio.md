@@ -116,15 +116,15 @@ Deploy Decision Router with the integration values:
 # Install semantic router using Helm from GHCR OCI registry
 helm install semantic-router oci://ghcr.io/vllm-project/charts/semantic-router \
   --version 0.0.0-latest \
-  --namespace meliclaw-decision-router-system \
+  --namespace vllm-semantic-router-system \
   --create-namespace \
   -f https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/istio/semantic-router-values/values.yaml
 
 # Wait for deployment to be ready (this may take several minutes for model downloads)
-kubectl wait --for=condition=Available deployment/semantic-router -n meliclaw-decision-router-system --timeout=600s
+kubectl wait --for=condition=Available deployment/semantic-router -n vllm-semantic-router-system --timeout=600s
 
 # Verify deployment status
-kubectl get pods -n meliclaw-decision-router-system
+kubectl get pods -n vllm-semantic-router-system
 ```
 
 **Note**: The values file contains provider bindings, signals, decisions, and
@@ -191,13 +191,13 @@ kubectl logs deploy/inference-gateway-istio -c istio-proxy
 
 ```bash
 # Check semantic router pod
-kubectl get pods -n meliclaw-decision-router-system
+kubectl get pods -n vllm-semantic-router-system
 
 # Check semantic router service
-kubectl get svc -n meliclaw-decision-router-system
+kubectl get svc -n vllm-semantic-router-system
 
 # Check semantic router logs
-kubectl logs -n meliclaw-decision-router-system deployment/semantic-router
+kubectl logs -n vllm-semantic-router-system deployment/semantic-router
 ```
 
 ## Cleanup
@@ -215,7 +215,7 @@ kubectl delete -f https://raw.githubusercontent.com/vllm-project/semantic-router
 kubectl delete -f https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/istio/destinationrule.yaml
 
 # Remove semantic router
-helm uninstall semantic-router -n meliclaw-decision-router-system
+helm uninstall semantic-router -n vllm-semantic-router-system
 
 # Remove Istio
 istioctl uninstall --purge

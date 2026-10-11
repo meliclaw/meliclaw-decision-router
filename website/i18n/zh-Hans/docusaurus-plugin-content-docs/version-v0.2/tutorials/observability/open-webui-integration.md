@@ -56,14 +56,14 @@ graph LR
 
 | 设置 | 描述 | 示例 |
 |---------|-------------|---------|
-| `vsr_base_url` | Decision Router 端点 URL | `http://semantic-router.meliclaw-decision-router-system.svc.cluster.local:8000` |
+| `vsr_base_url` | Decision Router 端点 URL | `http://semantic-router.vllm-semantic-router-system.svc.cluster.local:8000` |
 | `show_vsr_info` | 在聊天中显示路由决策 | `true` |
 | `timeout` | 请求超时（秒） | `300` |
 
 **对于 Kubernetes 部署**，请使用服务 DNS 名称：
 
 ```text
-http://semantic-router.meliclaw-decision-router-system.svc.cluster.local:8000
+http://semantic-router.vllm-semantic-router-system.svc.cluster.local:8000
 ```
 
 点击 **"保存 (Save)"** 应用配置。

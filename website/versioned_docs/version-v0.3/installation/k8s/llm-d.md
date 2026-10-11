@@ -143,15 +143,15 @@ Deploy the semantic router service with all required components using Helm:
 # (Optional) If you use a registry mirror/proxy, append: --set global.imageRegistry=<your-registry>
 helm install semantic-router oci://ghcr.io/vllm-project/charts/semantic-router \
   --version v0.0.0-latest \
-  --namespace meliclaw-decision-router-system \
+  --namespace vllm-semantic-router-system \
   --create-namespace \
   -f https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/llm-d/semantic-router-values/values.yaml
 
 # Wait for deployment to be ready (this may take several minutes for model downloads)
-kubectl wait --for=condition=Available deployment/semantic-router -n meliclaw-decision-router-system --timeout=600s
+kubectl wait --for=condition=Available deployment/semantic-router -n vllm-semantic-router-system --timeout=600s
 
 # Verify deployment status
-kubectl get pods -n meliclaw-decision-router-system
+kubectl get pods -n vllm-semantic-router-system
 ```
 
 **Note**: The values file contains the configuration for the semantic router, including model settings, categories, and routing rules. You can download and customize it from [values.yaml](https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/llm-d/semantic-router-values/values.yaml).
@@ -256,7 +256,7 @@ vllm-phi4-mini-epp-6f5dd6bbb9-8pv27            1/1     Running   0          14h
 ```
 
 ```bash
-$ kubectl get pods -n meliclaw-decision-router-system
+$ kubectl get pods -n vllm-semantic-router-system
 NAME                              READY   STATUS    RESTARTS   AGE
 semantic-router-bf6cdd5b9-t5hpg   1/1     Running   0          5d23h
 ```
@@ -306,13 +306,13 @@ kubectl logs deploy/inference-gateway-istio -c istio-proxy
 
 ```bash
 # Check semantic router pod
-kubectl get pods -n meliclaw-decision-router-system
+kubectl get pods -n vllm-semantic-router-system
 
 # Check semantic router service
-kubectl get svc -n meliclaw-decision-router-system
+kubectl get svc -n vllm-semantic-router-system
 
 # Check semantic router logs
-kubectl logs -n meliclaw-decision-router-system deployment/semantic-router
+kubectl logs -n vllm-semantic-router-system deployment/semantic-router
 ```
 
 ## Cleanup
@@ -329,7 +329,7 @@ kubectl delete -f https://raw.githubusercontent.com/vllm-project/semantic-router
 kubectl delete -f https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/istio/destinationrule.yaml
 
 # Remove semantic router
-helm uninstall semantic-router -n meliclaw-decision-router-system
+helm uninstall semantic-router -n vllm-semantic-router-system
 
 # Remove LLM-D DestinationRules
 kubectl delete -f https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/llmd-base/dest-rule-epp-phi4.yaml
