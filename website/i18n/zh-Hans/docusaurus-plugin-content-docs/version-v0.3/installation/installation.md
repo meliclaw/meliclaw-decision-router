@@ -1,6 +1,6 @@
 ---
 sidebar_position: 2
-description: vLLM Semantic Router 快速开始指南，涵盖 CPU + Docker 的安装要求、启动流程与首次运行路径。
+description: Meliclaw Decision Router 快速开始指南，涵盖 CPU + Docker 的安装要求、启动流程与首次运行路径。
 translation:
   source_commit: "0ee41b5f"
   source_file: "docs/installation/installation.md"
@@ -9,7 +9,7 @@ translation:
 
 # 快速开始
 
-本指南帮助您安装并运行 vLLM Semantic Router。路由器完全在 CPU 上运行，推理侧**不需要 GPU**。
+本指南帮助您安装并运行 Meliclaw Decision Router。路由器完全在 CPU 上运行，推理侧**不需要 GPU**。
 
 ## 系统要求
 

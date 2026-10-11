@@ -1,7 +1,7 @@
 ---
 sidebar_position: 2
 title: 系统概览
-description: vLLM Semantic Router 的数据面、控制面、配置模型和请求生命周期。
+description: Meliclaw Decision Router 的数据面、控制面、配置模型和请求生命周期。
 translation:
   source_commit: "9156d5bc1ed9edff626b95a2b8260a77cb1712c5"
   source_file: "docs/overview/semantic-router-overview.md"
@@ -10,7 +10,7 @@ translation:
 
 # 系统概览
 
-Agent harness 调用稳定的模型端点。Semantic Router 根据策略选择一个模型，或在已配置的后端上协调有界多模型路径。数据面处理请求，控制面负责配置与运维。
+Agent harness 调用稳定的模型端点。Decision Router 根据策略选择一个模型，或在已配置的后端上协调有界多模型路径。数据面处理请求，控制面负责配置与运维。
 
 ## 架构
 
@@ -22,7 +22,7 @@ Agent harness 调用稳定的模型端点。Semantic Router 根据策略选择�
 
 - **Agent harness** 负责任务循环、工具执行与持久任务状态。每次推理调用经过 Router，响应回到 harness，由其推进下一步。
 - **前端** 接收客户端流量、执行 listener 访问控制并适配协议。使用 `--gateway extproc` 时，外部网关负责入口和转发，通过 ExtProc 调用 Router。
-- **Semantic Router** 提取信号、评估策略、应用路由特定行为，并选择或协调模型候选。
+- **Decision Router** 提取信号、评估策略、应用路由特定行为，并选择或协调模型候选。
 - **模型运行时** 为已配置的使用方运行判断、分类、embedding 和重排序模型，worker 可以受管或附加。
 - **Chat 后端** 是已配置的模型服务或提供方端点，由其运维方负责权重和生成能力。
 
@@ -67,14 +67,14 @@ Agent harness 调用稳定的模型端点。Semantic Router 根据策略选择�
 
 ## 协议与部署边界
 
-Semantic Router 默认直接提供 listener，也可以通过 ExtProc 接入外部网关。同一路由策略适用于本地 Docker、Kubernetes 和混合环境。Chat 后端的模型供给和容量管理由所选推理平台负责；内置模型运行时独立管理自己的判断模型副本。
+Decision Router 默认直接提供 listener，也可以通过 ExtProc 接入外部网关。同一路由策略适用于本地 Docker、Kubernetes 和混合环境。Chat 后端的模型供给和容量管理由所选推理平台负责；内置模型运行时独立管理自己的判断模型副本。
 
-Router 可以考虑请求语义和已配置的运行时观测；它不替代 Chat 后端的调度器。因此，一次部署可以用 Semantic Router 选择模型类别，再用 Inference Router 选择该模型的健康副本。当 AI Gateway 位于入口时，请求依次经过三个路由层：
+Router 可以考虑请求语义和已配置的运行时观测；它不替代 Chat 后端的调度器。因此，一次部署可以用 Decision Router 选择模型类别，再用 Inference Router 选择该模型的健康副本。当 AI Gateway 位于入口时，请求依次经过三个路由层：
 
 ```text
 agent harness
   -> AI Gateway（如 Agent Router / LiteLLM / agentgateway）
-  -> Semantic Router ExtProc
+  -> Decision Router ExtProc
   -> Inference Router / 模型池调度器（如 llm-d / vLLM Router / AIBrix gateway）
   -> 模型副本
 ```
@@ -82,10 +82,10 @@ agent harness
 | 层 | 职责 | 示例 |
 | --- | --- | --- |
 | **AI Gateway** | 客户端入口、提供方转换、凭据、限流和流量策略。 | [Agent Router（原 Envoy AI Gateway）](../installation/k8s/ai-gateway)、[LiteLLM](https://docs.litellm.ai/docs/simple_proxy)、[agentgateway](../installation/k8s/agentgateway) |
-| **Semantic Router** | 通过配方与决策，根据请求意图和策略选择逻辑模型或模型池，并写入 `x-selected-model`。 | vLLM Semantic Router |
+| **Decision Router** | 通过配方与决策，根据请求意图和策略选择逻辑模型或模型池，并写入 `x-selected-model`。 | Meliclaw Decision Router |
 | **Inference Router** | 在所选池内选择健康副本或端点。 | [llm-d](../installation/k8s/llm-d)、[vLLM Router](https://github.com/vllm-project/router)、[AIBrix gateway](../installation/k8s/aibrix) |
 
-Agent Router 和 agentgateway 通过 ExtProc 调用 Semantic Router。[Kubernetes 网关](../installation/k8s/gateways)与[推理平台](../installation/k8s/inference-platforms)列出了项目维护的集成。
+Agent Router 和 agentgateway 通过 ExtProc 调用 Decision Router。[Kubernetes 网关](../installation/k8s/gateways)与[推理平台](../installation/k8s/inference-platforms)列出了项目维护的集成。
 
 客户端和所选后端不必使用相同的线格式。支持的客户端端点、后端格式和成对转换矩阵见[协议兼容性](../installation/protocol-compatibility)。
 

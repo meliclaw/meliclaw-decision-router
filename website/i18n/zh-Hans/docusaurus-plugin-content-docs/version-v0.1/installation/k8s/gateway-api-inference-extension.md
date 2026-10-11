@@ -1,12 +1,12 @@
 # 使用 Gateway API Inference Extension 安装
 
-本指南提供了将 vLLM Semantic Router (vSR) 与 Istio 和 Kubernetes Gateway API Inference Extension (GIE) 集成的分步说明。这种强大的组合允许您使用 Kubernetes 原生 API 管理自托管的 OpenAI 兼容模型，实现高级的 load-aware routing。
+本指南提供了将 Meliclaw Decision Router (vSR) 与 Istio 和 Kubernetes Gateway API Inference Extension (GIE) 集成的分步说明。这种强大的组合允许您使用 Kubernetes 原生 API 管理自托管的 OpenAI 兼容模型，实现高级的 load-aware routing。
 
 ## 架构概览
 
 部署包含三个主要组件：
 
-- **vLLM Semantic Router**：基于请求内容对传入请求进行分类的智能核心。
+- **Meliclaw Decision Router**：基于请求内容对传入请求进行分类的智能核心。
 - **Istio & Gateway API**：网络网格和所有进入集群流量的前门。
 - **Gateway API Inference Extension (GIE)**：用于管理和扩展自托管模型后端的 Kubernetes 原生 API 集（`InferencePool` 等）。
 
@@ -117,19 +117,19 @@ kubectl -n llm-backends apply -f https://raw.githubusercontent.com/vllm-project/
 kubectl -n llm-backends wait --for=condition=Ready pods --all --timeout=10m
 ```
 
-## 步骤 5：部署 vLLM Semantic Router
+## 步骤 5：部署 Meliclaw Decision Router
 
-使用官方 Helm chart 部署 vLLM Semantic Router。此组件将作为 `ext_proc` 服务器运行，Istio 调用它进行路由决策。
+使用官方 Helm chart 部署 Meliclaw Decision Router。此组件将作为 `ext_proc` 服务器运行，Istio 调用它进行路由决策。
 
 ```bash
 helm upgrade -i semantic-router oci://ghcr.io/vllm-project/charts/semantic-router \
   --version v0.0.0-latest \
-  --namespace vllm-semantic-router-system \
+  --namespace meliclaw-decision-router-system \
   --create-namespace \
   -f https://raw.githubusercontent.com/vllm-project/semantic-router/main/deploy/kubernetes/ai-gateway/semantic-router-values/values.yaml
 
 # 等待路由就绪
-kubectl -n vllm-semantic-router-system wait --for=condition=Available deploy/semantic-router --timeout=10m
+kubectl -n meliclaw-decision-router-system wait --for=condition=Available deploy/semantic-router --timeout=10m
 ```
 
 ## 步骤 6：部署 Gateway 和路由逻辑
@@ -166,7 +166,7 @@ kubectl port-forward svc/inference-gateway-istio 8080:80
 端口转发激活后，您可以向 `localhost:8080` 发送 OpenAI 兼容请求。
 
 **测试 1：显式请求模型**
-此请求绕过 Semantic Router 的逻辑，直接发送到指定的模型池。
+此请求绕过 Decision Router 的逻辑，直接发送到指定的模型池。
 
 ```bash
 curl -sS http://localhost:8080/v1/chat/completions \
@@ -177,7 +177,7 @@ curl -sS http://localhost:8080/v1/chat/completions \
   }'
 ```
 
-**测试 2：让 Semantic Router 选择模型**
+**测试 2：让 Decision Router 选择模型**
 通过设置 `"model": "auto"`，您让 vSR 对 prompt 进行分类。它将识别这是一个"math"查询并添加 `x-selected-model: phi4-mini` header，`HTTPRoute` 使用它来路由请求。
 
 ```bash
@@ -220,11 +220,11 @@ kubectl logs $ISTIO_GW_POD -c istio-proxy | grep ext_proc
 ```
 
 **问题：请求失败**
-检查 vLLM Semantic Router 和后端模型的日志。
+检查 Meliclaw Decision Router 和后端模型的日志。
 
 ```bash
 # 检查 vSR 日志
-kubectl logs deploy/semantic-router -n vllm-semantic-router-system
+kubectl logs deploy/semantic-router -n meliclaw-decision-router-system
 
 # 检查 Llama3 后端日志
 kubectl logs -n llm-backends -l app=vllm-llama3-8b-instruct
@@ -246,7 +246,7 @@ kubectl delete -f https://raw.githubusercontent.com/vllm-project/semantic-router
 kubectl delete ns llm-backends
 
 # 2. 卸载 Helm releases
-helm uninstall semantic-router -n vllm-semantic-router-system
+helm uninstall semantic-router -n meliclaw-decision-router-system
 
 # 3. 卸载 Istio
 istioctl uninstall -y --purge

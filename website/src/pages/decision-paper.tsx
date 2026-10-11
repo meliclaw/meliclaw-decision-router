@@ -10,7 +10,7 @@ export default function DecisionPaper(): JSX.Element {
       title={translate({ id: 'decisionPaper.title', message: 'Decision Paper' })}
       socialTitle={translate({
         id: 'decisionPaper.socialTitle',
-        message: 'Decision 1.0: Towards Open Decision Foundation Models — vLLM Semantic Router',
+        message: 'Decision 1.0: Towards Open Decision Foundation Models — Meliclaw Decision Router',
       })}
       metaDescription={translate({
         id: 'decisionPaper.metaDescription',

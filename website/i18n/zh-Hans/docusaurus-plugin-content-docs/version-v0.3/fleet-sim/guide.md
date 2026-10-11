@@ -21,7 +21,7 @@ translation:
 - 日常查阅：使用本「Fleet Sim」小节中的网页文档（维护中的 Web 原生参考）。
 - 离线审阅或对外分享单份快照：使用 PDF。
 - 需要改编或引用指南内容：使用 TeX 与参考文献文件。
-- 渲染版指南署名 **vLLM Semantic Router Team**。
+- 渲染版指南署名 **Meliclaw Decision Router Team**。
 
 ## 推荐阅读路径
 

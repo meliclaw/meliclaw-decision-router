@@ -6,7 +6,7 @@ description: Use Milvus as the durable vector backend for response cache and oth
 
 # Milvus
 
-Milvus is a distributed vector database that Semantic Router can use for a
+Milvus is a distributed vector database that Decision Router can use for a
 durable response cache and other vector-backed features. Choose it when the
 dataset must outgrow a single Router process, survive restarts, or be shared by
 several Router replicas.
@@ -84,7 +84,7 @@ global:
           timeout: 30
         collection:
           name: semantic_router_response_cache
-          description: Semantic Router response-cache vectors
+          description: Decision Router response-cache vectors
           vector_field:
             name: embedding
             dimension: 768

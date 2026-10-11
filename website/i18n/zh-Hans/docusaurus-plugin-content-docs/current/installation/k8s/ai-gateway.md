@@ -1,6 +1,6 @@
 ---
 title: 使用 Agent Router 部署
-description: 由 Semantic Router 负责模型选择或 Responses 状态，由 Agent Router（原 Envoy AI Gateway）负责提供商和网关策略。
+description: 由 Decision Router 负责模型选择或 Responses 状态，由 Agent Router（原 Envoy AI Gateway）负责提供商和网关策略。
 translation:
   source_commit: "29e20acc0914caf09f92de44be45473db8fbf5a5"
   source_file: "docs/installation/k8s/ai-gateway.md"
@@ -9,45 +9,45 @@ translation:
 
 # 使用 Agent Router 部署
 
-当 Agent Router（原 Envoy AI Gateway）已经负责南北向流量和提供商集成时，使用此拓扑。Semantic Router 可以根据请求含义选择模型，也可以仅作为 ExtProc 服务运行，用于 OpenAI Responses 状态和协议转换。Agent Router 仍负责 Gateway API 资源、提供商凭证、速率限制和流量策略。
+当 Agent Router（原 Envoy AI Gateway）已经负责南北向流量和提供商集成时，使用此拓扑。Decision Router 可以根据请求含义选择模型，也可以仅作为 ExtProc 服务运行，用于 OpenAI Responses 状态和协议转换。Agent Router 仍负责 Gateway API 资源、提供商凭证、速率限制和流量策略。
 
-对于大型请求体或 Semantic Router 的流式立即响应，另见 [Streamed ExtProc 与立即响应](./streamed-extproc)。该指南说明如何将 ExtProc 过滤器的请求体从 `BUFFERED` 切换到 `STREAMED`，以及流式 Chat Completions 客户端如何接收 looper 或 `fast_response` 立即响应。
+对于大型请求体或 Decision Router 的流式立即响应，另见 [Streamed ExtProc 与立即响应](./streamed-extproc)。该指南说明如何将 ExtProc 过滤器的请求体从 `BUFFERED` 切换到 `STREAMED`，以及流式 Chat Completions 客户端如何接收 looper 或 `fast_response` 立即响应。
 
 ## 职责划分
 
 部署包含：
 
-- **Semantic Router** 评估所选配方，并选择逻辑模型或提供商别名。
+- **Decision Router** 评估所选配方，并选择逻辑模型或提供商别名。
 - **Envoy Gateway** 提供 Kubernetes Gateway API 数据面。
 - **Agent Router** 转换提供商 API，并应用网关侧的认证、速率限制和流量策略。
 - **模型提供商** 服务所选模型。本指南使用演示后端，不安装生产推理容量。
 
-提供商支持独立于 Semantic Router 变化。请使用 [Agent Router 提供商文档](https://theagentrouter.ai/docs/capabilities/llm-integrations/supported-providers/) 选择 `AIServiceBackend` 和凭证策略，再将提供商名称绑定到 Semantic Router 配置所用的别名。
+提供商支持独立于 Decision Router 变化。请使用 [Agent Router 提供商文档](https://theagentrouter.ai/docs/capabilities/llm-integrations/supported-providers/) 选择 `AIServiceBackend` 和凭证策略，再将提供商名称绑定到 Decision Router 配置所用的别名。
 
 ## 仅提供 Responses 状态、不选择模型
 
-当外部网关已经选择路由和后端，但客户端需要 Semantic Router 的 OpenAI Responses 实现时，使用 [`responses-state.yaml`](https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/ai-gateway/semantic-router-values/responses-state.yaml) 配置。该配置启用 `POST /v1/responses`、`GET /v1/responses/{id}` 和 `previous_response_id` 会话串联。它将 Responses 请求转换为声明的上游线格式，再将上游响应转换回 Responses 对象。
+当外部网关已经选择路由和后端，但客户端需要 Decision Router 的 OpenAI Responses 实现时，使用 [`responses-state.yaml`](https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/ai-gateway/semantic-router-values/responses-state.yaml) 配置。该配置启用 `POST /v1/responses`、`GET /v1/responses/{id}` 和 `previous_response_id` 会话串联。它将 Responses 请求转换为声明的上游线格式，再将上游响应转换回 Responses 对象。
 
 所有权边界如下：
 
 | 关注点 | 所有者 |
 | --- | --- |
 | 公共监听器、Gateway/路由、提供商后端、凭证、速率限制和流量策略 | 外部网关 |
-| Responses 对象存储、`previous_response_id` 展开，以及请求/响应协议转换 | Semantic Router ExtProc |
+| Responses 对象存储、`previous_response_id` 展开，以及请求/响应协议转换 | Decision Router ExtProc |
 
-此配置有意不包含 Semantic Router 监听器、后端引用、凭证、路由信号、决策或可选插件。模型条目只是协议元数据。请使其名称和 `api_format` 值与外部网关接受的模型保持一致。Semantic Router 在协议转换时改写上游 API 路径，但不清除 Envoy 的路由缓存，因此网关所选路由仍然有效。
+此配置有意不包含 Decision Router 监听器、后端引用、凭证、路由信号、决策或可选插件。模型条目只是协议元数据。请使其名称和 `api_format` 值与外部网关接受的模型保持一致。Decision Router 在协议转换时改写上游 API 路径，但不清除 Envoy 的路由缓存，因此网关所选路由仍然有效。
 
 安装 chart 时，用仅状态配置替换步骤 2 中的模型选择 values：
 
 ```bash
 helm install semantic-router oci://ghcr.io/vllm-project/charts/semantic-router \
   --version 0.0.0-latest \
-  --namespace vllm-semantic-router-system \
+  --namespace meliclaw-decision-router-system \
   --create-namespace \
   -f https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/ai-gateway/semantic-router-values/responses-state.yaml
 ```
 
-内置的内存响应存储面向单副本演示或本地验证；重启后状态会丢失。持久或复制的生产部署请配置 Response API Redis 后端。外部网关的 ExtProc 过滤器必须向 Semantic Router 发送缓冲的请求和响应头及请求体，其对 `/v1/responses` 的路由必须在请求体转换运行之前选定目标提供商后端。
+内置的内存响应存储面向单副本演示或本地验证；重启后状态会丢失。持久或复制的生产部署请配置 Response API Redis 后端。外部网关的 ExtProc 过滤器必须向 Decision Router 发送缓冲的请求和响应头及请求体，其对 `/v1/responses` 的路由必须在请求体转换运行之前选定目标提供商后端。
 
 ## 前置条件
 
@@ -61,7 +61,7 @@ helm install semantic-router oci://ghcr.io/vllm-project/charts/semantic-router \
 
 ## 步骤 1：创建 Kind 集群（可选）
 
-创建针对 Semantic Router 工作负载优化的本地 Kubernetes 集群：
+创建针对 Decision Router 工作负载优化的本地 Kubernetes 集群：
 
 ```bash
 kind create cluster --name semantic-router-cluster
@@ -70,27 +70,27 @@ kind create cluster --name semantic-router-cluster
 kubectl wait --for=condition=Ready nodes --all --timeout=300s
 ```
 
-## 步骤 2：部署 vLLM Semantic Router
+## 步骤 2：部署 Meliclaw Decision Router
 
-使用集成 values 部署 Semantic Router：
+使用集成 values 部署 Decision Router：
 
 ```bash
 # Install with custom values from GHCR OCI registry
 # (Optional) If you use a registry mirror/proxy, append: --set global.imageRegistry=<your-registry>
 helm install semantic-router oci://ghcr.io/vllm-project/charts/semantic-router \
   --version 0.0.0-latest \
-  --namespace vllm-semantic-router-system \
+  --namespace meliclaw-decision-router-system \
   --create-namespace \
   -f https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/ai-gateway/semantic-router-values/values.yaml
 
 # Wait for deployment to be ready (this may take several minutes for model downloads)
-kubectl wait --for=condition=Available deployment/semantic-router -n vllm-semantic-router-system --timeout=600s
+kubectl wait --for=condition=Available deployment/semantic-router -n meliclaw-decision-router-system --timeout=600s
 
 # Verify deployment status
-kubectl get pods -n vllm-semantic-router-system
+kubectl get pods -n meliclaw-decision-router-system
 ```
 
-**说明**：values 文件包含 Semantic Router 的模型 binding、信号、决策和路由规则。在适配真实提供商池之前，请下载并审阅 [values.yaml](https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/ai-gateway/semantic-router-values/values.yaml)。
+**说明**：values 文件包含 Decision Router 的模型 binding、信号、决策和路由规则。在适配真实提供商池之前，请下载并审阅 [values.yaml](https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/ai-gateway/semantic-router-values/values.yaml)。
 
 ## 步骤 3：安装 Envoy Gateway
 
@@ -131,7 +131,7 @@ kubectl wait --timeout=300s -n envoy-ai-gateway-system deployment/ai-gateway-con
 
 ## 步骤 5：部署演示 LLM
 
-创建演示 LLM，作为 Semantic Router 的后端：
+创建演示 LLM，作为 Decision Router 的后端：
 
 ```bash
 # Deploy demo LLM
@@ -201,14 +201,14 @@ kubectl logs -n envoy-ai-gateway-system deployment/ai-gateway-controller
 kubectl get deployment -n envoy-ai-gateway-system
 ```
 
-**Semantic Router 无响应：**
+**Decision Router 无响应：**
 
 ```bash
 # Check semantic router pod status
-kubectl get pods -n vllm-semantic-router-system
+kubectl get pods -n meliclaw-decision-router-system
 
 # Check semantic router logs
-kubectl logs -n vllm-semantic-router-system deployment/semantic-router
+kubectl logs -n meliclaw-decision-router-system deployment/semantic-router
 ```
 
 ## 清理
@@ -221,7 +221,7 @@ kubectl delete -f https://raw.githubusercontent.com/vllm-project/semantic-router
 kubectl delete -f https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/ai-gateway/aigw-resources/base-model.yaml
 
 # Remove semantic router
-helm uninstall semantic-router -n vllm-semantic-router-system
+helm uninstall semantic-router -n meliclaw-decision-router-system
 
 # Remove AI gateway
 helm uninstall aieg -n envoy-ai-gateway-system
@@ -237,5 +237,5 @@ kind delete cluster --name semantic-router-cluster
 ## 后续步骤
 
 - 用网关团队负责的提供商资源和凭证替换演示后端。
-- 保持 `AIGatewayRoute` 中的模型别名与 Semantic Router 发出的名称一致。
+- 保持 `AIGatewayRoute` 中的模型别名与 Decision Router 发出的名称一致。
 - 在暴露网关之前，在各自所属层添加认证、速率限制、可观测性和容量策略。

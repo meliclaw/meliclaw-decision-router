@@ -7,11 +7,11 @@ translation:
 
 # 模型训练概览
 
-Semantic Router 依赖多个专门的分类模型来做出智能路由决策。本节全面概述了训练过程、使用的数据集以及每个模型在路由流程中的作用。
+Decision Router 依赖多个专门的分类模型来做出智能路由决策。本节全面概述了训练过程、使用的数据集以及每个模型在路由流程中的作用。
 
 ## 训练架构概览
 
-Semantic Router 采用**多任务学习方法**，使用 ModernBERT 作为各种分类任务的基础模型。每个模型都针对路由流程中的特定目的进行训练：
+Decision Router 采用**多任务学习方法**，使用 ModernBERT 作为各种分类任务的基础模型。每个模型都针对路由流程中的特定目的进行训练：
 
 ```mermaid
 graph TB
@@ -37,7 +37,7 @@ graph TB
     end
     
     subgraph "部署"
-        ModernBERT --> SemanticRouter[Semantic Router <br/>生产系统]
+        ModernBERT --> SemanticRouter[Decision Router <br/>生产系统]
     end
 ```
 

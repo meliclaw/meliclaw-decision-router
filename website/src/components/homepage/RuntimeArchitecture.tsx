@@ -30,7 +30,7 @@ export default function RuntimeArchitecture(): React.JSX.Element {
   return (
     <figure className={styles.architecture} data-path={path} aria-labelledby="runtime-architecture-caption">
       <div className={styles.toolbar}>
-        <ThemedImage className={styles.logo} sources={{ light: lightLogo, dark: darkLogo }} alt="vLLM Semantic Router" />
+        <ThemedImage className={styles.logo} sources={{ light: lightLogo, dark: darkLogo }} alt="Meliclaw Decision Router" />
         <div className={styles.pathPicker} role="group" aria-label={translate({ id: 'homepage.runtimeModes.diagram.explore', message: 'Explore a request path' })}>
           <button type="button" aria-pressed={path === 'chat'} onClick={() => setPath('chat')}>
             <FiMessageSquare aria-hidden="true" />

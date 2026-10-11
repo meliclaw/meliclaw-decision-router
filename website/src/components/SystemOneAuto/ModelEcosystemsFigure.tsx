@@ -29,9 +29,9 @@ function Provider({ x, y, asset, name, wide = false, secondLine, logoWidth, logo
 
 export function ModelEcosystemsFigure() {
   return (
-    <svg width={2000} height={1080} viewBox="0 0 2000 1080" role="img" aria-label="Language model APIs and the native System One API share vLLM Semantic Router, serving separate open and hosted model ecosystems." xmlns="http://www.w3.org/2000/svg" fontFamily="Inter, Arial, sans-serif">
+    <svg width={2000} height={1080} viewBox="0 0 2000 1080" role="img" aria-label="Language model APIs and the native System One API share Meliclaw Decision Router, serving separate open and hosted model ecosystems." xmlns="http://www.w3.org/2000/svg" fontFamily="Inter, Arial, sans-serif">
       <title>Route language. Now, route decisions.</title>
-      <desc>Chat Completions, Responses, and Messages serve language models. The native System One API serves decision models. Both share the vLLM Semantic Router frontend. Provider logos illustrate open and hosted ecosystems, not tested integrations.</desc>
+      <desc>Chat Completions, Responses, and Messages serve language models. The native System One API serves decision models. Both share the Meliclaw Decision Router frontend. Provider logos illustrate open and hosted ecosystems, not tested integrations.</desc>
       <rect width="2000" height="1080" fill="#FFFFFF" />
       <rect x="1090" y="222" width="400" height="295" rx="24" fill="#EFF8FF" />
       <rect x="1550" y="222" width="380" height="295" rx="24" fill="#FFF7E6" />

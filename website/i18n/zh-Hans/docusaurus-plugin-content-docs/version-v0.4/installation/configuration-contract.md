@@ -1,6 +1,6 @@
 ---
 title: 配置契约
-description: 发现、校验并扩展 canonical vLLM Semantic Router 配置，而无需重复 schema。
+description: 发现、校验并扩展 canonical Meliclaw Decision Router 配置，而无需重复 schema。
 translation:
   source_commit: "12c2aa4feb5c5d40d90104d8b09cade1facf0bf5"
   source_file: "docs/installation/configuration-contract.md"

@@ -9,7 +9,7 @@ translation:
 
 # 安全加固
 
-Semantic Router 位于客户端和模型 provider 之间的请求路径上。将其视为应用信任边界的一部分：它可以检查提示词、选择 provider、改动请求，并可选地保留路由数据。
+Decision Router 位于客户端和模型 provider 之间的请求路径上。将其视为应用信任边界的一部分：它可以检查提示词、选择 provider、改动请求，并可选地保留路由数据。
 
 本指南强调需要显式生产决策的控制项。它不能替代周围平台的身份、网络、密钥管理和数据治理控制。
 
@@ -18,7 +18,7 @@ Semantic Router 位于客户端和模型 provider 之间的请求路径上。将
 ```mermaid
 flowchart LR
     Client["Client"] --> Listener["Public Envoy listener"]
-    Listener --> Router["Semantic Router"]
+    Listener --> Router["Decision Router"]
     Router --> Provider["Model providers"]
     Admin["Authenticated Dashboard / API"] --> Router
     Router --> Stores["Cache, memory, replay, and logs"]

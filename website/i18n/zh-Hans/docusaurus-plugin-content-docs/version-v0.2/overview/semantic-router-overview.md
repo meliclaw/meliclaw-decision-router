@@ -6,9 +6,9 @@ translation:
 sidebar_position: 2
 ---
 
-# 什么是 Semantic Router？
+# 什么是 Decision Router？
 
-**Semantic Router** 是一个智能路由层，它根据从请求中提取的多种 signal，动态地为每个查询选择最合适的语言模型。
+**Decision Router** 是一个智能路由层，它根据从请求中提取的多种 signal，动态地为每个查询选择最合适的语言模型。
 
 ## 问题
 
@@ -27,7 +27,7 @@ sidebar_position: 2
 
 ## 解决方案
 
-Semantic Router 使用**Signal-Driven Decision**来智能地路由查询：
+Decision Router 使用**Signal-Driven Decision**来智能地路由查询：
 
 ```text
 用户查询 → Signal Extraction → Decision Engine → 最佳模型 → 响应
@@ -107,7 +107,7 @@ plugins:
 | 方面 | Mixture of Experts (MoE) | Mixture of Models (MoM) |
 |--------|-------------------------|------------------------|
 | **范围** | 在单一模型内 | 跨多个模型 |
-| **路由** | 内部门控网络 | 外部Semantic Router  |
+| **路由** | 内部门控网络 | 外部Decision Router  |
 | **模型** | 共享架构 | 独立模型 |
 | **灵活性** | 训练时固定 | 运行时动态 |
 | **用例** | 模型效率 | 系统智能 |
@@ -162,4 +162,4 @@ if (has_math_keywords AND is_math_domain) OR has_high_math_embedding:
 
 - [什么是 Collective Intelligence？](collective-intelligence.md) - signal 如何创造系统智能
 - [什么是 Signal-Driven Decision？](signal-driven-decisions.md) - 深入解 Decision Engine
-- [配置指南](../installation/configuration.md) - 设置您的 Semantic Router
+- [配置指南](../installation/configuration.md) - 设置您的 Decision Router

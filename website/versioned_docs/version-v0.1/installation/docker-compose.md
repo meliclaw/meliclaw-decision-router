@@ -4,7 +4,7 @@ sidebar_position: 3
 
 # Install with Docker Compose
 
-This guide provides step-by-step instructions for deploying the vLLM Semantic Router with Envoy AI Gateway on Docker Compose.
+This guide provides step-by-step instructions for deploying the Meliclaw Decision Router with Envoy AI Gateway on Docker Compose.
 
 ## Common Prerequisites
 

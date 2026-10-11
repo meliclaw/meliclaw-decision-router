@@ -1,8 +1,8 @@
 # Install with LLM-D
 
-This guide provides step-by-step instructions for deploying the vLLM Semantic Router (vsr) in combination with [LLM-D](https://github.com/llm-d/llm-d). This will also illustrate a key design pattern namely use of vsr as a model picker while LLM-D owns replica scheduling within each selected model pool.
+This guide provides step-by-step instructions for deploying the Meliclaw Decision Router (vsr) in combination with [LLM-D](https://github.com/llm-d/llm-d). This will also illustrate a key design pattern namely use of vsr as a model picker while LLM-D owns replica scheduling within each selected model pool.
 
-A model picker provides the ability to route an LLM query to one of multiple LLM models that are entirely different from each other, whereas LLM-D schedules among multiple replicas that each serve an equivalent model (and most often the exact same base model). Hence this deployment shows how vLLM Semantic Router in its role as a model picker is complementary to LLM-D's backend scheduler.
+A model picker provides the ability to route an LLM query to one of multiple LLM models that are entirely different from each other, whereas LLM-D schedules among multiple replicas that each serve an equivalent model (and most often the exact same base model). Hence this deployment shows how Meliclaw Decision Router in its role as a model picker is complementary to LLM-D's backend scheduler.
 
 Since LLM-D has a number of deployment configurations some of which require a larger hardware setup we will demonstrate a baseline version of LLM-D  working in combination with vsr to introduce the core concepts. These same core concepts will also apply when using vsr with more complex LLM-D configurations and production grade well-lit paths as described in the LLM-D repo at [this link](https://github.com/llm-d/llm-d/tree/main/guides).
 
@@ -12,7 +12,7 @@ Also we will use LLM-D with Istio as the Inference Gateway in order to build on 
 
 The deployment consists of:
 
-- **vLLM Semantic Router**: Provides intelligent request routing and processing decisions to Envoy based Gateways
+- **Meliclaw Decision Router**: Provides intelligent request routing and processing decisions to Envoy based Gateways
 - **LLM-D**: Distributed Inference platform used for scaleout LLM inferencing with SOTA performance.
 - **Istio Gateway**: Istio's implementation of Kubernetes Gateway API that uses an Envoy proxy under the covers
 - **Gateway API Inference Extension**: Additional APIs to extend the Gateway API for Inference via ExtProc servers
@@ -133,7 +133,7 @@ kubectl apply -f deploy/kubernetes/llmd-base/dest-rule-epp-phi4.yaml
 
 Since this guide is based on using the same backend models as in the [Istio guide](istio), we will reuse the same vsr config as from that guide and hence you do not need to update the file deploy/kubernetes/istio/config.yaml. If you were using different backend models as part of the LLM-D deployment, you would need to update this file.
 
-## Step 7: Deploy vLLM Semantic Router
+## Step 7: Deploy Meliclaw Decision Router
 
 Deploy the semantic router service with all required components:
 
@@ -142,10 +142,10 @@ Deploy the semantic router service with all required components:
 kubectl apply -k deploy/kubernetes/istio/
 
 # Wait for deployment to be ready (this may take several minutes for model downloads)
-kubectl wait --for=condition=Available deployment/semantic-router -n vllm-semantic-router-system --timeout=600s
+kubectl wait --for=condition=Available deployment/semantic-router -n meliclaw-decision-router-system --timeout=600s
 
 # Verify deployment status
-kubectl get pods -n vllm-semantic-router-system
+kubectl get pods -n meliclaw-decision-router-system
 ```
 
 ## Step 6: Additional Istio configuration for the VSR connection
@@ -248,7 +248,7 @@ vllm-phi4-mini-epp-6f5dd6bbb9-8pv27            1/1     Running   0          14h
 ```
 
 ```bash
-$ kubectl get pods -n vllm-semantic-router-system
+$ kubectl get pods -n meliclaw-decision-router-system
 NAME                              READY   STATUS    RESTARTS   AGE
 semantic-router-bf6cdd5b9-t5hpg   1/1     Running   0          5d23h
 ```
@@ -298,13 +298,13 @@ kubectl logs deploy/inference-gateway-istio -c istio-proxy
 
 ```bash
 # Check semantic router pod
-kubectl get pods -n vllm-semantic-router-system
+kubectl get pods -n meliclaw-decision-router-system
 
 # Check semantic router service
-kubectl get svc -n vllm-semantic-router-system
+kubectl get svc -n meliclaw-decision-router-system
 
 # Check semantic router logs
-kubectl logs -n vllm-semantic-router-system deployment/semantic-router
+kubectl logs -n meliclaw-decision-router-system deployment/semantic-router
 ```
 
 ## Cleanup
@@ -330,7 +330,7 @@ minikube delete
 
 ## Next Steps
 
-- Test/ experiment with different features of vLLM Semantic Router
+- Test/ experiment with different features of Meliclaw Decision Router
 - Test/ experiment with more complex LLM-D configurations and well-lit paths
 - Set up monitoring and observability
 - Implement authentication and authorization

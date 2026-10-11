@@ -9,7 +9,7 @@ translation:
 
 # 受限网络环境
 
-Semantic Router 可能因三种不同原因需要网络访问：
+Decision Router 可能因三种不同原因需要网络访问：
 
 1. 容器运行时拉取 Router、控制面板和支持镜像（`--gateway extproc` 还需要 Envoy）；
 2. Router 下载分类器或嵌入产物；以及

@@ -7,7 +7,7 @@ translation:
 
 # Jailbreak 防护
 
-Semantic Router 内置了 Jailbreak 检测，可识别并拦截绕过安全措施的对抗性提示。支持两种互补的检测方法：
+Decision Router 内置了 Jailbreak 检测，可识别并拦截绕过安全措施的对抗性提示。支持两种互补的检测方法：
 
 - **BERT 分类器** — 使用微调模型快速、高精度地检测单轮攻击
 - **对比嵌入 (Contrastive)** — 用于捕捉多轮渐进式攻击（“温水煮青蛙”）。即单条看似无害的消息，但在连续对话中诱导模型越界。

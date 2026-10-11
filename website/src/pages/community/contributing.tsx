@@ -10,12 +10,12 @@ const Contributing: React.FC = () => {
   return (
     <Layout
       title="Contributing Guide"
-      description="How to contribute to vLLM Semantic Router"
+      description="How to contribute to Meliclaw Decision Router"
     >
       <CommunityLayout
         activeKey="contributing"
-        title={<Translate id="contributing.title">Contributing to vLLM Semantic Router</Translate>}
-        description={<Translate id="contributing.subtitle">We welcome contributions from the community! Here's how you can help make vLLM Semantic Router better.</Translate>}
+        title={<Translate id="contributing.title">Contributing to Meliclaw Decision Router</Translate>}
+        description={<Translate id="contributing.subtitle">We welcome contributions from the community! Here's how you can help make Meliclaw Decision Router better.</Translate>}
       >
         <div className={styles.main}>
           <section className={styles.section}>

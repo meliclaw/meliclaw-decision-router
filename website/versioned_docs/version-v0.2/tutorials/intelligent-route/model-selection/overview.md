@@ -1,6 +1,6 @@
 # Model Selection Overview
 
-Model selection is an advanced feature of vLLM Semantic Router that automatically chooses the best LLM from multiple candidates based on learned preferences, query similarity, and cost-quality optimization.
+Model selection is an advanced feature of Meliclaw Decision Router that automatically chooses the best LLM from multiple candidates based on learned preferences, query similarity, and cost-quality optimization.
 
 The semantic router supports **9 selection algorithms** across two categories:
 

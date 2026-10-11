@@ -102,7 +102,7 @@ make start-redis
 docker exec redis-semantic-cache redis-cli PING
 ```
 
-### 2. 配置Semantic Router 
+### 2. 配置Decision Router 
 
 基础 Redis 配置：
 
@@ -149,7 +149,7 @@ decisions:
           similarity_threshold: 0.95  # 对数学准确性要求非常严格
 ```
 
-### 3. 运行Semantic Router 
+### 3. 运行Decision Router 
 
 ```bash
 # 启动路由

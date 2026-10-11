@@ -9,16 +9,16 @@ sidebar_position: 1
 
 # 使用 Istio Gateway 安装
 
-本指南提供了在 Kubernetes 上使用 Istio Gateway 部署 vLLM Semantic Router (vsr) 的分步说明。Istio Gateway 底层使用 Envoy，因此可以与 vsr 配合使用。但是，不同的基于 Envoy 的 Gateway 处理 ExtProc 协议的方式有所不同，因此这里描述的部署与其他基于 Envoy 的 Gateway 部署有所不同。将 Istio Gateway 与 vsr 结合有多种架构选项。本文档描述其中一种选项。
+本指南提供了在 Kubernetes 上使用 Istio Gateway 部署 Meliclaw Decision Router (vsr) 的分步说明。Istio Gateway 底层使用 Envoy，因此可以与 vsr 配合使用。但是，不同的基于 Envoy 的 Gateway 处理 ExtProc 协议的方式有所不同，因此这里描述的部署与其他基于 Envoy 的 Gateway 部署有所不同。将 Istio Gateway 与 vsr 结合有多种架构选项。本文档描述其中一种选项。
 
 ## 架构概览
 
 部署包含以下组件：
 
-- **vLLM Semantic Router**：为基于 Envoy 的 Gateway 提供智能请求路由和处理决策
+- **Meliclaw Decision Router**：为基于 Envoy 的 Gateway 提供智能请求路由和处理决策
 - **Istio Gateway**：Istio 的 Kubernetes Gateway API 实现，底层使用 Envoy 代理
 - **Gateway API Inference Extension**：通过 ExtProc 服务器扩展 Gateway API 用于推理的附加 API
-- **两个 vLLM 实例各服务一个模型**：此拓扑中用于演示 Semantic Router 的示例后端 LLM
+- **两个 vLLM 实例各服务一个模型**：此拓扑中用于演示 Decision Router 的示例后端 LLM
 
 ## 前置条件
 
@@ -32,7 +32,7 @@ sidebar_position: 1
 
 minikube 或 kind 都可以用于部署本练习所需的本地 kubernetes 集群，因此您只需要其中一个。我们在下面的描述中使用 minikube，但相同的步骤在创建集群后也适用于 Kind 集群。
 
-我们还将在本练习中部署两个不同的 LLM 以更清楚地说明 Semantic Router 和 model routing 功能，因此理想情况下您应该在支持 GPU 的机器上运行本练习，以运行两个模型并具有足够的内存和存储空间。您也可以在较小的服务器上使用等效步骤，在基于 CPU 的服务器上运行较小的 LLM，无需 GPU。
+我们还将在本练习中部署两个不同的 LLM 以更清楚地说明 Decision Router 和 model routing 功能，因此理想情况下您应该在支持 GPU 的机器上运行本练习，以运行两个模型并具有足够的内存和存储空间。您也可以在较小的服务器上使用等效步骤，在基于 CPU 的服务器上运行较小的 LLM，无需 GPU。
 
 ## 步骤 1：创建 Minikube 集群
 
@@ -123,24 +123,24 @@ curl -O https://raw.githubusercontent.com/vllm-project/semantic-router/refs/head
 
 确保配置文件中的模型与您使用的模型匹配。通常最好从 vsr 的基本功能开始，如提示词分类和模型路由，然后再尝试其他功能如 PromptGuard 或 ToolCalling。
 
-## 步骤 5：部署 vLLM Semantic Router
+## 步骤 5：部署 Meliclaw Decision Router
 
-使用 Helm 部署包含所有必需组件的 Semantic Router 服务：
+使用 Helm 部署包含所有必需组件的 Decision Router 服务：
 
 ```bash
-# 使用 Kustomize 部署 Semantic Router 
+# 使用 Kustomize 部署 Decision Router 
 kubectl apply -k deploy/kubernetes/istio/
 
 # 等待部署就绪（模型下载可能需要几分钟）
-kubectl wait --for=condition=Available deployment/semantic-router -n vllm-semantic-router-system --timeout=600s
+kubectl wait --for=condition=Available deployment/semantic-router -n meliclaw-decision-router-system --timeout=600s
 
 # 验证部署状态
-kubectl get pods -n vllm-semantic-router-system
+kubectl get pods -n meliclaw-decision-router-system
 ```
 
 ## 步骤 6：安装额外的 Istio 配置
 
-安装 Istio gateway 使用 ExtProc 接口与 vLLM Semantic Router 所需的 destinationrule 和 envoy filter
+安装 Istio gateway 使用 ExtProc 接口与 Meliclaw Decision Router 所需的 destinationrule 和 envoy filter
 
 ```bash
 kubectl apply -f deploy/kubernetes/istio/destinationrule.yaml
@@ -165,7 +165,7 @@ minikube service inference-gateway-istio --url
 http://192.168.49.2:30913
 ```
 
-现在我们可以通过 curl 向 http://192.168.49.2:30913 发送 LLM prompt，访问 Istio gateway，然后使用 vLLM Semantic Router 的信息动态路由到我们在本例中作为后端使用的两个 LLM 之一。
+现在我们可以通过 curl 向 http://192.168.49.2:30913 发送 LLM prompt，访问 Istio gateway，然后使用 Meliclaw Decision Router 的信息动态路由到我们在本例中作为后端使用的两个 LLM 之一。
 
 ### 发送测试请求
 
@@ -238,24 +238,24 @@ kubectl get svc inference-gateway-istio
 kubectl logs deploy/inference-gateway-istio -c istio-proxy
 ```
 
-** Semantic Router 无响应：**
+** Decision Router 无响应：**
 
 ```bash
-# 检查 Semantic Router  pod
-kubectl get pods -n vllm-semantic-router-system
+# 检查 Decision Router  pod
+kubectl get pods -n meliclaw-decision-router-system
 
-# 检查 Semantic Router 服务
-kubectl get svc -n vllm-semantic-router-system
+# 检查 Decision Router 服务
+kubectl get svc -n meliclaw-decision-router-system
 
-# 检查 Semantic Router 日志
-kubectl logs -n vllm-semantic-router-system deployment/semantic-router
+# 检查 Decision Router 日志
+kubectl logs -n meliclaw-decision-router-system deployment/semantic-router
 ```
 
 ## 清理
 
 ```bash
 
-# 删除 Semantic Router 
+# 删除 Decision Router 
 kubectl delete -k deploy/kubernetes/istio/
 
 # 删除 Istio
@@ -274,8 +274,8 @@ minikube delete
 
 ## 后续步骤
 
-- 测试/尝试 vLLM Semantic Router 的不同功能
+- 测试/尝试 Meliclaw Decision Router 的不同功能
 - Istio Gateway 的其他用例/拓扑（包括与 EPP 和 LLM-D）
 - 设置监控和可观测性
 - 实施身份验证和授权
-- 为生产工作负载扩展 Semantic Router 部署
+- 为生产工作负载扩展 Decision Router 部署

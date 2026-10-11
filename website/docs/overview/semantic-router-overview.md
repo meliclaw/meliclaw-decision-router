@@ -1,12 +1,12 @@
 ---
 sidebar_position: 2
 title: System Overview
-description: The data plane, control plane, configuration model, and request lifecycle of vLLM Semantic Router.
+description: The data plane, control plane, configuration model, and request lifecycle of Meliclaw Decision Router.
 ---
 
 # System Overview
 
-Agent harnesses call a stable model endpoint. Semantic Router applies policy to
+Agent harnesses call a stable model endpoint. Decision Router applies policy to
 select one model or coordinate a bounded multi-model path over configured
 backends. The data plane handles requests; the control plane configures and
 operates it.
@@ -29,7 +29,7 @@ model-runtime replicas, and explicit native recipes for System One auto.
 - **Frontend** accepts client traffic, enforces listener access, and adapts
   supported protocols. With `--gateway extproc`, an external gateway instead
   owns ingress and forwarding while calling the Router through ExtProc.
-- **Semantic Router** extracts signals, evaluates policy, applies route-specific
+- **Decision Router** extracts signals, evaluates policy, applies route-specific
   behavior, and selects or coordinates model candidates.
 - **Model runtime** runs decision, classifier, embedding, and reranking models
   needed by configured consumers. Its workers can be managed or attached.
@@ -93,7 +93,7 @@ configured default provider model is used.
 
 ## Protocol and deployment boundaries
 
-Semantic Router serves its own listeners by default, or integrates through
+Decision Router serves its own listeners by default, or integrates through
 ExtProc with an external gateway. The same routing policy applies in local
 Docker, Kubernetes, and hybrid environments. Chat backend provisioning and
 capacity remain the responsibility of the chosen inference platform; the
@@ -101,14 +101,14 @@ built-in model runtime separately manages its own decision-model replicas.
 
 The Router can consider request semantics and configured runtime observations;
 it does not replace a Chat backend's scheduler. A deployment may therefore use
-Semantic Router to choose a model class and an Inference Router to choose a
+Decision Router to choose a model class and an Inference Router to choose a
 healthy replica of that model. When an AI Gateway also fronts the stack, a
 request crosses three routing layers:
 
 ```text
 agent harness
   -> AI Gateway (e.g. Agent Router / LiteLLM / agentgateway)
-  -> Semantic Router ExtProc
+  -> Decision Router ExtProc
   -> Inference Router / pool scheduler (e.g. llm-d / vLLM Router / AIBrix gateway)
   -> model replica
 ```
@@ -116,10 +116,10 @@ agent harness
 | Layer | What it owns | Examples |
 | --- | --- | --- |
 | **AI Gateway** | Client ingress, provider translation, credentials, rate limits, and traffic policy. | [Agent Router (formerly Envoy AI Gateway)](../installation/k8s/ai-gateway), [LiteLLM](https://docs.litellm.ai/docs/simple_proxy), [agentgateway](../installation/k8s/agentgateway) |
-| **Semantic Router** | Logical model or model pool selection from request intent and policy, through recipes and decisions. The choice is written to `x-selected-model`. | vLLM Semantic Router |
+| **Decision Router** | Logical model or model pool selection from request intent and policy, through recipes and decisions. The choice is written to `x-selected-model`. | Meliclaw Decision Router |
 | **Inference Router** | Healthy replica or endpoint selection inside the selected pool. | [llm-d](../installation/k8s/llm-d), [vLLM Router](https://github.com/vllm-project/router), [AIBrix gateway](../installation/k8s/aibrix) |
 
-Agent Router and agentgateway call Semantic Router through ExtProc.
+Agent Router and agentgateway call Decision Router through ExtProc.
 [Kubernetes Gateways](../installation/k8s/gateways) and
 [Inference Platforms](../installation/k8s/inference-platforms) list the
 integrations this project maintains.

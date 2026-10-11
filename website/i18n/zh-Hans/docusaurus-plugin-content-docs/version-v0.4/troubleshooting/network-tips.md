@@ -9,7 +9,7 @@ translation:
 
 # 受限网络环境
 
-Semantic Router 可能因三种不同原因需要网络访问：
+Decision Router 可能因三种不同原因需要网络访问：
 
 1. 容器运行时拉取 Router、控制面板、Envoy 和支持镜像；
 2. Router 下载分类器或嵌入产物；以及

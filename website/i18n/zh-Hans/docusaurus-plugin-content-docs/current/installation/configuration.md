@@ -9,7 +9,7 @@ translation:
 
 # 配置
 
-Semantic Router 在 CLI、控制面板、Helm 和 Operator 之间使用同一份 canonical YAML 文档。顶层结构为：
+Decision Router 在 CLI、控制面板、Helm 和 Operator 之间使用同一份 canonical YAML 文档。顶层结构为：
 
 ```yaml
 version:

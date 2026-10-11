@@ -2,12 +2,12 @@
 sidebar_position: 3
 sidebar_label: Kubernetes Operator
 title: Deploy with the Kubernetes Operator
-description: Install the Semantic Router Operator, connect model services, and create a first Router deployment.
+description: Install the Decision Router Operator, connect model services, and create a first Router deployment.
 ---
 
 # Deploy with the Kubernetes Operator
 
-The Semantic Router Operator reconciles `SemanticRouter` custom resources into
+The Decision Router Operator reconciles `SemanticRouter` custom resources into
 Router workloads, Services, configuration, storage, and optional platform
 integrations. Use it when Kubernetes should own the Router lifecycle and model
 backends are already exposed as Kubernetes services, KServe
@@ -66,7 +66,7 @@ OpenShift. The reconciler detects OpenShift and applies its platform-specific
 workload defaults.
 
 For an Operator Lifecycle Manager installation, first publish or select an OLM
-catalog that contains the Semantic Router bundle, then create the
+catalog that contains the Decision Router bundle, then create the
 `CatalogSource`, `OperatorGroup`, and `Subscription` required by your cluster.
 The repository's `make openshift-deploy` target creates only the namespace,
 OperatorGroup, and Subscription; it assumes a `semantic-router-catalog`

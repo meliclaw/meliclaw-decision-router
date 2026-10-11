@@ -1,12 +1,12 @@
 # Install with Istio Gateway
 
-This guide provides step-by-step instructions for deploying the vLLM Semantic Router (vsr) with Istio Gateway on Kubernetes. Istio Gateway uses Envoy under the covers so it is possible to use vsr with it. However there are differences between how different Envoy based Gateways process the ExtProc protocol, hence the deployment described here is different from the deployment of vsr alongwith other types of Envoy based Gateways as described in the other guides in this repo. There are multiple architecture options possible to combine Istio Gateway with vsr. This document describes one of the options.
+This guide provides step-by-step instructions for deploying the Meliclaw Decision Router (vsr) with Istio Gateway on Kubernetes. Istio Gateway uses Envoy under the covers so it is possible to use vsr with it. However there are differences between how different Envoy based Gateways process the ExtProc protocol, hence the deployment described here is different from the deployment of vsr alongwith other types of Envoy based Gateways as described in the other guides in this repo. There are multiple architecture options possible to combine Istio Gateway with vsr. This document describes one of the options.
 
 ## Architecture Overview
 
 The deployment consists of:
 
-- **vLLM Semantic Router**: Provides intelligent request routing and processing decisions to Envoy based Gateways
+- **Meliclaw Decision Router**: Provides intelligent request routing and processing decisions to Envoy based Gateways
 - **Istio Gateway**: Istio's implementation of Kubernetes Gateway API that uses an Envoy proxy under the covers
 - **Gateway API Inference Extension**: Additional APIs to extend the Gateway API for Inference via ExtProc servers
 - **Two instances of vLLM serving 1 model each**:  Example backend LLMs for illustrating semantic routing in this topology
@@ -106,7 +106,7 @@ kubectl get pods -n istio-system
 
 The file deploy/kubernetes/istio/config.yaml will get used to configure vsr when it is installed in the next step. Ensure that the models in the config file match the models you are using and that the vllm_endpoints in the file match the ip/ port of the llm kubernetes services you are running. It is usually good to start with basic features of vsr such as prompt classification and model routing before experimenting with other features such as PromptGuard or ToolCalling.
 
-## Step 5: Deploy vLLM Semantic Router
+## Step 5: Deploy Meliclaw Decision Router
 
 Deploy the semantic router service with all required components:
 
@@ -115,10 +115,10 @@ Deploy the semantic router service with all required components:
 kubectl apply -k deploy/kubernetes/istio/
 
 # Wait for deployment to be ready (this may take several minutes for model downloads)
-kubectl wait --for=condition=Available deployment/semantic-router -n vllm-semantic-router-system --timeout=600s
+kubectl wait --for=condition=Available deployment/semantic-router -n meliclaw-decision-router-system --timeout=600s
 
 # Verify deployment status
-kubectl get pods -n vllm-semantic-router-system
+kubectl get pods -n meliclaw-decision-router-system
 ```
 
 ## Step 6: Install additional Istio configuration
@@ -225,13 +225,13 @@ kubectl logs deploy/inference-gateway-istio -c istio-proxy
 
 ```bash
 # Check semantic router pod
-kubectl get pods -n vllm-semantic-router-system
+kubectl get pods -n meliclaw-decision-router-system
 
 # Check semantic router service
-kubectl get svc -n vllm-semantic-router-system
+kubectl get svc -n meliclaw-decision-router-system
 
 # Check semantic router logs
-kubectl logs -n vllm-semantic-router-system deployment/semantic-router
+kubectl logs -n meliclaw-decision-router-system deployment/semantic-router
 ```
 
 ## Cleanup
@@ -257,7 +257,7 @@ minikube delete
 
 ## Next Steps
 
-- Test/ experiment with different features of vLLM Semantic Router
+- Test/ experiment with different features of Meliclaw Decision Router
 - Additional use cases/ topologies with Istio Gateway (including with EPP and LLM-D)
 - Set up monitoring and observability
 - Implement authentication and authorization

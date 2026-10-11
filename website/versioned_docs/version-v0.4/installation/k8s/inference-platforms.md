@@ -5,8 +5,8 @@ description: Place semantic model selection above a platform that owns model dep
 
 # Inference Platforms
 
-Inference platforms and Semantic Router solve different routing problems.
-Semantic Router chooses a model or model pool from request meaning and policy.
+Inference platforms and Decision Router solve different routing problems.
+Decision Router chooses a model or model pool from request meaning and policy.
 The inference platform deploys that model and chooses a replica according to
 capacity, locality, and health.
 
@@ -27,7 +27,7 @@ documentation.
 
 For every model pool, align:
 
-- the Semantic Router provider name and `provider_model_id`;
+- the Decision Router provider name and `provider_model_id`;
 - the platform's served model identity;
 - the stable Service, Gateway, or frontend address; and
 - the modality, context, tool, and protocol capabilities declared by routing

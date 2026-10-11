@@ -1,23 +1,23 @@
 ---
 title: Deploy with Envoy AI Gateway
-description: Use Semantic Router for model selection or Responses state while Envoy AI Gateway owns provider and gateway policy.
+description: Use Decision Router for model selection or Responses state while Envoy AI Gateway owns provider and gateway policy.
 ---
 
 # Deploy with Envoy AI Gateway
 
 Use this topology when Envoy AI Gateway already owns north-south traffic and
-provider integration. Semantic Router can either choose a model from the
+provider integration. Decision Router can either choose a model from the
 request's meaning or run only as an ExtProc service for OpenAI Responses state
 and protocol conversion. Envoy AI Gateway remains responsible for Gateway API
 resources, provider credentials, rate limits, and traffic policy.
 
-For large request bodies or streamed immediate responses from Semantic Router, also see [Streamed ExtProc and immediate responses](./streamed-extproc). That guide shows how to switch the ExtProc filter from `BUFFERED` to `STREAMED` request bodies and how streamed Chat Completions clients receive looper or `fast_response` immediate responses.
+For large request bodies or streamed immediate responses from Decision Router, also see [Streamed ExtProc and immediate responses](./streamed-extproc). That guide shows how to switch the ExtProc filter from `BUFFERED` to `STREAMED` request bodies and how streamed Chat Completions clients receive looper or `fast_response` immediate responses.
 
 ## Responsibility split
 
 The deployment consists of:
 
-- **Semantic Router** evaluates the selected recipe and chooses the logical
+- **Decision Router** evaluates the selected recipe and chooses the logical
   model or provider alias.
 - **Envoy Gateway** provides the Kubernetes Gateway API data plane.
 - **Envoy AI Gateway** translates provider APIs and applies gateway-owned
@@ -25,17 +25,17 @@ The deployment consists of:
 - **Model providers** serve the selected model. This guide uses a demo backend;
   it does not install production inference capacity.
 
-Provider support changes independently of Semantic Router. Use the
+Provider support changes independently of Decision Router. Use the
 [Envoy AI Gateway provider documentation](https://aigateway.envoyproxy.io/docs/capabilities/llm-integrations/supported-providers/)
 to choose an `AIServiceBackend` and credential policy, then bind the provider
-names to the aliases used by your Semantic Router configuration.
+names to the aliases used by your Decision Router configuration.
 
 ## Responses state without model selection
 
 Use the
 [`responses-state.yaml`](https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/ai-gateway/semantic-router-values/responses-state.yaml)
 profile when the external gateway already selects the route and backend, but
-clients need Semantic Router's OpenAI Responses implementation. The profile
+clients need Decision Router's OpenAI Responses implementation. The profile
 enables `POST /v1/responses`, `GET /v1/responses/{id}`, and
 `previous_response_id` conversation chaining. It converts Responses requests
 to the declared upstream wire format and converts upstream responses back to
@@ -46,12 +46,12 @@ The ownership boundary is:
 | Concern | Owner |
 | --- | --- |
 | Public listener, Gateway/route, provider backend, credentials, rate limits, and traffic policy | External gateway |
-| Responses object storage, `previous_response_id` expansion, and request/response protocol conversion | Semantic Router ExtProc |
+| Responses object storage, `previous_response_id` expansion, and request/response protocol conversion | Decision Router ExtProc |
 
-This profile deliberately has no Semantic Router listener, backend reference,
+This profile deliberately has no Decision Router listener, backend reference,
 credential, routing signal, decision, or optional plugin. Model entries are
 protocol metadata only. Keep their names and `api_format` values aligned with
-the models accepted by the external gateway. Semantic Router rewrites the
+the models accepted by the external gateway. Decision Router rewrites the
 upstream API path as part of protocol conversion without clearing Envoy's route
 cache, so the route selected by the gateway remains authoritative.
 
@@ -61,7 +61,7 @@ values used in Step 2:
 ```bash
 helm install semantic-router oci://ghcr.io/vllm-project/charts/semantic-router \
   --version 0.0.0-latest \
-  --namespace vllm-semantic-router-system \
+  --namespace meliclaw-decision-router-system \
   --create-namespace \
   -f https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/ai-gateway/semantic-router-values/responses-state.yaml
 ```
@@ -70,7 +70,7 @@ The included in-memory response store is intended for a single-replica demo or
 local validation; state is lost on restart. Configure the Response API Redis
 backend for durable or replicated production deployments. The external
 gateway's ExtProc filter must send buffered request and response headers and
-bodies to Semantic Router, and its route for `/v1/responses` must select the
+bodies to Decision Router, and its route for `/v1/responses` must select the
 intended provider backend before request-body conversion runs.
 
 ## Prerequisites
@@ -98,27 +98,27 @@ kind create cluster --name semantic-router-cluster
 kubectl wait --for=condition=Ready nodes --all --timeout=300s
 ```
 
-## Step 2: Deploy vLLM Semantic Router
+## Step 2: Deploy Meliclaw Decision Router
 
-Deploy Semantic Router with the integration values:
+Deploy Decision Router with the integration values:
 
 ```bash
 # Install with custom values from GHCR OCI registry
 # (Optional) If you use a registry mirror/proxy, append: --set global.imageRegistry=<your-registry>
 helm install semantic-router oci://ghcr.io/vllm-project/charts/semantic-router \
   --version 0.0.0-latest \
-  --namespace vllm-semantic-router-system \
+  --namespace meliclaw-decision-router-system \
   --create-namespace \
   -f https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/ai-gateway/semantic-router-values/values.yaml
 
 # Wait for deployment to be ready (this may take several minutes for model downloads)
-kubectl wait --for=condition=Available deployment/semantic-router -n vllm-semantic-router-system --timeout=600s
+kubectl wait --for=condition=Available deployment/semantic-router -n meliclaw-decision-router-system --timeout=600s
 
 # Verify deployment status
-kubectl get pods -n vllm-semantic-router-system
+kubectl get pods -n meliclaw-decision-router-system
 ```
 
-**Note**: The values file contains the Semantic Router model bindings, signals,
+**Note**: The values file contains the Decision Router model bindings, signals,
 decisions, and routing rules. Download and review
 [values.yaml](https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/ai-gateway/semantic-router-values/values.yaml)
 before adapting it to a real provider pool.
@@ -237,10 +237,10 @@ kubectl get deployment -n envoy-ai-gateway-system
 
 ```bash
 # Check semantic router pod status
-kubectl get pods -n vllm-semantic-router-system
+kubectl get pods -n meliclaw-decision-router-system
 
 # Check semantic router logs
-kubectl logs -n vllm-semantic-router-system deployment/semantic-router
+kubectl logs -n meliclaw-decision-router-system deployment/semantic-router
 ```
 
 ## Cleanup
@@ -253,7 +253,7 @@ kubectl delete -f https://raw.githubusercontent.com/vllm-project/semantic-router
 kubectl delete -f https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/ai-gateway/aigw-resources/base-model.yaml
 
 # Remove semantic router
-helm uninstall semantic-router -n vllm-semantic-router-system
+helm uninstall semantic-router -n meliclaw-decision-router-system
 
 # Remove AI gateway
 helm uninstall aieg -n envoy-ai-gateway-system
@@ -271,6 +271,6 @@ kind delete cluster --name semantic-router-cluster
 - Replace the demo backend with the provider resources and credentials owned by
   your gateway team.
 - Keep the model aliases in `AIGatewayRoute` aligned with the names emitted by
-  Semantic Router.
+  Decision Router.
 - Add authentication, rate limits, observability, and capacity policy at their
   owning layers before exposing the gateway.

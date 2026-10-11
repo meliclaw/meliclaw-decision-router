@@ -4,7 +4,7 @@ sidebar_position: 8
 
 # Kubernetes Operator
 
-The Semantic Router Operator provides a Kubernetes-native way to deploy and manage vLLM Semantic Router instances using Custom Resource Definitions (CRDs). It simplifies deployment, configuration, and lifecycle management across Kubernetes and OpenShift platforms.
+The Decision Router Operator provides a Kubernetes-native way to deploy and manage Meliclaw Decision Router instances using Custom Resource Definitions (CRDs). It simplifies deployment, configuration, and lifecycle management across Kubernetes and OpenShift platforms.
 
 ## Features
 
@@ -335,7 +335,7 @@ Deploys semantic router with an **Envoy sidecar container** that acts as an ingr
 **Architecture:**
 
 ```
-Client → Service (8080) → Envoy Sidecar → ExtProc gRPC → Semantic Router → vLLM
+Client → Service (8080) → Envoy Sidecar → ExtProc gRPC → Decision Router → vLLM
 ```
 
 **When to use:**
@@ -372,7 +372,7 @@ Reuses an **existing Gateway** (Istio, Envoy Gateway, etc.) and creates an HTTPR
 **Architecture:**
 
 ```
-Client → Gateway (Istio/Envoy) → HTTPRoute → Service (8080) → Semantic Router API → vLLM
+Client → Gateway (Istio/Envoy) → HTTPRoute → Service (8080) → Decision Router API → vLLM
 ```
 
 **When to use:**
@@ -751,7 +751,7 @@ The operator validates that the specified StorageClass exists before creating th
 - **Azure AKS**: `managed`, `managed-premium`
 - **OpenShift**: `gp3-csi`, `thin`, `ocs-storagecluster-ceph-rbd`
 
-### Semantic Router Configuration
+### Decision Router Configuration
 
 Full semantic router configuration is embedded in the CR. See the complete example in [`deploy/operator/config/samples/vllm_v1alpha1_semanticrouter.yaml`](https://github.com/vllm-project/semantic-router/blob/main/deploy/operator/config/samples/vllm_v1alpha1_semanticrouter.yaml).
 

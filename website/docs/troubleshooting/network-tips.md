@@ -5,7 +5,7 @@ sidebar_label: Restricted Networks
 
 # Restricted Network Environments
 
-Semantic Router may need network access for three different reasons:
+Decision Router may need network access for three different reasons:
 
 1. the container runtime pulls Router, Dashboard and supporting images (plus Envoy for `--gateway extproc`);
 2. the Router downloads classifier or embedding artifacts; and

@@ -2,9 +2,9 @@
 
 ## 1. Executive Summary
 
-This proposal outlines a comprehensive integration strategy between **vLLM Semantic Router** and **NVIDIA Dynamo**, combining semantic intelligence with high-performance distributed inference. The integration creates a unified inference stack that leverages:
+This proposal outlines a comprehensive integration strategy between **Meliclaw Decision Router** and **NVIDIA Dynamo**, combining semantic intelligence with high-performance distributed inference. The integration creates a unified inference stack that leverages:
 
-- **Semantic Router's** intelligent request classification (14 domain categories), domain-aware system prompts, fusion routing (BERT classification + keyword matching + similarity search), security filtering, Milvus-based semantic caching
+- **Decision Router's** intelligent request classification (14 domain categories), domain-aware system prompts, fusion routing (BERT classification + keyword matching + similarity search), security filtering, Milvus-based semantic caching
 - **Dynamo's** disaggregated serving, KV-aware routing, and multi-tier memory management
 
 The result is a production-grade LLM serving platform with **system-level intelligence** that achieves optimal balance between **accuracy** (routing to the right model with optimized prompts for best quality) and **efficiency** (maximizing GPU utilization and minimizing latency), creating a holistically intelligent inference system.
@@ -22,7 +22,7 @@ The result is a production-grade LLM serving platform with **system-level intell
 
 ---
 
-## 2. Motivation: Why Semantic Router for Dynamo?
+## 2. Motivation: Why Decision Router for Dynamo?
 
 ### 2.1 Dynamo Router Capabilities (Current State)
 
@@ -43,9 +43,9 @@ NVIDIA Dynamo provides a sophisticated **KV-aware router** optimized for infrast
 - **Load-balanced:** Distributes decoding workload across workers
 - **Performance-oriented:** Minimizes TTFT and ITL through smart scheduling
 
-### 2.2 Semantic Router Capabilities (System Intelligence Layer)
+### 2.2 Decision Router Capabilities (System Intelligence Layer)
 
-vLLM Semantic Router provides **system-level intelligence** that operates at the request understanding layer, achieving optimal balance between **accuracy** and **efficiency** through intelligent decision-making across **14 domain categories**:
+Meliclaw Decision Router provides **system-level intelligence** that operates at the request understanding layer, achieving optimal balance between **accuracy** and **efficiency** through intelligent decision-making across **14 domain categories**:
 
 | Capability | Description | Intelligence Focus |
 |------------|-------------|---------------------|
@@ -71,7 +71,7 @@ vLLM Semantic Router provides **system-level intelligence** that operates at the
 
 #### 2.2.1 14 Domain Categories with System Prompts
 
-Semantic Router classifies queries into **14 specialized categories**: math, computer science, physics, chemistry, biology, engineering, economics, business, law, psychology, philosophy, history, health, and other. Each category has an optimized system prompt automatically injected based on query classification.
+Decision Router classifies queries into **14 specialized categories**: math, computer science, physics, chemistry, biology, engineering, economics, business, law, psychology, philosophy, history, health, and other. Each category has an optimized system prompt automatically injected based on query classification.
 
 **System Prompt Benefits:**
 
@@ -113,7 +113,7 @@ dynamics, competitive landscape, and stakeholder interests in your recommendatio
 
 #### 2.2.2 Fusion Routing Strategy
 
-Semantic Router implements a **multi-signal fusion routing** approach that combines three complementary routing methods (as detailed in the [Prompt Classification Routing proposal](./prompt-classification-routing.md)):
+Decision Router implements a **multi-signal fusion routing** approach that combines three complementary routing methods (as detailed in the [Prompt Classification Routing proposal](./prompt-classification-routing.md)):
 
 **1. Keyword-Based Routing (Fast Path)**
 
@@ -161,7 +161,7 @@ Semantic Router implements a **multi-signal fusion routing** approach that combi
 
 The two systems operate at **different layers** of the inference stack with **minimal overlap**:
 
-#### Semantic Router: Request Intelligence Layer
+#### Decision Router: Request Intelligence Layer
 
 ```
 User Query → [Semantic Understanding] → Model Selection → Request Enrichment
@@ -185,7 +185,7 @@ Enriched Request → [Worker Selection] → KV Cache Optimization → GPU Schedu
 
 #### Integration Value Proposition
 
-| Dimension | Semantic Router Alone | Dynamo Router Alone | **Integrated System** |
+| Dimension | Decision Router Alone | Dynamo Router Alone | **Integrated System** |
 |-----------|----------------------|---------------------|----------------------|
 | **Model Selection** | ✅ Semantic accuracy (14 categories) | ❌ No model awareness | ✅ Best model for task |
 | **Worker Selection** | ❌ No worker awareness | ✅ KV cache optimization | ✅ Optimal worker for model |
@@ -202,7 +202,7 @@ Enriched Request → [Worker Selection] → KV Cache Optimization → GPU Schedu
 Query: "Explain the proof of Fermat's Last Theorem step-by-step"
 
 ┌─────────────────────────────────────────────────────────────────┐
-│ Semantic Router Layer                                           │
+│ Decision Router Layer                                           │
 ├─────────────────────────────────────────────────────────────────┤
 │ 1. Fusion Routing (3-signal analysis):                          │
 │    a) Keyword Match: "theorem", "proof" → math (confidence: 0.8)│
@@ -257,7 +257,7 @@ Result:
 
 **Challenge 2: Intelligence without Infrastructure Awareness**
 
-- Semantic Router provides intelligent model selection but lacks infrastructure visibility
+- Decision Router provides intelligent model selection but lacks infrastructure visibility
 - Selects the right model but not the optimal worker
 - Cannot leverage KV cache reuse across workers
 - No awareness of GPU utilization or worker load for efficiency optimization
@@ -265,7 +265,7 @@ Result:
 **Solution: Holistic System Intelligence through Layered Integration**
 
 ```
-System Intelligence Layer (Semantic Router)
+System Intelligence Layer (Decision Router)
     ↓ [accuracy: model selection, quality optimization, security]
     ↓ [efficiency: semantic cache, adaptive routing, cost control]
 Infrastructure Optimization Layer (Dynamo)
@@ -284,9 +284,9 @@ Execution Layer (vLLM/SGLang/TRT-LLM)
 
 **Primary Goals:**
 
-1. **Seamless Integration:** Semantic Router operates as a pre-processing layer before Dynamo's router
+1. **Seamless Integration:** Decision Router operates as a pre-processing layer before Dynamo's router
 2. **Dual-Layer Caching:** Semantic cache (request-level) + KV cache (token-level) work in tandem
-3. **Model-Aware Routing:** Dynamo routes to worker pools filtered by Semantic Router's model selection
+3. **Model-Aware Routing:** Dynamo routes to worker pools filtered by Decision Router's model selection
 4. **Security Enforcement:** PII and jailbreak detection before requests reach Dynamo
 5. **Unified Observability:** Single trace spans both semantic and infrastructure layers
 6. **Zero Downtime:** Hot-reload of semantic routing rules without Dynamo restart
@@ -299,7 +299,7 @@ Execution Layer (vLLM/SGLang/TRT-LLM)
 
 ### 3.2 Non-Goals
 
-1. **Replacing Dynamo Router:** Semantic Router augments, not replaces, Dynamo's KV-aware routing
+1. **Replacing Dynamo Router:** Decision Router augments, not replaces, Dynamo's KV-aware routing
 2. **Modifying Dynamo Core:** Integration via standard APIs, no Dynamo internals changes required
 3. **Unified Configuration:** Maintain separate configs for semantic and infrastructure layers
 4. **Synchronous Coupling:** Systems can operate independently if needed
@@ -310,7 +310,7 @@ Execution Layer (vLLM/SGLang/TRT-LLM)
 
 ### 4.1 Deep Learning Models
 
-The Semantic Router leverages **four specialized deep learning models** for intelligent request processing. The system uses a combination of **BERT** and **ModernBERT** architectures optimized for different tasks.
+The Decision Router leverages **four specialized deep learning models** for intelligent request processing. The system uses a combination of **BERT** and **ModernBERT** architectures optimized for different tasks.
 
 #### 4.1.1 Similarity Model (BERT Embeddings)
 
@@ -540,7 +540,7 @@ global:
 
 1. **Separation of Concerns:** Semantic intelligence and infrastructure optimization remain decoupled
 2. **API-Driven Integration:** Use Dynamo's frontend API and worker registration mechanisms
-3. **Fail-Safe Design:** Semantic Router failure falls back to Dynamo's default routing
+3. **Fail-Safe Design:** Decision Router failure falls back to Dynamo's default routing
 4. **Observability-First:** Every decision (semantic + infrastructure) is traced and logged
 5. **Kubernetes-Native:** Designed for cloud-native deployment with CRDs and operators
 
@@ -556,10 +556,10 @@ import ZoomableMermaid from '@site/src/components/ZoomableMermaid';
     subgraph Main["Main Processing Flow"]
         direction TB
 
-        subgraph SIL["① vLLM Semantic Router Layer"]
+        subgraph SIL["① Meliclaw Decision Router Layer"]
             direction TB
             Gateway[Envoy Gateway :8080]
-            ExtProc[Semantic Router ExtProc :50051]
+            ExtProc[Decision Router ExtProc :50051]
 
             subgraph SC["Semantic Components"]
                 direction LR
@@ -654,7 +654,7 @@ import ZoomableMermaid from '@site/src/components/ZoomableMermaid';
 
 **Architecture Layers:**
 
-1. **Semantic Intelligence Layer (Semantic Router)**
+1. **Semantic Intelligence Layer (Decision Router)**
    - Envoy Gateway with ExtProc for request interception
    - BERT-based classification and security filtering
    - Semantic caching with Milvus backend
@@ -682,11 +682,11 @@ import ZoomableMermaid from '@site/src/components/ZoomableMermaid';
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│ Phase 1: Semantic Intelligence (Semantic Router)                            │
+│ Phase 1: Semantic Intelligence (Decision Router)                            │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │ Step 1: Request Interception                                                │
 │   - Envoy Gateway receives OpenAI API request                               │
-│   - ExtProc gRPC call to Semantic Router                                    │
+│   - ExtProc gRPC call to Decision Router                                    │
 │   - Extract query from messages array                                       │
 │                                                                              │
 │ Step 2: Security Filtering (Parallel Execution)                             │
@@ -762,7 +762,7 @@ import ZoomableMermaid from '@site/src/components/ZoomableMermaid';
 │   - Stream response back to Dynamo Frontend                                 │
 │                                                                              │
 │ Step 11: Semantic Cache Update                                              │
-│   - Semantic Router receives response via ExtProc                           │
+│   - Decision Router receives response via ExtProc                           │
 │   - Store query embedding + response in Milvus                              │
 │   - TTL: 7200 seconds (configurable)                                        │
 │                                                                              │
@@ -837,7 +837,7 @@ The integration follows a **layered service architecture** in Kubernetes, with c
 │  │                                                             │    │
 │  │  [Envoy Gateway]                                           │    │
 │  │       ↓ (ExtProc gRPC)                                     │    │
-│  │  [Semantic Router Service]                                 │    │
+│  │  [Decision Router Service]                                 │    │
 │  │   - Pods: 3 replicas (HA)                                  │    │
 │  │   - Port: 50051 (gRPC)                                     │    │
 │  │   - Functions:                                             │    │
@@ -911,7 +911,7 @@ The integration follows a **layered service architecture** in Kubernetes, with c
 **Key Kubernetes Services:**
 
 1. **semantic-router-svc** (ClusterIP)
-   - Exposes Semantic Router ExtProc on port 50051
+   - Exposes Decision Router ExtProc on port 50051
    - Used by Envoy Gateway for request processing
    - Selector: `app=semantic-router`
 
@@ -928,7 +928,7 @@ The integration follows a **layered service architecture** in Kubernetes, with c
 
 4. **milvus-svc** (ClusterIP)
    - Exposes Milvus on port 19530 (gRPC)
-   - Used by Semantic Router for semantic caching
+   - Used by Decision Router for semantic caching
    - Vector database for embedding similarity search
    - Selector: `app=milvus`
 
@@ -957,11 +957,11 @@ The integration follows a **layered service architecture** in Kubernetes, with c
 ├──────────────────────────────────────────────────────────────────────┤
 │ - Receives HTTP request                                             │
 │ - Invokes ExtProc: semantic-router-svc:50051 (gRPC)                 │
-│ - Sends request body + headers to Semantic Router                   │
+│ - Sends request body + headers to Decision Router                   │
 └──────────────────────────────────────────────────────────────────────┘
                               ↓
 ┌──────────────────────────────────────────────────────────────────────┐
-│ Step 3: Semantic Router Service (ExtProc gRPC)                      │
+│ Step 3: Decision Router Service (ExtProc gRPC)                      │
 ├──────────────────────────────────────────────────────────────────────┤
 │ Processing Pipeline:                                                │
 │                                                                       │
@@ -1002,7 +1002,7 @@ The integration follows a **layered service architecture** in Kubernetes, with c
 ┌──────────────────────────────────────────────────────────────────────┐
 │ Step 4: Envoy Gateway (Forwarding)                                  │
 ├──────────────────────────────────────────────────────────────────────┤
-│ - Receives enriched request from Semantic Router                    │
+│ - Receives enriched request from Decision Router                    │
 │ - Forwards to: dynamo-frontend-svc:8000                             │
 │ - Request body now has: model="deepseek-v31" (overridden from "auto")│
 │ - Optional observability headers preserved                          │
@@ -1074,23 +1074,23 @@ The integration follows a **layered service architecture** in Kubernetes, with c
 
 1. **Transparent Model Override (Critical Design)**
    - User sends: `{"model": "auto", "messages": [...]}`
-   - Semantic Router modifies request body: `model: "auto" → "deepseek-v31"`
+   - Decision Router modifies request body: `model: "auto" → "deepseek-v31"`
    - Dynamo receives: `{"model": "deepseek-v31", "messages": [...]}`
    - **Dynamo is completely unaware of VSR's involvement**
    - No special headers needed for model routing
    - Standard OpenAI API compatibility maintained
 
 2. **System Prompt Injection**
-   - Semantic Router injects system prompt into messages array
+   - Decision Router injects system prompt into messages array
    - Example: `messages: [{"role": "system", "content": "You are a mathematics expert..."}, {"role": "user", "content": "..."}]`
    - Worker receives pre-enriched request
    - No additional processing needed by Dynamo or worker
 
 3. **Service Discovery**
-   - Envoy → Semantic Router: `semantic-router-svc.llm-inference-stack.svc.cluster.local:50051` (gRPC ExtProc)
+   - Envoy → Decision Router: `semantic-router-svc.llm-inference-stack.svc.cluster.local:50051` (gRPC ExtProc)
    - Envoy → Dynamo: `dynamo-frontend-svc.llm-inference-stack.svc.cluster.local:8000` (HTTP)
    - Dynamo → Workers: `vllm-\{model\}-svc.llm-inference-stack.svc.cluster.local` (Headless Service)
-   - Semantic Router → Milvus: `milvus-svc.llm-inference-stack.svc.cluster.local:19530` (gRPC)
+   - Decision Router → Milvus: `milvus-svc.llm-inference-stack.svc.cluster.local:19530` (gRPC)
 
 4. **Observability (Optional Headers)**
    - `x-vsr-selected-category`: Query classification result (e.g., "math")
@@ -1145,7 +1145,7 @@ Dynamo Frontend discovers workers through Kubernetes Headless Services, which pr
    - Each model has dedicated StatefulSet + Headless Service
    - Example: `vllm-deepseek-v31-svc` → 4 pods serving DeepSeek-V3
    - Dynamo queries service DNS to get all pod IPs
-   - Filters workers by `X-VSR-Model` header from Semantic Router
+   - Filters workers by `X-VSR-Model` header from Decision Router
 
 4. **Dynamic Scaling**
    - Horizontal Pod Autoscaler (HPA) adjusts replicas based on GPU utilization
@@ -1158,13 +1158,13 @@ Dynamo Frontend discovers workers through Kubernetes Headless Services, which pr
 
 **Objectives:**
 
-- Establish basic integration between Semantic Router and Dynamo
+- Establish basic integration between Decision Router and Dynamo
 - Implement transparent model override in request body
 - Validate end-to-end request flow
 
 **Tasks:**
 
-1. **Semantic Router Enhancements:**
+1. **Decision Router Enhancements:**
    - Implement request body modification: `model: "auto" → "selected-model"`
    - Add system prompt injection to messages array
    - Add optional observability headers:
@@ -1240,7 +1240,7 @@ Dynamo Frontend discovers workers through Kubernetes Headless Services, which pr
    - Trace context propagation from VSR through Dynamo to workers
    - Span hierarchy:
      - Root span: Envoy Gateway
-     - Child span: Semantic Router (fusion routing, cache, security)
+     - Child span: Decision Router (fusion routing, cache, security)
        - Sub-span: BERT classification
        - Sub-span: Keyword matching
        - Sub-span: Similarity search
@@ -1251,7 +1251,7 @@ Dynamo Frontend discovers workers through Kubernetes Headless Services, which pr
    - Support for Jaeger, Tempo, and other OTLP-compatible backends
 
 2. **Metrics Collection:**
-   - Semantic Router metrics:
+   - Decision Router metrics:
      - Fusion routing performance:
        - BERT classification latency and accuracy
        - Keyword matching hit rate and latency
@@ -1290,7 +1290,7 @@ Dynamo Frontend discovers workers through Kubernetes Headless Services, which pr
 **Tasks:**
 
 1. **Resilience:**
-   - Semantic Router failure fallback to Dynamo
+   - Decision Router failure fallback to Dynamo
    - Circuit breaker for cache backend
    - Graceful degradation strategies
 
@@ -1415,7 +1415,7 @@ global:
 
 | Metric | Threshold | Alert Severity |
 |--------|-----------|----------------|
-| Semantic Router Latency (P99) | High | Warning |
+| Decision Router Latency (P99) | High | Warning |
 | Dynamo Router Latency (P99) | High | Warning |
 | Combined Latency (P99) | Very High | Critical |
 | Semantic Cache Hit Rate | Low | Warning |
@@ -1433,7 +1433,7 @@ global:
 
 ### 7.3 Failure Modes and Recovery
 
-**Failure Scenario 1: Semantic Router Unavailable**
+**Failure Scenario 1: Decision Router Unavailable**
 
 - **Detection:** Health check failures, timeout errors
 - **Impact:** No semantic routing, security filtering, or caching
@@ -1448,7 +1448,7 @@ global:
 - **Detection:** Connection errors, timeout
 - **Impact:** No semantic caching (cache misses)
 - **Recovery:**
-  - Semantic Router continues with in-memory cache
+  - Decision Router continues with in-memory cache
   - All requests forwarded to Dynamo
   - Performance degradation but no outage
 - **Mitigation:** Milvus cluster deployment for HA
@@ -1469,7 +1469,7 @@ global:
 - **Impact:** Increased TTFT and ITL
 - **Recovery:**
   - Dynamo Planner auto-scales workers
-  - Semantic Router may route to alternative models
+  - Decision Router may route to alternative models
   - Requests queued until capacity available
 - **Mitigation:** Autoscaling policies, overprovisioning
 
@@ -1528,9 +1528,9 @@ global:
 - [Dynamo Disaggregated Serving](https://docs.nvidia.com/dynamo/latest/_sections/disaggregated-serving.html)
 - [Dynamo KVBM](https://docs.nvidia.com/dynamo/latest/components/kvbm/README.html)
 
-### 9.2 vLLM Semantic Router Documentation
+### 9.2 Meliclaw Decision Router Documentation
 
-- [Semantic Router Overview](https://vllm-sr.ai/docs/overview/semantic-router-overview/)
+- [Decision Router Overview](https://vllm-sr.ai/docs/overview/semantic-router-overview/)
 - [System Architecture](https://vllm-sr.ai/docs/overview/architecture/system-architecture/)
 - [Kubernetes Deployment](https://vllm-sr.ai/docs/installation/k8s/ai-gateway)
 - [Distributed Tracing Support (PR #322)](https://github.com/vllm-project/semantic-router/pull/322)
@@ -1655,7 +1655,7 @@ medical advice.
 
 ### 10.3 API Examples
 
-**Request with Semantic Router Headers:**
+**Request with Decision Router Headers:**
 
 ```bash
 curl -X POST http://llm-gateway:8080/v1/chat/completions \
@@ -1709,7 +1709,7 @@ x-request-id: 7f3e9a2b4c5d6e8f
 
 ## Conclusion
 
-This proposal outlines a comprehensive integration strategy between vLLM Semantic Router and NVIDIA Dynamo that combines semantic intelligence with infrastructure optimization. The layered architecture ensures:
+This proposal outlines a comprehensive integration strategy between Meliclaw Decision Router and NVIDIA Dynamo that combines semantic intelligence with infrastructure optimization. The layered architecture ensures:
 
 1. **Semantic Correctness:** Right model selection based on query understanding
 2. **Infrastructure Efficiency:** Optimal worker selection and KV cache utilization

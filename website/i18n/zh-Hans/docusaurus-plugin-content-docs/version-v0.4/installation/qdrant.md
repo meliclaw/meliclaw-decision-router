@@ -8,7 +8,7 @@ translation:
 
 # Qdrant 向量库
 
-本指南介绍将 [Qdrant](https://qdrant.tech/) 部署为 Semantic Router 后端。Qdrant 可以用作语义缓存、智能体记忆存储、向量存储和路由回放存储。
+本指南介绍将 [Qdrant](https://qdrant.tech/) 部署为 Decision Router 后端。Qdrant 可以用作语义缓存、智能体记忆存储、向量存储和路由回放存储。
 
 ## 前置条件
 
@@ -79,7 +79,7 @@ helm repo add qdrant https://qdrant.github.io/qdrant-helm
 helm repo update
 
 helm install qdrant qdrant/qdrant \
-  --namespace vllm-semantic-router-system --create-namespace \
+  --namespace meliclaw-decision-router-system --create-namespace \
   --set persistence.size=10Gi
 ```
 
@@ -90,7 +90,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: qdrant
-  namespace: vllm-semantic-router-system
+  namespace: meliclaw-decision-router-system
 spec:
   serviceName: qdrant
   replicas: 1
@@ -131,7 +131,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: qdrant
-  namespace: vllm-semantic-router-system
+  namespace: meliclaw-decision-router-system
 spec:
   selector:
     app: qdrant

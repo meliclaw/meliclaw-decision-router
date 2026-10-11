@@ -5,7 +5,7 @@ title: Getting Started
 # Getting started
 
 Fleet Sim is a standalone planning tool. It is not started by `vllm-sr serve`
-and is not exposed through the Semantic Router dashboard.
+and is not exposed through the Decision Router dashboard.
 
 ## Install the CLI
 

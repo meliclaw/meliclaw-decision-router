@@ -23,7 +23,7 @@ available in each environment.
 
 ## At a glance
 
-| Environment | Typical problem | What Semantic Router decides | What remains outside the Router |
+| Environment | Typical problem | What Decision Router decides | What remains outside the Router |
 | --- | --- | --- | --- |
 | **Cloud** | Several provider APIs differ in capability, cost, latency, and availability. | Which approved provider or virtual objective should handle the request. | Provider capacity, billing, regional service health, and account policy. |
 | **Data center** | A shared accelerator fleet serves models with different strengths and resource profiles. | Which model pool fits the task, policy, and requested objective. | Replica placement, batching, autoscaling, and device scheduling. |
@@ -36,7 +36,7 @@ Cloud applications often integrate more than one model provider. A provider may
 offer the best vision model, another may be preferred for long context, and a
 smaller hosted model may be the economical default for routine chat.
 
-Semantic Router can expose one stable model API while decisions account for:
+Decision Router can expose one stable model API while decisions account for:
 
 - task intent, modality, context length, and tool requirements;
 - provider allowlists and regional or contractual constraints;
@@ -59,7 +59,7 @@ accelerator fleet. The serving platform knows which replicas are healthy and
 where capacity is available; it usually does not know which model family best
 fits the meaning of a request.
 
-Semantic Router adds that model-level decision:
+Decision Router adds that model-level decision:
 
 - send code, mathematics, language, or domain work to specialist pools;
 - reject candidates that lack the required modality, context, or tool support;
@@ -68,7 +68,7 @@ Semantic Router adds that model-level decision:
 - expose balanced, fast, economical, or accuracy-first virtual models over the
   same physical fleet.
 
-The boundary is deliberate: Semantic Router chooses the model or model pool;
+The boundary is deliberate: Decision Router chooses the model or model pool;
 the inference platform chooses a replica and owns batching, cache locality,
 autoscaling, and accelerator scheduling.
 
@@ -83,7 +83,7 @@ more than access to the largest model. A useful policy starts with the local
 capabilities and treats remote execution as an explicit choice rather than an
 implicit fallback.
 
-Semantic Router can:
+Decision Router can:
 
 - keep sensitive or offline-eligible traffic on a local model;
 - select among small specialists available on the device or local network;
@@ -105,7 +105,7 @@ pools, edge systems, and approved external providers. The central problem is
 not simply finding the “best” model; it is finding the best path that is allowed
 for this user, tenant, data class, and workload.
 
-Semantic Router can make those choices explicit:
+Decision Router can make those choices explicit:
 
 - use authorization, metadata, and content signals as eligibility constraints;
 - isolate product, tenant, or objective-specific policy in separate recipes;

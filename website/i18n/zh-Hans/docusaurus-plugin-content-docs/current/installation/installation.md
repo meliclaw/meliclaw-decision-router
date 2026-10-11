@@ -1,7 +1,7 @@
 ---
 sidebar_position: 1
 title: 快速开始
-description: 安装 vLLM Semantic Router 并发送你的第一条已路由请求。
+description: 安装 Meliclaw Decision Router 并发送你的第一条已路由请求。
 translation:
   source_commit: "9156d5bc1ed9edff626b95a2b8260a77cb1712c5"
   source_file: "docs/installation/installation.md"
@@ -22,7 +22,7 @@ import {
 
 # 快速开始
 
-安装 vLLM Semantic Router，接入一个模型，发送第一条路由请求。若只需要直接调用判断模型，可从 [System One 快速开始](../model-runtime/quickstart)进入，无需准备 Chat 后端。两种用法共用[组件架构](../overview/component-architecture)中的前端与模型运行时。
+安装 Meliclaw Decision Router，接入一个模型，发送第一条路由请求。若只需要直接调用判断模型，可从 [System One 快速开始](../model-runtime/quickstart)进入，无需准备 Chat 后端。两种用法共用[组件架构](../overview/component-architecture)中的前端与模型运行时。
 
 `vllm-sr serve` 在 Docker 中运行一个本地栈：Router 自己在 8899 端口提供 OpenAI
 兼容 API（standalone 模式，默认），控制面板在 8700 端口，还有运行 Router 自身分类器和

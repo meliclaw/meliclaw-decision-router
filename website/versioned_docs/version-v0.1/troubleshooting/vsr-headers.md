@@ -1,6 +1,6 @@
 # VSR Decision Tracking Headers
 
-This document describes the VSR (Vector Semantic Router) decision tracking headers that are automatically added to successful responses for debugging and monitoring purposes.
+This document describes the VSR (Vector Decision Router) decision tracking headers that are automatically added to successful responses for debugging and monitoring purposes.
 
 ## Overview
 

@@ -1,6 +1,6 @@
 # VSR Routing Headers
 
-This page documents the public `x-vsr-*` headers emitted by vLLM Semantic Router for routing observability, replay correlation, and debugging.
+This page documents the public `x-vsr-*` headers emitted by Meliclaw Decision Router for routing observability, replay correlation, and debugging.
 
 ## Emission Rules
 

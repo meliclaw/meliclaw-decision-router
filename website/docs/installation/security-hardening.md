@@ -5,7 +5,7 @@ description: Secure the inference listener, Dashboard, credentials, replay data,
 
 # Security Hardening
 
-Semantic Router sits on the request path between clients and model providers.
+Decision Router sits on the request path between clients and model providers.
 Treat it as part of the application's trust boundary: it can inspect prompts,
 choose providers, mutate requests, and optionally retain routing data.
 
@@ -18,7 +18,7 @@ controls of the surrounding platform.
 ```mermaid
 flowchart LR
     Client["Client"] --> Listener["Standalone frontend / external gateway"]
-    Listener --> Router["Semantic Router"]
+    Listener --> Router["Decision Router"]
     Router --> Provider["Model providers"]
     Admin["Authenticated Dashboard / API"] --> Router
     Router --> Stores["Cache, memory, replay, and logs"]

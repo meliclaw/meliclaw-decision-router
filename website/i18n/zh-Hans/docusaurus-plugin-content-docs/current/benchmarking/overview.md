@@ -67,6 +67,6 @@ make benchmark-valkey
 - 失败和排除的样本
 - 原始产物和聚合方法
 
-在同一工作负载和环境上比较备选方案。没有这些上下文的 QPS、延迟、准确率、成本或节省数字只是本地观察，不是 Semantic Router 的预期属性。
+在同一工作负载和环境上比较备选方案。没有这些上下文的 QPS、延迟、准确率、成本或节省数字只是本地观察，不是 Decision Router 的预期属性。
 
 训练期间使用的模型选择评测单独记录在[模型性能评测](../training/model-performance-eval)。

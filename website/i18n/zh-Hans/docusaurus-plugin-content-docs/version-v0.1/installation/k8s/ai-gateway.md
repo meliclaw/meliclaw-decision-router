@@ -1,18 +1,18 @@
 # 使用 Envoy AI Gateway 安装
 
-本指南提供了在 Kubernetes 上将 vLLM Semantic Router 与 Envoy AI Gateway 集成的分步说明，以实现高级流量管理和 AI 特定功能。
+本指南提供了在 Kubernetes 上将 Meliclaw Decision Router 与 Envoy AI Gateway 集成的分步说明，以实现高级流量管理和 AI 特定功能。
 
 ## 架构概览
 
 部署包含以下组件：
 
-- **vLLM Semantic Router**：提供智能请求路由和语义理解
+- **Meliclaw Decision Router**：提供智能请求路由和语义理解
 - **Envoy Gateway**：核心网关功能和流量管理
 - **Envoy AI Gateway**：基于 Envoy Gateway 构建的 LLM Provider AI Gateway
 
 ## 集成优势
 
-将 vLLM Semantic Router 与 Envoy AI Gateway 集成，为生产级 LLM 部署提供企业级能力：
+将 Meliclaw Decision Router 与 Envoy AI Gateway 集成，为生产级 LLM 部署提供企业级能力：
 
 ### 1. **混合模型选择**
 
@@ -88,7 +88,7 @@
 
 ## 步骤 1：创建 Kind 集群（可选）
 
-创建针对 Semantic Router 工作负载优化的本地 Kubernetes 集群：
+创建针对 Decision Router 工作负载优化的本地 Kubernetes 集群：
 
 ```bash
 kind create cluster --name semantic-router-cluster
@@ -97,27 +97,27 @@ kind create cluster --name semantic-router-cluster
 kubectl wait --for=condition=Ready nodes --all --timeout=300s
 ```
 
-## 步骤 2：部署 vLLM Semantic Router 
+## 步骤 2：部署 Meliclaw Decision Router 
 
-使用 Helm 部署包含所有必需组件的 Semantic Router 服务：
+使用 Helm 部署包含所有必需组件的 Decision Router 服务：
 
 ```bash
 # 从 GHCR OCI 仓库安装自定义配置
 # （可选）如果使用镜像代理，请添加：--set global.imageRegistry=<your-registry>
 helm install semantic-router oci://ghcr.io/vllm-project/charts/semantic-router \
   --version v0.0.0-latest \
-  --namespace vllm-semantic-router-system \
+  --namespace meliclaw-decision-router-system \
   --create-namespace \
   -f https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/ai-gateway/semantic-router-values/values.yaml
 
 # 等待部署就绪（模型下载可能需要几分钟）
-kubectl wait --for=condition=Available deployment/semantic-router -n vllm-semantic-router-system --timeout=600s
+kubectl wait --for=condition=Available deployment/semantic-router -n meliclaw-decision-router-system --timeout=600s
 
 # 验证部署状态
-kubectl get pods -n vllm-semantic-router-system
+kubectl get pods -n meliclaw-decision-router-system
 ```
 
-**注意**：values 文件包含 Semantic Router 的配置，包括模型设置、类别和路由规则。您可以从 [values.yaml](https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/ai-gateway/semantic-router-values/values.yaml) 下载并自定义。
+**注意**：values 文件包含 Decision Router 的配置，包括模型设置、类别和路由规则。您可以从 [values.yaml](https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/ai-gateway/semantic-router-values/values.yaml) 下载并自定义。
 
 ## 步骤 3：安装 Envoy Gateway
 
@@ -154,7 +154,7 @@ kubectl wait --timeout=300s -n envoy-ai-gateway-system deployment/ai-gateway-con
 
 ## 步骤 5：部署演示 LLM
 
-创建一个演示 LLM 作为 Semantic Router 的后端：
+创建一个演示 LLM 作为 Decision Router 的后端：
 
 ```bash
 # 部署演示 LLM
@@ -224,14 +224,14 @@ kubectl logs -n envoy-ai-gateway-system deployment/ai-gateway-controller
 kubectl get deployment -n envoy-ai-gateway-system
 ```
 
-** Semantic Router 无响应：**
+** Decision Router 无响应：**
 
 ```bash
-# 检查 Semantic Router  pod 状态
-kubectl get pods -n vllm-semantic-router-system
+# 检查 Decision Router  pod 状态
+kubectl get pods -n meliclaw-decision-router-system
 
-# 检查 Semantic Router 日志
-kubectl logs -n vllm-semantic-router-system deployment/semantic-router
+# 检查 Decision Router 日志
+kubectl logs -n meliclaw-decision-router-system deployment/semantic-router
 ```
 
 ## 清理
@@ -243,8 +243,8 @@ kubectl logs -n vllm-semantic-router-system deployment/semantic-router
 kubectl delete -f https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/ai-gateway/aigw-resources/gwapi-resources.yaml
 kubectl delete -f https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/ai-gateway/aigw-resources/base-model.yaml
 
-# 删除 Semantic Router 
-helm uninstall semantic-router -n vllm-semantic-router-system
+# 删除 Decision Router 
+helm uninstall semantic-router -n meliclaw-decision-router-system
 
 # 删除 AI gateway
 helm uninstall aieg -n envoy-ai-gateway-system
@@ -262,4 +262,4 @@ kind delete cluster --name semantic-router-cluster
 - 在 AI Gateway 中配置自定义路由规则
 - 设置监控和可观测性
 - 实施身份验证和授权
-- 为生产工作负载扩展 Semantic Router 部署
+- 为生产工作负载扩展 Decision Router 部署

@@ -9,7 +9,7 @@ translation:
 
 # 后端目标兼容性
 
-Semantic Router 使用 `providers.models[].backend_refs[]` 作为逻辑模型名称与一个或多个物理推理目标之间的 canonical 契约。
+Decision Router 使用 `providers.models[].backend_refs[]` 作为逻辑模型名称与一个或多个物理推理目标之间的 canonical 契约。
 
 此矩阵覆盖**配置的生成与保留**。它并不声称端点可到达、健康，或与特定模型协议兼容。
 

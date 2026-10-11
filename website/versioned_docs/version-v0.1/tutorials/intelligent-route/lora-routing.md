@@ -139,7 +139,7 @@ LoRA routing combines intelligent classification with vLLM's LoRA adapter suppor
 
 ```mermaid
 graph TB
-    A[User Query: 'Explain async/await'] --> B[Semantic Router]
+    A[User Query: 'Explain async/await'] --> B[Decision Router]
     B --> C[Classification Method]
     C --> |Domain Routing| D1[Detects: technical]
     C --> |Embedding Routing| D2[Matches: programming]

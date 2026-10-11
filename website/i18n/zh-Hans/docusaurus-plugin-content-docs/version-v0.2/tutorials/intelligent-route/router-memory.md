@@ -11,7 +11,7 @@ translation:
 
 ## 概览
 
-Semantic Router 充当仅支持 Chat Completions API 的多个 LLM 后端的**统一大脑**。它提供：
+Decision Router 充当仅支持 Chat Completions API 的多个 LLM 后端的**统一大脑**。它提供：
 
 - **跨模型有状态对话**：跨不同模型维护对话历史
 - **统一的 Response API**：无论后端模型如何，均使用单一的 API 接口
@@ -24,7 +24,7 @@ flowchart TB
         C2[Agent B]
     end
 
-    subgraph SR["Semantic Router "]
+    subgraph SR["Decision Router "]
         API[Response API]
         Store[(对话存储)]
     end
@@ -51,7 +51,7 @@ flowchart TB
         A1[POST /v1/responses]
     end
 
-    subgraph Router["Semantic Router  (extproc)"]
+    subgraph Router["Decision Router  (extproc)"]
         B1[接收请求]
         B2{是否有 previous_response_id?}
         B3[加载对话链]

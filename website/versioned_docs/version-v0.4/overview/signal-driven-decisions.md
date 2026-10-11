@@ -6,7 +6,7 @@ description: How signals, projections, decisions, plugins, algorithms, and model
 
 # Routing Pipeline
 
-Semantic Router separates request understanding, policy, and model execution.
+Decision Router separates request understanding, policy, and model execution.
 Each layer answers a different question, which keeps routing rules readable and
 prevents one classifier or optimization score from becoming the whole policy.
 
@@ -96,7 +96,7 @@ See [Plugins](../tutorials/plugin/overview).
 
 Providers bind logical model names to physical inference endpoints. A pool can
 contain local vLLM or Ollama services, Kubernetes-hosted models, or remote
-OpenAI-compatible providers. Semantic Router chooses the model path; the model
+OpenAI-compatible providers. Decision Router chooses the model path; the model
 server or backend scheduler executes it and owns replica placement.
 
 Capability and runtime metadata are useful only within policy boundaries. A

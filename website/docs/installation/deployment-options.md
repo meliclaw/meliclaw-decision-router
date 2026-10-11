@@ -1,13 +1,13 @@
 ---
 title: Choose a Deployment
-description: Choose a Docker, Kubernetes, or hardware-specific path for deploying vLLM Semantic Router.
+description: Choose a Docker, Kubernetes, or hardware-specific path for deploying Meliclaw Decision Router.
 ---
 
 # Choose a Deployment
 
 Choose two things independently:
 
-1. where Semantic Router runs; and
+1. where Decision Router runs; and
 2. where the model backends run.
 
 Chat provider models run behind reachable endpoints on the same host, in a

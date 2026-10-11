@@ -8,7 +8,7 @@ translation:
 
 # Valkey 智能体记忆
 
-本指南介绍将 Valkey 部署为 Semantic Router 的智能体记忆后端。Valkey 提供轻量、兼容 Redis 的替代方案，通过内置 Search 模块进行向量相似度存储。
+本指南介绍将 Valkey 部署为 Decision Router 的智能体记忆后端。Valkey 提供轻量、兼容 Redis 的替代方案，通过内置 Search 模块进行向量相似度存储。
 
 :::note
 Valkey 是可选的。默认记忆后端是 Milvus。当你希望单二进制部署、没有 etcd 或 MinIO 等外部依赖，或已经为缓存运行 Valkey 时，使用 Valkey。
@@ -75,7 +75,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: valkey-memory
-  namespace: vllm-semantic-router-system
+  namespace: meliclaw-decision-router-system
 spec:
   serviceName: valkey-memory
   replicas: 1
@@ -116,7 +116,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: valkey-memory
-  namespace: vllm-semantic-router-system
+  namespace: meliclaw-decision-router-system
 spec:
   selector:
     app: valkey-memory

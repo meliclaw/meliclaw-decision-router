@@ -15,27 +15,27 @@ translation:
 
 vLLM Production Stack 管理模型服务、服务发现、副本调度和推理生命周期。这些能力不决定哪个模型池最符合入站请求的含义或策略要求。
 
-Semantic Router 可以做出该逻辑模型选择，但不应重复 Production Stack 的副本调度或基础设施控制面。
+Decision Router 可以做出该逻辑模型选择，但不应重复 Production Stack 的副本调度或基础设施控制面。
 
 ## 提案 {#proposal}
 
-在 Production Stack 请求路由器之前运行 Semantic Router：
+在 Production Stack 请求路由器之前运行 Decision Router：
 
 ```mermaid
 flowchart LR
   Client --> Gateway
-  Gateway -->|"ExtProc"| Semantic["Semantic Router"]
+  Gateway -->|"ExtProc"| Semantic["Decision Router"]
   Semantic -->|"provider model"| Router["Production Stack router"]
   Router --> Replica["Eligible vLLM replica"]
 ```
 
-Semantic Router 从配方中选择提供商模型。随后 Production Stack 选择服务该模型的副本。
+Decision Router 从配方中选择提供商模型。随后 Production Stack 选择服务该模型的副本。
 
 ## 职责 {#responsibilities}
 
 | 组件 | 拥有 |
 | --- | --- |
-| Semantic Router | 入口点、信号、决策、逻辑模型选择，以及配方范围的插件。 |
+| Decision Router | 入口点、信号、决策、逻辑模型选择，以及配方范围的插件。 |
 | vLLM Production Stack | 模型部署、服务发现、副本调度和推理生命周期。 |
 | Gateway | 客户端流量、ExtProc 挂接，以及转发到所选后端。 |
 
@@ -48,7 +48,7 @@ Semantic Router 从配方中选择提供商模型。随后 Production Stack 选�
 端到端路径仅在以下情况下就绪：
 
 1. 每个后端都可以直接工作；
-2. 完整 Semantic Router 配置通过校验；
+2. 完整 Decision Router 配置通过校验；
 3. 网关在后端选择之前调用 ExtProc；
 4. 所选逻辑模型映射到预期的 Production Stack 池；以及
 5. 日志或轨迹显示最终执行请求的副本。
@@ -65,7 +65,7 @@ Semantic Router 从配方中选择提供商模型。随后 Production Stack 选�
 
 网关必须声明 ExtProc 失败行为。失败即开放保留通往后端的路径，但可能绕过语义和安全策略。失败即关闭以可用性为代价保护策略。正确选择是路由特定的，并应经过测试。
 
-密钥、租户身份和数据保留设置必须在网关、Semantic Router、Production Stack 和任何外部存储之间保持一致。
+密钥、租户身份和数据保留设置必须在网关、Decision Router、Production Stack 和任何外部存储之间保持一致。
 
 ## 范围 {#scope}
 
@@ -74,7 +74,7 @@ Semantic Router 从配方中选择提供商模型。随后 Production Stack 选�
 - 替代 Production Stack 部署或调度 API；
 - 规定特定副本路由算法；
 - 做质量、成本或延迟主张；
-- 把 Semantic Router 发布与 Production Stack 发布耦合；或
+- 把 Decision Router 发布与 Production Stack 发布耦合；或
 - 要求两个系统之间共享缓存状态。
 
 ## 验证 {#validation}
@@ -85,7 +85,7 @@ Semantic Router 从配方中选择提供商模型。随后 Production Stack 选�
 
 - 部署应暴露一个多模型端点，还是每个模型池一个端点？
 - 哪个请求标识符应关联网关、语义和副本轨迹？
-- Semantic Router 不可用时，哪些路由必须失败即关闭？
+- Decision Router 不可用时，哪些路由必须失败即关闭？
 - 如何在不中断进行中请求的情况下推出模型别名？
 
 ## 参考资料 {#references}
@@ -93,4 +93,4 @@ Semantic Router 从配方中选择提供商模型。随后 Production Stack 选�
 - [当前 Production Stack 集成指南](../installation/k8s/production-stack)
 - [vLLM Production Stack 文档](https://docs.vllm.ai/projects/production-stack/en/latest/)
 - [Production Stack 语义路由用例](https://docs.vllm.ai/projects/production-stack/en/latest/use_cases/semantic-router-integration.html)
-- [Semantic Router 系统概览](../overview/semantic-router-overview)
+- [Decision Router 系统概览](../overview/semantic-router-overview)

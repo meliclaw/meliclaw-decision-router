@@ -9,9 +9,9 @@ translation:
 
 # Gateway API 推理扩展
 
-Gateway API Inference Extension（GAIE）和 Semantic Router 解决路由的不同部分：
+Gateway API Inference Extension（GAIE）和 Decision Router 解决路由的不同部分：
 
-- **Semantic Router** 根据请求含义、策略和配方状态选择逻辑模型或池。
+- **Decision Router** 根据请求含义、策略和配方状态选择逻辑模型或池。
 - **GAIE** 将该池表示为 `InferencePool`，并让 endpoint picker 选择就绪副本。
 
 当一个公开模型 ID 可以在多个模型池之间选择，且每个池包含多个可互换的服务副本时，将两者一起使用。若每个模型直接映射到一个 Kubernetes Service，请改用更简单的网关集成，例如 [Istio](istio)。
@@ -19,7 +19,7 @@ Gateway API Inference Extension（GAIE）和 Semantic Router 解决路由的不�
 ```text
 client
   -> Gateway
-  -> Semantic Router ExtProc
+  -> Decision Router ExtProc
   -> HTTPRoute chosen by x-selected-model
   -> InferencePool
   -> endpoint picker
@@ -35,18 +35,18 @@ client
 - [GAIE 发行版](https://github.com/kubernetes-sigs/gateway-api-inference-extension/releases)
 - [llm-d 网关提供方](https://llm-d.ai/docs/infrastructure/gateway)
 
-加入 Semantic Router 之前，确认：
+加入 Decision Router 之前，确认：
 
 1. `Gateway` 报告 `Programmed=True`；
 2. 每个 `HTTPRoute` 报告已接受且引用已解析；
 3. 每个 `InferencePool` 有就绪端点；以及
 4. 直接请求能到达预期的池。
 
-Semantic Router 不安装、也不拥有网关控制器、GAIE CRD、endpoint picker 或模型服务器。
+Decision Router 不安装、也不拥有网关控制器、GAIE CRD、endpoint picker 或模型服务器。
 
 ## 定义名称约定
 
-Semantic Router 所选的提供商模型会成为 Gateway API 路由使用的请求头。该精确值必须在以下三个对象中一致：
+Decision Router 所选的提供商模型会成为 Gateway API 路由使用的请求头。该精确值必须在以下三个对象中一致：
 
 ```yaml
 # Router config fragment
@@ -90,7 +90,7 @@ spec:
 
 Router 在请求上写入 `x-selected-model`。它在响应上以 `x-vsr-selected-model` 向客户端暴露逻辑选择。GAIE 负责随后在 `general-pool` 内选择端点。
 
-## 部署 Semantic Router
+## 部署 Decision Router
 
 应用前先创建并校验完整配置：
 
@@ -102,7 +102,7 @@ vllm-sr config validate --config config.yaml
 
 ## ExtProc 之后重新评估路由
 
-网关必须在下游请求路径中调用 Semantic Router，并在写入 `x-selected-model` 后重新评估路由。在规范配置中保持此 Router 设置启用：
+网关必须在下游请求路径中调用 Decision Router，并在写入 `x-selected-model` 后重新评估路由。在规范配置中保持此 Router 设置启用：
 
 ```yaml
 global:
@@ -148,7 +148,7 @@ kubectl get httproute general-pool -n inference \
 
 | 现象 | 从这里开始 |
 | --- | --- |
-| 响应没有 `x-vsr-selected-model` 头 | Semantic Router 配方选择和 ExtProc 接入 |
+| 响应没有 `x-vsr-selected-model` 头 | Decision Router 配方选择和 ExtProc 接入 |
 | 头存在但路由未被选中 | `HTTPRoute` 头值、路由状态和网关处理顺序 |
 | `ResolvedRefs=False` | `InferencePool` 名称、group、端口、命名空间和引用权限 |
 | 池已选中但没有后端响应 | Endpoint-picker 状态、池选择器和模型服务器就绪状态 |

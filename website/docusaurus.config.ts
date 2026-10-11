@@ -12,11 +12,11 @@ const siteUrl = 'https://vllm-sr.ai'
 const siteDefaultDescription
   = 'An open, programmable decision layer for models and compute.'
 const siteSocialTitle
-  = 'Intelligence Beyond Any One Model | vLLM Semantic Router'
+  = 'Intelligence Beyond Any One Model | Meliclaw Decision Router'
 const siteSocialPreviewImageUrl = `${siteUrl}/${SITE_SOCIAL_PREVIEW_IMAGE}`
 
 const config: Config = {
-  title: 'vLLM Semantic Router',
+  title: 'Meliclaw Decision Router',
   tagline: 'An open, programmable decision layer for models and compute.',
   favicon: 'img/vllm.png',
 
@@ -131,9 +131,9 @@ const config: Config = {
         blog: {
           showReadingTime: true,
           postsPerPage: 10,
-          blogTitle: 'vLLM Semantic Router Blog',
+          blogTitle: 'Meliclaw Decision Router Blog',
           blogDescription:
-            'Latest updates, insights, and technical articles about vLLM Semantic Router',
+            'Latest updates, insights, and technical articles about Meliclaw Decision Router',
           blogSidebarTitle: 'Recent Posts',
           blogSidebarCount: 10,
           // Please change this to your repo.
@@ -264,16 +264,16 @@ const config: Config = {
         content:
           'programmable decision layer, agent harness, models and compute, Mixture-of-Models, open-source LLM router, multi-model routing, model selection, bounded model collaboration, semantic router, vLLM',
       },
-      { name: 'author', content: 'vLLM Semantic Router Team' },
-      { name: 'application-name', content: 'vLLM Semantic Router' },
+      { name: 'author', content: 'Meliclaw Decision Router Team' },
+      { name: 'application-name', content: 'Meliclaw Decision Router' },
       { property: 'og:title', content: siteSocialTitle },
       { property: 'og:description', content: siteDefaultDescription },
       { property: 'og:type', content: 'website' },
-      { property: 'og:site_name', content: 'vLLM Semantic Router' },
+      { property: 'og:site_name', content: 'Meliclaw Decision Router' },
       { property: 'og:image', content: siteSocialPreviewImageUrl },
       {
         property: 'og:image:alt',
-        content: 'vLLM Semantic Router social preview',
+        content: 'Meliclaw Decision Router social preview',
       },
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:title', content: siteSocialTitle },
@@ -281,7 +281,7 @@ const config: Config = {
       { name: 'twitter:image', content: siteSocialPreviewImageUrl },
       {
         name: 'twitter:image:alt',
-        content: 'vLLM Semantic Router social preview',
+        content: 'Meliclaw Decision Router social preview',
       },
 
       // GEO metadata config
@@ -293,7 +293,7 @@ const config: Config = {
     navbar: {
       // Navbar and logo follow the reader's color mode on every page.
       logo: {
-        alt: 'vLLM Semantic Router Logo',
+        alt: 'Meliclaw Decision Router Logo',
         src: 'img/vllm-sr-logo.light.png',
         srcDark: 'img/vllm-sr-logo.white.png',
       },
@@ -447,7 +447,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} vLLM Semantic Router Team.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Meliclaw Decision Router Team.`,
     },
     prism: {
       theme: lightCodeTheme,
@@ -494,14 +494,14 @@ const config: Config = {
       innerHTML: JSON.stringify({
         '@context': 'https://schema.org',
         '@type': 'SoftwareApplication',
-        'name': 'vLLM Semantic Router',
+        'name': 'Meliclaw Decision Router',
         'applicationCategory': 'AIInfrastructure',
         'operatingSystem': 'Cross-platform',
         'description': siteDefaultDescription,
         'url': 'https://vllm-sr.ai',
         'publisher': {
           '@type': 'Organization',
-          'name': 'vLLM Semantic Router Team',
+          'name': 'Meliclaw Decision Router Team',
           'url': 'https://github.com/vllm-project/semantic-router',
         },
       }),

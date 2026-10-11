@@ -1,6 +1,6 @@
 # Documentation Guide
 
-This guide covers how to contribute to the vLLM Semantic Router documentation.
+This guide covers how to contribute to the Meliclaw Decision Router documentation.
 
 ## Directory Structure
 

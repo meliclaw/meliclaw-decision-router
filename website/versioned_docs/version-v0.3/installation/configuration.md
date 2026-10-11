@@ -5,7 +5,7 @@ description: Practical guide to the v0.3 canonical YAML configuration contract a
 
 # Configuration
 
-Semantic Router v0.3 uses one canonical YAML contract across local CLI, dashboard, Helm, and the operator:
+Decision Router v0.3 uses one canonical YAML contract across local CLI, dashboard, Helm, and the operator:
 
 ```yaml
 version:

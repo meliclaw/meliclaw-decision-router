@@ -9,9 +9,9 @@ sidebar_position: 2
 
 # 使用 LLM-D 安装
 
-本指南提供了将 vLLM Semantic Router (vsr) 与 [LLM-D](https://github.com/llm-d/llm-d) 结合部署的分步说明。这也将说明一个关键设计模式，即使用 vsr 作为 model selector，而 LLM-D 负责所选模型池内的副本调度。
+本指南提供了将 Meliclaw Decision Router (vsr) 与 [LLM-D](https://github.com/llm-d/llm-d) 结合部署的分步说明。这也将说明一个关键设计模式，即使用 vsr 作为 model selector，而 LLM-D 负责所选模型池内的副本调度。
 
-Model selector 提供将 LLM 查询路由到多个完全不同的 LLM 模型之一的能力，而 LLM-D 在服务等效模型（通常是完全相同基础模型）的多个副本之间调度。因此，此部署展示了 vLLM Semantic Router 作为 model selector 如何与 LLM-D 的后端调度器互补。
+Model selector 提供将 LLM 查询路由到多个完全不同的 LLM 模型之一的能力，而 LLM-D 在服务等效模型（通常是完全相同基础模型）的多个副本之间调度。因此，此部署展示了 Meliclaw Decision Router 作为 model selector 如何与 LLM-D 的后端调度器互补。
 
 由于 LLM-D 有多种部署配置，其中一些需要更大的硬件设置，我们将演示 LLM-D 与 vsr 配合工作的基线版本，以介绍核心概念。当使用更复杂的 LLM-D 配置和生产级良好路径时，这些核心概念同样适用，如 LLM-D 仓库中[此链接](https://github.com/llm-d/llm-d/tree/main/guides)所述。
 
@@ -21,11 +21,11 @@ Model selector 提供将 LLM 查询路由到多个完全不同的 LLM 模型之�
 
 部署包含以下组件：
 
-- **vLLM Semantic Router**：为基于 Envoy 的 Gateway 提供智能请求路由和处理决策
+- **Meliclaw Decision Router**：为基于 Envoy 的 Gateway 提供智能请求路由和处理决策
 - **LLM-D**：用于大规模 LLM 推理的分布式推理平台，具有 SOTA 性能。
 - **Istio Gateway**：Istio 的 Kubernetes Gateway API 实现，底层使用 Envoy 代理
 - **Gateway API Inference Extension**：通过 ExtProc 服务器扩展 Gateway API 用于推理的附加 API
-- **两个 vLLM 实例各服务一个模型**：此拓扑中用于演示 Semantic Router 的示例后端 LLM
+- **两个 vLLM 实例各服务一个模型**：此拓扑中用于演示 Decision Router 的示例后端 LLM
 
 ## 前置条件
 
@@ -143,24 +143,24 @@ kubectl apply -f deploy/kubernetes/llmd-base/dest-rule-epp-phi4.yaml
 
 由于本指南基于使用与 [Istio 指南](istio)相同的后端模型，我们将重用该指南中的相同 vsr 配置，因此您不需要更新文件 deploy/kubernetes/istio/config.yaml。如果您在 LLM-D 部署中使用不同的后端模型，则需要更新此文件。
 
-## 步骤 7：部署 vLLM Semantic Router
+## 步骤 7：部署 Meliclaw Decision Router
 
-部署包含所有必需组件的 Semantic Router 服务：
+部署包含所有必需组件的 Decision Router 服务：
 
 ```bash
-# 使用 Kustomize 部署 Semantic Router 
+# 使用 Kustomize 部署 Decision Router 
 kubectl apply -k deploy/kubernetes/istio/
 
 # 等待部署就绪（模型下载可能需要几分钟）
-kubectl wait --for=condition=Available deployment/semantic-router -n vllm-semantic-router-system --timeout=600s
+kubectl wait --for=condition=Available deployment/semantic-router -n meliclaw-decision-router-system --timeout=600s
 
 # 验证部署状态
-kubectl get pods -n vllm-semantic-router-system
+kubectl get pods -n meliclaw-decision-router-system
 ```
 
 ## 步骤 6：VSR 连接的额外 Istio 配置
 
-安装 Istio gateway 使用 ExtProc 接口与 vLLM Semantic Router 所需的 destinationrule 和 envoy filter。
+安装 Istio gateway 使用 ExtProc 接口与 Meliclaw Decision Router 所需的 destinationrule 和 envoy filter。
 
 ```bash
 kubectl apply -f deploy/kubernetes/istio/destinationrule.yaml
@@ -185,7 +185,7 @@ minikube service inference-gateway-istio --url
 http://192.168.49.2:32293
 ```
 
-现在我们可以通过 curl 向 http://192.168.49.2:32293 发送 LLM prompt，访问 Istio gateway，然后使用 vLLM Semantic Router 的信息动态路由到我们在本例中作为后端使用的两个 LLM 之一。使用您从 "minikube service" 命令输出中获得的端口号在下面的 curl 示例中。
+现在我们可以通过 curl 向 http://192.168.49.2:32293 发送 LLM prompt，访问 Istio gateway，然后使用 Meliclaw Decision Router 的信息动态路由到我们在本例中作为后端使用的两个 LLM 之一。使用您从 "minikube service" 命令输出中获得的端口号在下面的 curl 示例中。
 
 ### 发送测试请求
 
@@ -258,7 +258,7 @@ vllm-phi4-mini-epp-6f5dd6bbb9-8pv27            1/1     Running   0          14h
 ```
 
 ```bash
-$ kubectl get pods -n vllm-semantic-router-system
+$ kubectl get pods -n meliclaw-decision-router-system
 NAME                              READY   STATUS    RESTARTS   AGE
 semantic-router-bf6cdd5b9-t5hpg   1/1     Running   0          5d23h
 ```
@@ -304,24 +304,24 @@ kubectl get svc inference-gateway-istio
 kubectl logs deploy/inference-gateway-istio -c istio-proxy
 ```
 
-** Semantic Router 无响应或路由不正确：**
+** Decision Router 无响应或路由不正确：**
 
 ```bash
-# 检查 Semantic Router  pod
-kubectl get pods -n vllm-semantic-router-system
+# 检查 Decision Router  pod
+kubectl get pods -n meliclaw-decision-router-system
 
-# 检查 Semantic Router 服务
-kubectl get svc -n vllm-semantic-router-system
+# 检查 Decision Router 服务
+kubectl get svc -n meliclaw-decision-router-system
 
-# 检查 Semantic Router 日志
-kubectl logs -n vllm-semantic-router-system deployment/semantic-router
+# 检查 Decision Router 日志
+kubectl logs -n meliclaw-decision-router-system deployment/semantic-router
 ```
 
 ## 清理
 
 ```bash
 
-# 删除 Semantic Router 
+# 删除 Decision Router 
 kubectl delete -k deploy/kubernetes/istio/
 
 # 删除 Istio
@@ -340,8 +340,8 @@ minikube delete
 
 ## 后续步骤
 
-- 测试/尝试 vLLM Semantic Router 的不同功能
+- 测试/尝试 Meliclaw Decision Router 的不同功能
 - 测试/尝试更复杂的 LLM-D 配置和良好路径
 - 设置监控和可观测性
 - 实施身份验证和授权
-- 为生产工作负载扩展 Semantic Router 部署
+- 为生产工作负载扩展 Decision Router 部署

@@ -36,7 +36,7 @@ flowchart LR
 | `direct_search` | Search the vector store before inference and inject bounded retrieved content. | The route requires synchronous, router-controlled retrieval. |
 | `tool_based` | Add an OpenAI `file_search` tool definition to the request. | The selected provider and request protocol support that tool workflow. |
 
-`direct_search` is the default. In `tool_based` mode, Semantic Router mutates the
+`direct_search` is the default. In `tool_based` mode, Decision Router mutates the
 request; it does not currently turn response annotations into injected context for a
 second model call.
 

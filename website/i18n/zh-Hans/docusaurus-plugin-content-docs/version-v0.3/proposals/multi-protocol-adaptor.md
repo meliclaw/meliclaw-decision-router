@@ -7,18 +7,18 @@ translation:
 
 # 设计文档：多协议适配器架构
 
-**作者：** vLLM Semantic Router 团队  
+**作者：** Meliclaw Decision Router 团队  
 **状态：** 待实现  
 **创建：** 2026 年 2 月  
 **最后更新：** 2026 年 2 月
 
 ## 概述
 
-本文描述 vLLM Semantic Router 的多协议适配器架构设计与实现思路，在 Envoy ExtProc 之外抽象 API 层，以支持多种前端协议。
+本文描述 Meliclaw Decision Router 的多协议适配器架构设计与实现思路，在 Envoy ExtProc 之外抽象 API 层，以支持多种前端协议。
 
 ## 背景
 
-Semantic Router 曾通过 gRPC 与 Envoy External Processor（ExtProc）紧耦合。这虽能与 Envoy 深度集成，但对以下用户形成门槛：
+Decision Router 曾通过 gRPC 与 Envoy External Processor（ExtProc）紧耦合。这虽能与 Envoy 深度集成，但对以下用户形成门槛：
 
 - 希望在不部署 Envoy 的情况下使用路由器
 - 偏好直接 HTTP/REST 集成
@@ -394,7 +394,7 @@ gRPC 双向流、WebSocket 适配器、插件化动态加载适配器、每适�
 
 - [OpenAI API Specification](https://platform.openai.com/docs/api-reference)
 - [Envoy ExtProc Documentation](https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/ext_proc_filter)
-- [vLLM Semantic Router Documentation](https://vllm-sr.ai)
+- [Meliclaw Decision Router Documentation](https://vllm-sr.ai)
 
 ## 附录
 

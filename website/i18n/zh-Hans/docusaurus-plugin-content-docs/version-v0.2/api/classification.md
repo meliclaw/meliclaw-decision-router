@@ -1,6 +1,6 @@
 # 管理 API 参考
 
-Classification API 提供对 Semantic Router 分类模型的直接访问，用于 intent 检测、PII 识别和安全分析。此 API 对于测试、调试和独立分类任务非常有用。
+Classification API 提供对 Decision Router 分类模型的直接访问，用于 intent 检测、PII 识别和安全分析。此 API 对于测试、调试和独立分类任务非常有用。
 
 ## API 端点
 
@@ -12,7 +12,7 @@ http://localhost:8080/api/v1/classify
 
 ## 服务器状态
 
-Classification API 服务器与主 Semantic Router ExtProc 服务器一起运行：
+Classification API 服务器与主 Decision Router ExtProc 服务器一起运行：
 
 - **Classification API**：`http://localhost:8080`（HTTP REST API）
 - **ExtProc 服务器**：`http://localhost:50051`（用于 Envoy 集成的 gRPC）
@@ -1056,4 +1056,4 @@ const api = new ClassificationAPI();
 }
 ```
 
-此 Classification API 提供对 Semantic Router 所有智能路由能力的全面访问，使开发人员能够构建具有高级文本理解和安全功能的复杂应用程序。
+此 Classification API 提供对 Decision Router 所有智能路由能力的全面访问，使开发人员能够构建具有高级文本理解和安全功能的复杂应用程序。

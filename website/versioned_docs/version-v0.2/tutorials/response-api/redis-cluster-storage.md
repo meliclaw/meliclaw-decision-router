@@ -79,7 +79,7 @@ docker exec redis-node-7001 redis-cli cluster info
 docker exec redis-node-7001 redis-cli cluster nodes
 ```
 
-### 2. Configure Semantic Router
+### 2. Configure Decision Router
 
 #### Option 1: Inline Configuration
 
@@ -121,7 +121,7 @@ response_api:
 
 Then edit `config/response-api/redis-cluster.yaml` with cluster addresses.
 
-### 3. Run Semantic Router
+### 3. Run Decision Router
 
 ```bash
 make build-router

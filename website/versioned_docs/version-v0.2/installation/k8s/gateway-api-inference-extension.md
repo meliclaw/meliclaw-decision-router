@@ -1,12 +1,12 @@
 # Install with Gateway API Inference Extension
 
-This guide provides step-by-step instructions for integrating the vLLM Semantic Router (vSR) with Istio and the Kubernetes Gateway API Inference Extension (GIE). This powerful combination allows you to manage self-hosted, OpenAI-compatible models using Kubernetes-native APIs for advanced, load-aware routing.
+This guide provides step-by-step instructions for integrating the Meliclaw Decision Router (vSR) with Istio and the Kubernetes Gateway API Inference Extension (GIE). This powerful combination allows you to manage self-hosted, OpenAI-compatible models using Kubernetes-native APIs for advanced, load-aware routing.
 
 ## Architecture Overview
 
 The deployment consists of three main components:
 
-- **vLLM Semantic Router**: The brain that classifies incoming requests based on their content.
+- **Meliclaw Decision Router**: The brain that classifies incoming requests based on their content.
 - **Istio & Gateway API**: The network mesh and the front door for all traffic entering the cluster.
 - **Gateway API Inference Extension (GIE)**: A set of Kubernetes-native APIs (`InferencePool`, etc.) for managing and scaling self-hosted model backends.
 
@@ -117,19 +117,19 @@ kubectl -n llm-backends apply -f https://raw.githubusercontent.com/vllm-project/
 kubectl -n llm-backends wait --for=condition=Ready pods --all --timeout=10m
 ```
 
-## Step 5: Deploy vLLM Semantic Router
+## Step 5: Deploy Meliclaw Decision Router
 
-Deploy the vLLM Semantic Router using its official Helm chart. This component will run as an `ext_proc` server that Istio calls for routing decisions.
+Deploy the Meliclaw Decision Router using its official Helm chart. This component will run as an `ext_proc` server that Istio calls for routing decisions.
 
 ```bash
 helm upgrade -i semantic-router oci://ghcr.io/vllm-project/charts/semantic-router \
   --version v0.0.0-latest \
-  --namespace vllm-semantic-router-system \
+  --namespace meliclaw-decision-router-system \
   --create-namespace \
   -f https://raw.githubusercontent.com/vllm-project/semantic-router/main/deploy/kubernetes/ai-gateway/semantic-router-values/values.yaml
 
 # Wait for the router to be ready
-kubectl -n vllm-semantic-router-system wait --for=condition=Available deploy/semantic-router --timeout=10m
+kubectl -n meliclaw-decision-router-system wait --for=condition=Available deploy/semantic-router --timeout=10m
 ```
 
 ## Step 6: Deploy Gateway and Routing Logic
@@ -177,7 +177,7 @@ curl -sS http://localhost:8080/v1/chat/completions \
   }'
 ```
 
-**Test 2: Let the Semantic Router choose the model**
+**Test 2: Let the Decision Router choose the model**
 By setting `"model": "auto"`, you ask vSR to classify the prompt. It will identify this as a "math" query and add the `x-selected-model: phi4-mini` header, which `HTTPRoute` uses to route the request.
 
 ```bash
@@ -220,11 +220,11 @@ kubectl logs $ISTIO_GW_POD -c istio-proxy | grep ext_proc
 ```
 
 **Problem: Requests are failing**
-Check the logs for the vLLM Semantic Router and the backend models.
+Check the logs for the Meliclaw Decision Router and the backend models.
 
 ```bash
 # Check vSR logs
-kubectl logs deploy/semantic-router -n vllm-semantic-router-system
+kubectl logs deploy/semantic-router -n meliclaw-decision-router-system
 
 # Check Llama3 backend logs
 kubectl logs -n llm-backends -l app=vllm-llama3-8b-instruct
@@ -246,7 +246,7 @@ kubectl delete -f https://raw.githubusercontent.com/vllm-project/semantic-router
 kubectl delete ns llm-backends
 
 # 2. Uninstall Helm releases
-helm uninstall semantic-router -n vllm-semantic-router-system
+helm uninstall semantic-router -n meliclaw-decision-router-system
 
 # 3. Uninstall Istio
 istioctl uninstall -y --purge

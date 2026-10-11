@@ -314,7 +314,7 @@ function RouterPipeline({
   return (
     <div className={styles.routerPipeline}>
       <header className={styles.pipelineHeader}>
-        <ThemedImage sources={logoSources} alt="vLLM Semantic Router" />
+        <ThemedImage sources={logoSources} alt="Meliclaw Decision Router" />
         <div>
           <span>
             <Translate id="homepage.integration.pipeline.eyebrow">Decision layer</Translate>

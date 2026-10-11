@@ -4,7 +4,7 @@ sidebar_position: 5
 
 # Milvus Semantic Cache
 
-This guide covers deploying Milvus as the semantic cache backend for the Semantic Router in Kubernetes. Milvus provides persistent, scalable vector storage compared to the default in-memory cache.
+This guide covers deploying Milvus as the semantic cache backend for the Decision Router in Kubernetes. Milvus provides persistent, scalable vector storage compared to the default in-memory cache.
 
 :::note
 Milvus is optional. The router works with the default memory backend out of the box. Use Milvus when you need persistence, horizontal scaling, or cache sharing across router replicas.
@@ -49,7 +49,7 @@ helm install milvus-semantic-cache milvus/milvus \
   --set minio.mode=standalone \
   --set pulsar.enabled=false \
   --set metrics.serviceMonitor.enabled=false \
-  --namespace vllm-semantic-router-system --create-namespace
+  --namespace meliclaw-decision-router-system --create-namespace
 ```
 
 **With Prometheus Operator** (production with monitoring):
@@ -60,7 +60,7 @@ helm install milvus-semantic-cache milvus/milvus \
   --set etcd.replicaCount=1 \
   --set minio.mode=standalone \
   --set pulsar.enabled=false \
-  --namespace vllm-semantic-router-system --create-namespace
+  --namespace meliclaw-decision-router-system --create-namespace
 ```
 
 ### Cluster Mode
@@ -86,7 +86,7 @@ helm install milvus-semantic-cache milvus/milvus \
   --set pulsar.enabled=false \
   --set pulsarv3.enabled=true \
   --set metrics.serviceMonitor.enabled=false \
-  --namespace vllm-semantic-router-system --create-namespace
+  --namespace meliclaw-decision-router-system --create-namespace
 ```
 
 **With Prometheus Operator** (production with monitoring):
@@ -98,7 +98,7 @@ helm install milvus-semantic-cache milvus/milvus \
   --set minio.mode=distributed \
   --set pulsar.enabled=false \
   --set pulsarv3.enabled=true \
-  --namespace vllm-semantic-router-system --create-namespace
+  --namespace meliclaw-decision-router-system --create-namespace
 ```
 
 ## Deploy with Milvus Operator
@@ -110,7 +110,7 @@ helm install milvus-semantic-cache milvus/milvus \
 **Standalone:**
 
 ```bash
-kubectl apply -n vllm-semantic-router-system -f - <<EOF
+kubectl apply -n meliclaw-decision-router-system -f - <<EOF
 apiVersion: milvus.io/v1beta1
 kind: Milvus
 metadata:
@@ -137,7 +137,7 @@ EOF
 **Cluster:**
 
 ```bash
-kubectl apply -n vllm-semantic-router-system -f - <<EOF
+kubectl apply -n meliclaw-decision-router-system -f - <<EOF
 apiVersion: milvus.io/v1beta1
 kind: Milvus
 metadata:
@@ -166,12 +166,12 @@ spec:
 EOF
 ```
 
-## Configure Semantic Router
+## Configure Decision Router
 
 ### Apply Milvus Client Config
 
 ```bash
-kubectl apply -n vllm-semantic-router-system -f - <<EOF
+kubectl apply -n meliclaw-decision-router-system -f - <<EOF
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -179,7 +179,7 @@ metadata:
 data:
   milvus.yaml: |
     connection:
-      host: "milvus-semantic-cache.vllm-semantic-router-system.svc.cluster.local"
+      host: "milvus-semantic-cache.meliclaw-decision-router-system.svc.cluster.local"
       port: 19530
       timeout: 60
       auth:
@@ -226,7 +226,7 @@ semantic_cache:
 Restrict access to Milvus:
 
 ```bash
-kubectl apply -n vllm-semantic-router-system -f - <<EOF
+kubectl apply -n meliclaw-decision-router-system -f - <<EOF
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -241,7 +241,7 @@ spec:
     - from:
         - namespaceSelector:
             matchLabels:
-              kubernetes.io/metadata.name: vllm-semantic-router-system
+              kubernetes.io/metadata.name: meliclaw-decision-router-system
           podSelector:
             matchLabels:
               app.kubernetes.io/name: semantic-router
@@ -257,12 +257,12 @@ EOF
 
 ```bash
 # Auth credentials
-kubectl create secret generic milvus-auth -n vllm-semantic-router-system \
+kubectl create secret generic milvus-auth -n meliclaw-decision-router-system \
   --from-literal=username="YOUR_USERNAME" \
   --from-literal=password="YOUR_PASSWORD"
 
 # TLS certificates
-kubectl create secret generic milvus-tls -n vllm-semantic-router-system \
+kubectl create secret generic milvus-tls -n meliclaw-decision-router-system \
   --from-file=ca.crt=/path/to/ca.crt \
   --from-file=client.crt=/path/to/client.crt \
   --from-file=client.key=/path/to/client.key
@@ -272,7 +272,7 @@ kubectl create secret generic milvus-tls -n vllm-semantic-router-system \
 
 ```yaml
 connection:
-  host: "milvus-cluster.vllm-semantic-router-system.svc.cluster.local"
+  host: "milvus-cluster.meliclaw-decision-router-system.svc.cluster.local"
   port: 19530
   timeout: 60
   auth:
@@ -319,13 +319,13 @@ helm install milvus-semantic-cache milvus/milvus \
   --set etcd.replicaCount=1 \
   --set minio.mode=standalone \
   --set pulsar.enabled=false \
-  --namespace vllm-semantic-router-system --create-namespace
+  --namespace meliclaw-decision-router-system --create-namespace
 ```
 
 ### Verify ServiceMonitor
 
 ```bash
-kubectl get servicemonitor -n vllm-semantic-router-system
+kubectl get servicemonitor -n meliclaw-decision-router-system
 ```
 
 ### Disable Monitoring (Optional)
@@ -339,7 +339,7 @@ helm install milvus-semantic-cache milvus/milvus \
   --set minio.mode=standalone \
   --set pulsar.enabled=false \
   --set metrics.serviceMonitor.enabled=false \
-  --namespace vllm-semantic-router-system --create-namespace
+  --namespace meliclaw-decision-router-system --create-namespace
 ```
 
 ## Migration from Memory Cache
@@ -360,24 +360,24 @@ helm install milvus-semantic-cache milvus/milvus \
   --set minio.mode=standalone \
   --set pulsar.enabled=false \
   --set metrics.serviceMonitor.enabled=false \
-  --namespace vllm-semantic-router-system --create-namespace
+  --namespace meliclaw-decision-router-system --create-namespace
 
 # Step 2: Wait for ready
 kubectl wait --for=condition=ready pod -l app.kubernetes.io/name=milvus \
-  -n vllm-semantic-router-system --timeout=300s
+  -n meliclaw-decision-router-system --timeout=300s
 
 # Step 3: Update router config (set backend_type: "milvus")
-kubectl edit configmap semantic-router-config -n vllm-semantic-router-system
+kubectl edit configmap semantic-router-config -n meliclaw-decision-router-system
 
 # Step 4: Restart router
-kubectl rollout restart deployment/semantic-router -n vllm-semantic-router-system
+kubectl rollout restart deployment/semantic-router -n meliclaw-decision-router-system
 ```
 
 ### Validation
 
 ```bash
 # Check logs for Milvus connection
-kubectl logs -l app=semantic-router -n vllm-semantic-router-system | grep -i milvus
+kubectl logs -l app=semantic-router -n meliclaw-decision-router-system | grep -i milvus
 
 # Test cache functionality
 curl -X POST http://<router-endpoint>/v1/chat/completions \
@@ -400,14 +400,14 @@ curl -X POST http://<router-endpoint>/v1/chat/completions \
 
 ```bash
 # Revert to memory backend
-kubectl patch configmap semantic-router-config -n vllm-semantic-router-system \
+kubectl patch configmap semantic-router-config -n meliclaw-decision-router-system \
   --type merge -p '{"data":{"config.yaml":"semantic_cache:\n  backend_type: \"memory\""}}'
 
 # Restart router
-kubectl rollout restart deployment/semantic-router -n vllm-semantic-router-system
+kubectl rollout restart deployment/semantic-router -n meliclaw-decision-router-system
 
 # Verify
-kubectl logs -l app=semantic-router -n vllm-semantic-router-system | grep -i "cache"
+kubectl logs -l app=semantic-router -n meliclaw-decision-router-system | grep -i "cache"
 ```
 
 :::note
@@ -429,7 +429,7 @@ tar -xzf milvus-backup_Linux_x86_64.tar.gz
 
 # Create backup
 ./milvus-backup create -n semantic_cache_backup \
-  --milvus.address milvus-cluster.vllm-semantic-router-system.svc.cluster.local:19530
+  --milvus.address milvus-cluster.meliclaw-decision-router-system.svc.cluster.local:19530
 
 # List / Restore
 ./milvus-backup list
@@ -445,7 +445,7 @@ apiVersion: snapshot.storage.k8s.io/v1
 kind: VolumeSnapshot
 metadata:
   name: milvus-data-snapshot
-  namespace: vllm-semantic-router-system
+  namespace: meliclaw-decision-router-system
 spec:
   volumeSnapshotClassName: csi-snapclass
   source:
@@ -468,13 +468,13 @@ mc replicate add myminio/milvus-bucket --remote-bucket milvus-bucket-dr \
 
 ```bash
 # Stop router
-kubectl scale deployment/semantic-router -n vllm-semantic-router-system --replicas=0
+kubectl scale deployment/semantic-router -n meliclaw-decision-router-system --replicas=0
 
 # Restore
 ./milvus-backup restore -n semantic_cache_backup --restore_index
 
 # Restart router
-kubectl scale deployment/semantic-router -n vllm-semantic-router-system --replicas=3
+kubectl scale deployment/semantic-router -n meliclaw-decision-router-system --replicas=3
 ```
 
 **From VolumeSnapshot:**
@@ -485,7 +485,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: milvus-data-restored
-  namespace: vllm-semantic-router-system
+  namespace: meliclaw-decision-router-system
 spec:
   dataSource:
     name: milvus-data-snapshot
@@ -514,7 +514,7 @@ EOF
 **Symptom**: Both `pulsar` and `pulsarv3` pods are running in cluster mode
 
 ```bash
-kubectl get pods -n vllm-semantic-router-system | grep pulsar
+kubectl get pods -n meliclaw-decision-router-system | grep pulsar
 # Shows both milvus-semantic-cache-pulsar-* and milvus-semantic-cache-pulsarv3-* pods
 ```
 
@@ -524,7 +524,7 @@ kubectl get pods -n vllm-semantic-router-system | grep pulsar
 
 ```bash
 # Uninstall existing release
-helm uninstall milvus-semantic-cache -n vllm-semantic-router-system
+helm uninstall milvus-semantic-cache -n meliclaw-decision-router-system
 
 # Reinstall with correct configuration
 helm install milvus-semantic-cache milvus/milvus \
@@ -534,7 +534,7 @@ helm install milvus-semantic-cache milvus/milvus \
   --set pulsar.enabled=false \
   --set pulsarv3.enabled=true \
   --set metrics.serviceMonitor.enabled=false \
-  --namespace vllm-semantic-router-system --create-namespace
+  --namespace meliclaw-decision-router-system --create-namespace
 ```
 
 ### ServiceMonitor CRD Not Found
@@ -543,7 +543,7 @@ helm install milvus-semantic-cache milvus/milvus \
 
 ```
 Error: INSTALLATION FAILED: unable to build kubernetes objects from release manifest: 
-resource mapping not found for name: "milvus-semantic-cache-milvus-standalone" namespace: "vllm-semantic-router-system" 
+resource mapping not found for name: "milvus-semantic-cache-milvus-standalone" namespace: "meliclaw-decision-router-system" 
 from "": no matches for kind "ServiceMonitor" in version "monitoring.coreos.com/v1"
 ensure CRDs are installed first
 ```
@@ -558,7 +558,7 @@ helm install milvus-semantic-cache milvus/milvus \
   --set minio.mode=standalone \
   --set pulsar.enabled=false \
   --set metrics.serviceMonitor.enabled=false \
-  --namespace vllm-semantic-router-system --create-namespace
+  --namespace meliclaw-decision-router-system --create-namespace
 
 # Option 2: Install Prometheus Operator first
 kubectl apply -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/main/bundle.yaml
@@ -570,21 +570,21 @@ kubectl apply -f https://raw.githubusercontent.com/prometheus-operator/prometheu
 
 ```bash
 # Verify Milvus is running
-kubectl get pods -l app.kubernetes.io/name=milvus -n vllm-semantic-router-system
+kubectl get pods -l app.kubernetes.io/name=milvus -n meliclaw-decision-router-system
 
 # Check service endpoint
-kubectl get svc -l app.kubernetes.io/name=milvus -n vllm-semantic-router-system
+kubectl get svc -l app.kubernetes.io/name=milvus -n meliclaw-decision-router-system
 
 # Test connectivity from router pod
-kubectl exec -it deploy/semantic-router -n vllm-semantic-router-system -- \
-  nc -zv milvus-cluster.vllm-semantic-router-system.svc.cluster.local 19530
+kubectl exec -it deploy/semantic-router -n meliclaw-decision-router-system -- \
+  nc -zv milvus-cluster.meliclaw-decision-router-system.svc.cluster.local 19530
 
 # Check NetworkPolicy
-kubectl get networkpolicy -n vllm-semantic-router-system
+kubectl get networkpolicy -n meliclaw-decision-router-system
 
 # Verify DNS
-kubectl exec -it deploy/semantic-router -n vllm-semantic-router-system -- \
-  nslookup milvus-cluster.vllm-semantic-router-system.svc.cluster.local
+kubectl exec -it deploy/semantic-router -n meliclaw-decision-router-system -- \
+  nslookup milvus-cluster.meliclaw-decision-router-system.svc.cluster.local
 ```
 
 ### Authentication Failures
@@ -593,13 +593,13 @@ kubectl exec -it deploy/semantic-router -n vllm-semantic-router-system -- \
 
 ```bash
 # Verify credentials
-kubectl get secret milvus-auth -n vllm-semantic-router-system -o jsonpath='{.data.username}' | base64 -d
+kubectl get secret milvus-auth -n meliclaw-decision-router-system -o jsonpath='{.data.username}' | base64 -d
 
 # Check auth in Milvus logs
-kubectl logs -l app.kubernetes.io/component=proxy -n vllm-semantic-router-system | grep -i auth
+kubectl logs -l app.kubernetes.io/component=proxy -n meliclaw-decision-router-system | grep -i auth
 
 # Verify router config
-kubectl get configmap milvus-client-config -n vllm-semantic-router-system -o yaml
+kubectl get configmap milvus-client-config -n meliclaw-decision-router-system -o yaml
 ```
 
 ### Performance Issues
@@ -608,10 +608,10 @@ kubectl get configmap milvus-client-config -n vllm-semantic-router-system -o yam
 
 ```bash
 # Check resource usage
-kubectl top pods -l app.kubernetes.io/name=milvus -n vllm-semantic-router-system
+kubectl top pods -l app.kubernetes.io/name=milvus -n meliclaw-decision-router-system
 
 # Review metrics
-kubectl port-forward svc/milvus-cluster 9091:9091 -n vllm-semantic-router-system
+kubectl port-forward svc/milvus-cluster 9091:9091 -n meliclaw-decision-router-system
 # Visit http://localhost:9091/metrics
 ```
 
@@ -631,11 +631,11 @@ print(col.index())
 
 ```bash
 # List collections
-kubectl exec -it deploy/milvus-cluster-proxy -n vllm-semantic-router-system -- \
+kubectl exec -it deploy/milvus-cluster-proxy -n meliclaw-decision-router-system -- \
   curl -s localhost:9091/api/v1/collections
 
 # Check auto_create setting
-kubectl get configmap milvus-client-config -n vllm-semantic-router-system -o yaml | grep auto_create
+kubectl get configmap milvus-client-config -n meliclaw-decision-router-system -o yaml | grep auto_create
 ```
 
 Manual collection creation:
@@ -664,16 +664,16 @@ collection.create_index("embedding", {
 
 ```bash
 # Check PVC status
-kubectl get pvc -n vllm-semantic-router-system
+kubectl get pvc -n meliclaw-decision-router-system
 
 # Check StorageClass
 kubectl get sc
 
 # Check available storage
-kubectl exec -it deploy/milvus-cluster-datanode -n vllm-semantic-router-system -- df -h
+kubectl exec -it deploy/milvus-cluster-datanode -n meliclaw-decision-router-system -- df -h
 
 # Expand PVC
-kubectl patch pvc milvus-data -n vllm-semantic-router-system \
+kubectl patch pvc milvus-data -n meliclaw-decision-router-system \
   -p '{"spec":{"resources":{"requests":{"storage":"50Gi"}}}}'
 ```
 
@@ -683,13 +683,13 @@ kubectl patch pvc milvus-data -n vllm-semantic-router-system \
 
 ```bash
 # Check events
-kubectl describe pod -l app.kubernetes.io/name=milvus -n vllm-semantic-router-system
+kubectl describe pod -l app.kubernetes.io/name=milvus -n meliclaw-decision-router-system
 
 # Check previous logs
-kubectl logs -l app.kubernetes.io/name=milvus -n vllm-semantic-router-system --previous
+kubectl logs -l app.kubernetes.io/name=milvus -n meliclaw-decision-router-system --previous
 
 # Increase memory
-kubectl patch deployment milvus-cluster-proxy -n vllm-semantic-router-system \
+kubectl patch deployment milvus-cluster-proxy -n meliclaw-decision-router-system \
   --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/resources/limits/memory", "value":"4Gi"}]'
 ```
 
@@ -697,18 +697,18 @@ kubectl patch deployment milvus-cluster-proxy -n vllm-semantic-router-system \
 
 ```bash
 # Overall health
-kubectl get all -l app.kubernetes.io/name=milvus -n vllm-semantic-router-system
+kubectl get all -l app.kubernetes.io/name=milvus -n meliclaw-decision-router-system
 
 # Component logs
-kubectl logs -l app.kubernetes.io/component=proxy -n vllm-semantic-router-system --tail=100
-kubectl logs -l app.kubernetes.io/component=datanode -n vllm-semantic-router-system --tail=100
-kubectl logs -l app.kubernetes.io/component=querynode -n vllm-semantic-router-system --tail=100
+kubectl logs -l app.kubernetes.io/component=proxy -n meliclaw-decision-router-system --tail=100
+kubectl logs -l app.kubernetes.io/component=datanode -n meliclaw-decision-router-system --tail=100
+kubectl logs -l app.kubernetes.io/component=querynode -n meliclaw-decision-router-system --tail=100
 
 # etcd health (cluster mode)
-kubectl exec -it milvus-cluster-etcd-0 -n vllm-semantic-router-system -- etcdctl endpoint health
+kubectl exec -it milvus-cluster-etcd-0 -n meliclaw-decision-router-system -- etcdctl endpoint health
 
 # MinIO health (cluster mode)
-kubectl exec -it milvus-cluster-minio-0 -n vllm-semantic-router-system -- mc admin info local
+kubectl exec -it milvus-cluster-minio-0 -n meliclaw-decision-router-system -- mc admin info local
 ```
 
 ## Next Steps

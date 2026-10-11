@@ -18,7 +18,7 @@ resources:
 commonLabels:
   app.kubernetes.io/name: semantic-router
   app.kubernetes.io/component: gateway
-  app.kubernetes.io/part-of: vllm-semantic-router
+  app.kubernetes.io/part-of: meliclaw-decision-router
 
 # Optional: Add namespace creation if needed
 # - namespace.yaml

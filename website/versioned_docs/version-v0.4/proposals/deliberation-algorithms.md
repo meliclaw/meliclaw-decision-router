@@ -1,5 +1,5 @@
 ---
-title: Deliberation Algorithms for vLLM Semantic Router
+title: Deliberation Algorithms for Meliclaw Decision Router
 description: Evaluates multi-model deliberation strategies and proposes grounding-aware synthesis as the next algorithm.
 created: 2026-06-17
 status: Proposal

@@ -11,7 +11,7 @@ import ThemedImage from '@theme/ThemedImage';
 <div className="docs-intro-brand">
   <ThemedImage
     className="docs-intro-brand__logo"
-    alt="vLLM Semantic Router"
+    alt="Meliclaw Decision Router"
     sources={{
       light: '/img/vllm-sr-logo.light.png',
       dark: '/img/vllm-sr-logo.white.png',
@@ -20,7 +20,7 @@ import ThemedImage from '@theme/ThemedImage';
   <p className="docs-intro-brand__tagline">An open, programmable <strong>decision layer</strong> for models and compute.</p>
 </div>
 
-Give your agent harness a stable model API. vLLM Semantic Router selects or
+Give your agent harness a stable model API. Meliclaw Decision Router selects or
 combines models through explicit policy, behind an OpenAI- or Anthropic-compatible
 endpoint. Change the models and policy without rewriting the harness integration.
 
@@ -69,6 +69,6 @@ run the Chat backends and manage their placement, batching, and capacity.
 
 ## Project
 
-vLLM Semantic Router is open source under the Apache 2.0 license. See the
+Meliclaw Decision Router is open source under the Apache 2.0 license. See the
 [contributing guide](https://github.com/vllm-project/semantic-router/blob/main/CONTRIBUTING.md)
 to propose a change or join the community.

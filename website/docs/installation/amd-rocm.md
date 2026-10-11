@@ -5,7 +5,7 @@ description: Connect an AMD vLLM backend and run Vela routing models on AMD GPUs
 
 # Deploy with AMD ROCm
 
-Semantic Router can run on CPU while vLLM serves the selected model on AMD
+Decision Router can run on CPU while vLLM serves the selected model on AMD
 Instinct GPUs. This guide starts one ROCm backend, verifies it directly, and
 then connects it to the local Router stack. To also run all ten Vela routing
 task models on AMD, use the [Vela AMD recipe](#run-vela-routing-models-on-amd)
@@ -127,7 +127,7 @@ curl --fail http://127.0.0.1:8000/v1/chat/completions \
 Do not continue until the direct generation request succeeds. Router validation
 checks routing configuration; it does not prove that a provider can generate.
 
-## Install and configure Semantic Router
+## Install and configure Decision Router
 
 Install the CLI as the [Quickstart](installation/installation.md#install) describes. To
 install only the CLI, without starting the stack:

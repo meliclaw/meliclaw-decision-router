@@ -5,7 +5,7 @@ sidebar_label: Common Errors
 
 # Common Errors and Fixes
 
-This guide provides a quick reference for common log messages and errors you may encounter when running vLLM Semantic Router. Each section maps error patterns to their root causes and configuration fixes.
+This guide provides a quick reference for common log messages and errors you may encounter when running Meliclaw Decision Router. Each section maps error patterns to their root causes and configuration fixes.
 
 :::tip
 Use the [Quick Diagnostic Commands](#quick-diagnostic-commands) at the end of this page to quickly identify issues.

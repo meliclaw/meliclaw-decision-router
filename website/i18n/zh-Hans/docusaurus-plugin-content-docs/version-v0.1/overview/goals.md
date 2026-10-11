@@ -98,6 +98,6 @@ LLM 系统面临独特的安全挑战：
 
 了解有关核心概念的更多信息：
 
-- [什么是 Semantic Router？](semantic-router-overview.md) - 了解 Semantic Router
+- [什么是 Decision Router？](semantic-router-overview.md) - 了解 Decision Router
 - [什么是 Collective Intelligence？](collective-intelligence.md) - signal 如何创造智能
 - [什么是 Signal-Driven Decision？](signal-driven-decisions.md) - 深入解 Decision Engine

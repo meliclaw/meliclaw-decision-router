@@ -1,11 +1,11 @@
 ---
 title: Kubernetes Gateways
-description: Choose how a Kubernetes gateway calls Semantic Router through Envoy ExtProc.
+description: Choose how a Kubernetes gateway calls Decision Router through Envoy ExtProc.
 ---
 
 # Kubernetes Gateways
 
-Semantic Router can run behind several Kubernetes gateways that call it through
+Decision Router can run behind several Kubernetes gateways that call it through
 Envoy ExtProc. The routing policy stays the same; the gateway-specific resources
 determine when ExtProc runs, how the selected model reaches a backend, and which
 component owns authentication or traffic policy.
@@ -16,8 +16,8 @@ component owns authentication or traffic policy.
 | --- | --- | --- |
 | Envoy AI Gateway | [Envoy AI Gateway](ai-gateway) | Provider translation, provider credentials, rate limits, and Gateway API traffic policy. |
 | agentgateway | [agentgateway](agentgateway) | Gateway API proxy, backend resources, and ExtProc phase policy. |
-| Istio | [Istio Gateway](istio) | Ingress, `HTTPRoute` processing, and the Envoy filter that calls Semantic Router. |
-| Gateway API Inference Extension | [GIE](gateway-api-inference-extension) | `InferencePool` endpoint selection after Semantic Router chooses a model pool. |
+| Istio | [Istio Gateway](istio) | Ingress, `HTTPRoute` processing, and the Envoy filter that calls Decision Router. |
+| Gateway API Inference Extension | [GIE](gateway-api-inference-extension) | `InferencePool` endpoint selection after Decision Router chooses a model pool. |
 
 Envoy AI Gateway and agentgateway are the
 [AI Gateway](../../overview/semantic-router-overview#protocol-and-deployment-boundaries)
@@ -33,7 +33,7 @@ security policy, and upgrade requirements.
 All integrations must agree on:
 
 1. the public model or entrypoint requested by the client;
-2. the model name written by Semantic Router;
+2. the model name written by Decision Router;
 3. the Gateway API match or provider backend for that model; and
 4. the served model identity accepted by the inference endpoint.
 

@@ -36,7 +36,7 @@ const homepageMetaDescription = translate({
 })
 const homepageSocialTitle = translate({
   id: 'homepage.meta.socialTitle',
-  message: 'Intelligence Beyond Any One Model | vLLM Semantic Router',
+  message: 'Intelligence Beyond Any One Model | Meliclaw Decision Router',
 })
 
 const heroStats = [
@@ -137,13 +137,13 @@ export default function Home(): JSX.Element {
   const homepageStructuredData = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    'name': 'vLLM Semantic Router',
+    'name': 'Meliclaw Decision Router',
     'url': siteConfig.url,
     'description': homepageMetaDescription,
     'inLanguage': ['en-US', 'zh-Hans'],
     'publisher': {
       '@type': 'Organization',
-      'name': 'vLLM Semantic Router Team',
+      'name': 'Meliclaw Decision Router Team',
       'url': 'https://github.com/vllm-project/semantic-router',
     },
     'sameAs': [
@@ -161,7 +161,7 @@ export default function Home(): JSX.Element {
         <meta property="og:image" content={ogImage} />
         <meta
           property="og:image:alt"
-          content="vLLM Semantic Router social preview"
+          content="Meliclaw Decision Router social preview"
         />
         <meta property="og:type" content="website" />
         <meta
@@ -174,7 +174,7 @@ export default function Home(): JSX.Element {
         <meta name="twitter:image" content={ogImage} />
         <meta
           name="twitter:image:alt"
-          content="vLLM Semantic Router social preview"
+          content="Meliclaw Decision Router social preview"
         />
         <script
           type="application/ld+json"

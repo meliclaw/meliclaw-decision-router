@@ -18,7 +18,7 @@ maintained Fleet Sim web docs.
 - Use the docs pages in this `Fleet Sim` section for the maintained web-native reference.
 - Use the PDF when you want a single offline snapshot for review or sharing.
 - Use the TeX and bibliography files when you need to adapt or cite the guide material.
-- The rendered guide is attributed to the `vLLM Semantic Router Team`.
+- The rendered guide is attributed to the `Meliclaw Decision Router Team`.
 
 ## Preferred reading path
 

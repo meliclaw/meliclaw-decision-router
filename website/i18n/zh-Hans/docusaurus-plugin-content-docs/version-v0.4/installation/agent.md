@@ -1,7 +1,7 @@
 ---
 sidebar_position: 2
 title: 使用 Agent 安装
-description: 向 Agent 提供一条提示词，即可通过 CLI 和 Router API 完成 vLLM Semantic Router 的安装、配置与验证。
+description: 向 Agent 提供一条提示词，即可通过 CLI 和 Router API 完成 Meliclaw Decision Router 的安装、配置与验证。
 translation:
   source_commit: "aa8c4a7d17848ba060a509ea9917b380a1c25f7f"
   source_file: "docs/installation/agent.md"
@@ -16,7 +16,7 @@ import {
 
 # 使用 Agent 安装
 
-将此提示词粘贴到可以使用终端、并能访问目标机器的编码 Agent 中，即可安装 vLLM Semantic Router：
+将此提示词粘贴到可以使用终端、并能访问目标机器的编码 Agent 中，即可安装 Meliclaw Decision Router：
 
 <CodeBlock language="text">{AGENT_INSTALL_PROMPT}</CodeBlock>
 

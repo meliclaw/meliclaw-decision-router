@@ -1,6 +1,6 @@
 # Hallucination Detection
 
-Semantic Router provides advanced hallucination detection to verify that LLM responses are grounded in the provided context. The system uses fine-tuned ModernBERT token classifiers to identify claims that are not supported by retrieval results or tool outputs.
+Decision Router provides advanced hallucination detection to verify that LLM responses are grounded in the provided context. The system uses fine-tuned ModernBERT token classifiers to identify claims that are not supported by retrieval results or tool outputs.
 
 ## Overview
 

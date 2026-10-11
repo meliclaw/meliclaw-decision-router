@@ -99,6 +99,6 @@ We envision a future where:
 
 Learn more about the core concepts:
 
-- [What is Semantic Router?](semantic-router-overview) - Understanding semantic routing
+- [What is Decision Router?](semantic-router-overview) - Understanding semantic routing
 - [What is Collective Intelligence?](collective-intelligence) - How signals create intelligence
 - [What is Signal-Driven Decision?](signal-driven-decisions) - Deep dive into the decision engine

@@ -98,7 +98,7 @@ make start-milvus
 curl http://localhost:19530/health
 ```
 
-### 2. 配置Semantic Router 
+### 2. 配置Decision Router 
 
 基础 Milvus 配置：
 
@@ -145,7 +145,7 @@ decisions:
           similarity_threshold: 0.95  # 对数学准确性要求非常严格
 ```
 
-### 3. 运行Semantic Router 
+### 3. 运行Decision Router 
 
 ```bash
 # 启动路由

@@ -4,7 +4,7 @@ sidebar_position: 6
 
 # Valkey Agentic Memory
 
-This guide covers deploying Valkey as the agentic memory backend for the Semantic Router. Valkey provides a lightweight, Redis-compatible alternative to Milvus for vector similarity storage using the built-in Search module.
+This guide covers deploying Valkey as the agentic memory backend for the Decision Router. Valkey provides a lightweight, Redis-compatible alternative to Milvus for vector similarity storage using the built-in Search module.
 
 :::note
 Valkey is optional. The default memory backend is Milvus. Use Valkey when you want a single-binary deployment without external dependencies like etcd or MinIO, or when you already run Valkey for caching.
@@ -78,7 +78,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: valkey-memory
-  namespace: vllm-semantic-router-system
+  namespace: meliclaw-decision-router-system
 spec:
   serviceName: valkey-memory
   replicas: 1
@@ -119,7 +119,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: valkey-memory
-  namespace: vllm-semantic-router-system
+  namespace: meliclaw-decision-router-system
 spec:
   selector:
     app: valkey-memory

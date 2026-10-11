@@ -6,7 +6,7 @@ description: Verify gateway reachability, direct model requests, semantic routin
 
 # Test a Kubernetes Gateway Deployment
 
-Use this checklist after installing Semantic Router behind Istio, Envoy
+Use this checklist after installing Decision Router behind Istio, Envoy
 Gateway, Gateway API Inference Extension, or another supported gateway.
 
 ## 1. Resolve the real gateway address

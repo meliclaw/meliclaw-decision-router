@@ -9,7 +9,7 @@ translation:
 
 # 推理平台
 
-推理平台和 Semantic Router 解决不同的路由问题。Semantic Router 根据请求含义和策略选择模型或模型池。推理平台部署该模型，并根据容量、局部性和健康状况选择副本。
+推理平台和 Decision Router 解决不同的路由问题。Decision Router 根据请求含义和策略选择模型或模型池。推理平台部署该模型，并根据容量、局部性和健康状况选择副本。
 
 ## 选择集成
 
@@ -26,7 +26,7 @@ translation:
 
 对每个模型池，对齐：
 
-- Semantic Router 提供商名称和 `provider_model_id`；
+- Decision Router 提供商名称和 `provider_model_id`；
 - 平台所服务的模型标识；
 - 稳定的 Service、Gateway 或前端地址；以及
 - 路由策略声明的模态、上下文、工具和协议能力。

@@ -5,7 +5,7 @@ description: Choose backing services for cache, memory, replay, response history
 
 # Data and Storage
 
-Semantic Router can run without an external vector database, but several
+Decision Router can run without an external vector database, but several
 optional capabilities persist or share data. Choose stores by capability,
 durability, scale, and data-handling policy rather than by product name alone.
 

@@ -156,5 +156,5 @@ providers:
 ## 参考资料 {#references}
 
 - [Router API](../api/router)
-- [Semantic Router 系统概览](../overview/semantic-router-overview)
+- [Decision Router 系统概览](../overview/semantic-router-overview)
 - [网关部署选项](../installation/k8s/gateways)

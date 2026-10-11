@@ -50,7 +50,7 @@ export default function SteeringCommittee(): ReactNode {
   return (
     <Layout
       title="Steering Committee"
-      description="The Industry and Academic tracks of the vLLM Semantic Router Steering Committee"
+      description="The Industry and Academic tracks of the Meliclaw Decision Router Steering Committee"
     >
       <CommunityLayout
         activeKey="steering-committee"

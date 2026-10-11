@@ -116,7 +116,7 @@ python mmlu_pro_vllm_eval.py \
   --samples-per-category 10
   --use-cot 
 
-# If you have set up Semantic Router properly, you can run in one go
+# If you have set up Decision Router properly, you can run in one go
 python mmlu_pro_vllm_eval.py \
   --endpoint http://localhost:8801/v1 \
   --models qwen3-0.6B, phi4 \

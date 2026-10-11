@@ -8,7 +8,7 @@ sidebar_position: 2
 
 # 安装
 
-本指南将帮助您安装和运行 vLLM Semantic Router。Router 完全在 CPU 上运行，推理不需要 GPU。
+本指南将帮助您安装和运行 Meliclaw Decision Router。Router 完全在 CPU 上运行，推理不需要 GPU。
 
 ## 系统要求
 
@@ -23,7 +23,7 @@ sidebar_position: 2
 
 ## 快速开始
 
-### 1. 安装 vLLM Semantic Router
+### 1. 安装 Meliclaw Decision Router
 
 ```bash
 # 创建虚拟环境（推荐）
@@ -53,7 +53,7 @@ Router 将：
 - 自动下载所需的 ML 模型（约 1.5GB，一次性）
 - 在端口 8700 上启动 dashboard
 - 激活后在端口 8888 上启动 Envoy Proxy
-- 激活后启动 Semantic Router 服务
+- 激活后启动 Decision Router 服务
 - 在端口 9190 上启用 metrics
 
 ### 3. 打开 Dashboard

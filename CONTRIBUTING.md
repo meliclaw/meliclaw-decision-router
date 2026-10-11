@@ -1,4 +1,4 @@
-# Contributing to vLLM Semantic Router
+# Contributing to Meliclaw Decision Router
 
 Thank you for contributing. This guide covers the repository workflow; the
 public installation guide is at <https://vllm-sr.ai/docs/installation/>.

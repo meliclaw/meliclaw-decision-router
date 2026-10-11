@@ -5,7 +5,7 @@ description: See which backend target forms survive Docker, Helm, Operator, Dash
 
 # Backend Target Compatibility
 
-Semantic Router uses `providers.models[].backend_refs[]` as the canonical
+Decision Router uses `providers.models[].backend_refs[]` as the canonical
 contract between a logical model name and one or more physical inference
 targets.
 

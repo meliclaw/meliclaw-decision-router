@@ -9,7 +9,7 @@ translation:
 
 # 使用 AMD ROCm 部署
 
-Semantic Router 可以在 CPU 上运行，同时由 vLLM 在 AMD Instinct GPU 上服务所选模型。本指南先启动一个 ROCm 后端，直接验证它，然后再将其连接到本地 Router 栈。若还需要在 AMD 上运行全部十个 Vela 路由任务模型，使用下文的 [Vela AMD 配方](#run-vela-routing-models-on-amd)。
+Decision Router 可以在 CPU 上运行，同时由 vLLM 在 AMD Instinct GPU 上服务所选模型。本指南先启动一个 ROCm 后端，直接验证它，然后再将其连接到本地 Router 栈。若还需要在 AMD 上运行全部十个 Vela 路由任务模型，使用下文的 [Vela AMD 配方](#run-vela-routing-models-on-amd)。
 
 该示例用一个 checkpoint 对应多个已服务模型别名，以便维护中的 `balance` 配方可以演练其路由通道。这对功能评估有用，但并不会把一个 checkpoint 变成多个模型。在生产环境中，将每个逻辑 provider 绑定到具备配方所声明能力、容量和运行成本的后端。
 
@@ -110,7 +110,7 @@ curl --fail http://127.0.0.1:8000/v1/chat/completions \
 
 在直接生成请求成功之前不要继续。Router 校验检查的是路由配置；它并不能证明 provider 能够生成。
 
-## 安装并配置 Semantic Router
+## 安装并配置 Decision Router
 
 按[快速开始](installation/installation.md#安装)安装 CLI。只安装 CLI、不启动栈：
 

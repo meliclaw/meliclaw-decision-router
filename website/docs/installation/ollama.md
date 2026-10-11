@@ -1,29 +1,29 @@
 ---
 sidebar_position: 3
-description: Step-by-step guide to serve a local model with Ollama and connect it to vLLM Semantic Router through the setup dashboard or YAML config.
+description: Step-by-step guide to serve a local model with Ollama and connect it to Meliclaw Decision Router through the setup dashboard or YAML config.
 ---
 
 # Configure models with Ollama
 
-[Ollama](https://ollama.com/) is a simple way to run local LLMs without a full vLLM or GPU stack. Ollama exposes an OpenAI-compatible API on port `11434`, which Semantic Router can use as a model backend during first-run setup or in hand-authored YAML.
+[Ollama](https://ollama.com/) is a simple way to run local LLMs without a full vLLM or GPU stack. Ollama exposes an OpenAI-compatible API on port `11434`, which Decision Router can use as a model backend during first-run setup or in hand-authored YAML.
 
 This guide walks through:
 
 1. Installing Ollama and pulling a model on your host
 2. Making the Ollama API reachable from Docker
-3. Registering the model in the Semantic Router setup dashboard
+3. Registering the model in the Decision Router setup dashboard
 4. Activating the config and sending a test request
 
 :::tip
-Semantic Router runs in Docker during `vllm-sr serve`. The name
+Decision Router runs in Docker during `vllm-sr serve`. The name
 `host.docker.internal` resolves the host from the container, but it does not
 make a loopback-only Ollama server reachable. Complete the bind-address step
-below before starting Semantic Router.
+below before starting Decision Router.
 :::
 
 ## Prerequisites
 
-- Semantic Router installed and runnable with [`vllm-sr serve`](/docs/installation) (Linux, macOS, or WSL2 with Docker)
+- Decision Router installed and runnable with [`vllm-sr serve`](/docs/installation) (Linux, macOS, or WSL2 with Docker)
 - Ollama installed on the **same machine** that runs Docker
 - Enough disk space for at least one model (for example, `llama3.2:3b` is about 2 GB)
 
@@ -107,12 +107,12 @@ ollama list
 ![Pull an Ollama model and confirm it is available locally](/img/installation/ollama/ollama-pull-and-list.png)
 
 :::note
-Use the **exact Ollama tag** (for example `llama3.2:3b`, `qwen2.5-coder:7b`) as the model name in Semantic Router. The router forwards that name to Ollama unchanged.
+Use the **exact Ollama tag** (for example `llama3.2:3b`, `qwen2.5-coder:7b`) as the model name in Decision Router. The router forwards that name to Ollama unchanged.
 :::
 
 ## 4. Verify Ollama is serving
 
-Before opening the Semantic Router dashboard, confirm Ollama responds on the host:
+Before opening the Decision Router dashboard, confirm Ollama responds on the host:
 
 ```bash
 curl http://localhost:11434/v1/models
@@ -131,7 +131,7 @@ curl http://localhost:11434/v1/chat/completions \
 
 ![Verify the Ollama OpenAI-compatible API with curl](/img/installation/ollama/ollama-api-verify.png)
 
-If either command fails, fix Ollama on the host before continuing. Semantic Router cannot reach a backend that is not already serving on port `11434`.
+If either command fails, fix Ollama on the host before continuing. Decision Router cannot reach a backend that is not already serving on port `11434`.
 
 Then verify the address that the Router container will use:
 
@@ -147,7 +147,7 @@ If the host check succeeds but the container check fails, recheck
 
 ## 5. Configure the model in the setup dashboard
 
-Start Semantic Router (or use the instance already started by the installer):
+Start Decision Router (or use the instance already started by the installer):
 
 ```bash
 vllm-sr serve
@@ -180,7 +180,7 @@ On **Step 3 — Review & activate**, confirm the model summary, then click **Act
 
 Activation writes the configuration and exits setup mode. The `vllm-sr serve` that is still waiting in your terminal then starts the Router, which serves port `8899` and routes requests to your Ollama backend.
 
-## 7. Test through Semantic Router
+## 7. Test through Decision Router
 
 Send a request through the router proxy:
 
@@ -189,7 +189,7 @@ curl http://localhost:8899/v1/chat/completions \
   -H "Content-Type: application/json" \
   -d '{
     "model": "llama3.2:3b",
-    "messages": [{"role": "user", "content": "Hello from Semantic Router!"}]
+    "messages": [{"role": "user", "content": "Hello from Decision Router!"}]
   }'
 ```
 
@@ -200,7 +200,7 @@ curl http://localhost:8899/v1/chat/completions \
   -H "Content-Type: application/json" \
   -d '{
     "model": "vllm-sr/auto",
-    "messages": [{"role": "user", "content": "Hello from Semantic Router!"}]
+    "messages": [{"role": "user", "content": "Hello from Decision Router!"}]
   }'
 ```
 
@@ -265,7 +265,7 @@ vllm-sr serve --config config.yaml
 
 ### Model not found or 404 from Ollama
 
-- The **Model name** in Semantic Router must match the Ollama tag exactly (`llama3.2:3b`, not `llama3.2`).
+- The **Model name** in Decision Router must match the Ollama tag exactly (`llama3.2:3b`, not `llama3.2`).
 - Run `ollama list` and pull the tag if it is missing: `ollama pull <tag>`.
 
 ### Slow first request

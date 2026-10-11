@@ -1,11 +1,11 @@
 ---
 title: NVIDIA CUDA
-description: Run vLLM backends on NVIDIA GPUs and optionally accelerate Semantic Router's local signal models with CUDA.
+description: Run vLLM backends on NVIDIA GPUs and optionally accelerate Decision Router's local signal models with CUDA.
 ---
 
 # Deploy with NVIDIA CUDA
 
-The model server and Semantic Router are separate services. A common deployment
+The model server and Decision Router are separate services. A common deployment
 keeps the Router on CPU and gives the NVIDIA GPU to vLLM. Use the Router's CUDA
 image when its local embeddings or classifiers also need GPU acceleration.
 
@@ -17,7 +17,7 @@ It does **not** download a language model or start a vLLM server.
 ## Prerequisites
 
 - Linux and an NVIDIA GPU supported by the vLLM release you plan to run;
-- an x86-64 host when using the current Semantic Router CUDA image;
+- an x86-64 host when using the current Decision Router CUDA image;
 - a GPU of compute capability 7.0 or newer (Volta and later) for the Router
   image, the oldest architecture its PyTorch build (CUDA 12.8) includes;
 - an NVIDIA driver, and GPU passthrough into the Router container for the
@@ -25,7 +25,7 @@ It does **not** download a language model or start a vLLM server.
 - Docker and NVIDIA Container Toolkit;
 - enough GPU memory for the vLLM model, KV cache, and any Router-side models;
   and
-- a complete Semantic Router configuration with a reachable model endpoint.
+- a complete Decision Router configuration with a reachable model endpoint.
 
 Use the current
 [vLLM NVIDIA requirements](https://docs.vllm.ai/en/latest/getting_started/installation/gpu/)
@@ -206,7 +206,7 @@ routed request proves the Router, recipe, and backend binding work together.
 
 Configure Docker with `nvidia-ctk`, restart Docker, and repeat NVIDIA's sample
 container command. Debug the container runtime before debugging either vLLM or
-Semantic Router: without working passthrough, the Router-side models configured
+Decision Router: without working passthrough, the Router-side models configured
 for CUDA cannot load.
 
 ### The Router uses the CPU

@@ -1,6 +1,6 @@
 ---
 title: Configuration Contract
-description: Discover, validate, and extend the canonical vLLM Semantic Router configuration without duplicating schemas.
+description: Discover, validate, and extend the canonical Meliclaw Decision Router configuration without duplicating schemas.
 ---
 
 # Configuration Contract

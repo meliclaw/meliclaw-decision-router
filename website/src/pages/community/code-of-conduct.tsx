@@ -8,7 +8,7 @@ const CodeOfConduct: React.FC = () => {
   return (
     <Layout
       title="Code of Conduct"
-      description="vLLM Semantic Router Community Code of Conduct"
+      description="Meliclaw Decision Router Community Code of Conduct"
     >
       <CommunityLayout
         activeKey="code-of-conduct"

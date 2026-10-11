@@ -16,7 +16,7 @@ status: Implemented
 
 ## Problem
 
-vLLM Semantic Router currently describes model support in several independent
+Meliclaw Decision Router currently describes model support in several independent
 places:
 
 - Router configuration owns logical model cards, backend bindings, pricing,

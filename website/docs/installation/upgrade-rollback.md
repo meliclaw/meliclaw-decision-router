@@ -5,7 +5,7 @@ sidebar_position: 10
 # Upgrade and Rollback
 
 This runbook covers how to upgrade, pin, and roll back each release surface of
-the vLLM Semantic Router in a production environment.
+the Meliclaw Decision Router in a production environment.
 
 ---
 
@@ -40,8 +40,8 @@ page](https://github.com/vllm-project/semantic-router/releases).
 ### Helm release
 
 ```bash
-helm list -n vllm-semantic-router-system
-helm history semantic-router -n vllm-semantic-router-system
+helm list -n meliclaw-decision-router-system
+helm history semantic-router -n meliclaw-decision-router-system
 ```
 
 The `CHART` column shows the chart version (e.g. `semantic-router-0.2.0`) and
@@ -51,7 +51,7 @@ The `CHART` column shows the chart version (e.g. `semantic-router-0.2.0`) and
 
 ```bash
 # Get the image tag currently used by the Router deployment
-kubectl get deployment -n vllm-semantic-router-system \
+kubectl get deployment -n meliclaw-decision-router-system \
   -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.spec.template.spec.containers[0].image}{"\n"}{end}'
 ```
 
@@ -81,7 +81,7 @@ helm show chart oci://ghcr.io/vllm-project/charts/semantic-router --version 0.4.
 helm upgrade semantic-router \
   oci://ghcr.io/vllm-project/charts/semantic-router \
   --version 0.4.0 \
-  --namespace vllm-semantic-router-system \
+  --namespace meliclaw-decision-router-system \
   --reset-then-reuse-values \
   --wait \
   --timeout 10m
@@ -115,8 +115,8 @@ release and its mode.
 Verify after upgrade:
 
 ```bash
-helm status semantic-router -n vllm-semantic-router-system
-kubectl rollout status deployment/semantic-router -n vllm-semantic-router-system
+helm status semantic-router -n meliclaw-decision-router-system
+kubectl rollout status deployment/semantic-router -n meliclaw-decision-router-system
 ```
 
 ### 2b. Docker image upgrade (non-Helm deployments)
@@ -179,7 +179,7 @@ pip install --upgrade vllm-sr
 
 #### Fleet Simulator is removed
 
-The Fleet Simulator (`vllm-sr-sim`) is no longer part of Semantic Router:
+The Fleet Simulator (`vllm-sr-sim`) is no longer part of Decision Router:
 releases publish neither its package nor its image, and the CLI never starts
 it. Installed copies keep working as they are. If an earlier `vllm-sr serve`
 started its sidecar automatically, remove that container once (substitute
@@ -204,17 +204,17 @@ workload readiness before treating it as complete.
 
 ```bash
 # View history
-helm history semantic-router -n vllm-semantic-router-system
+helm history semantic-router -n meliclaw-decision-router-system
 
 # Roll back to the previous revision
-helm rollback semantic-router -n vllm-semantic-router-system --wait
+helm rollback semantic-router -n meliclaw-decision-router-system --wait
 
 # Roll back to a specific revision number (e.g. revision 3)
-helm rollback semantic-router 3 -n vllm-semantic-router-system --wait
+helm rollback semantic-router 3 -n meliclaw-decision-router-system --wait
 
 # Verify
-helm status semantic-router -n vllm-semantic-router-system
-kubectl rollout status deployment/semantic-router -n vllm-semantic-router-system
+helm status semantic-router -n meliclaw-decision-router-system
+kubectl rollout status deployment/semantic-router -n meliclaw-decision-router-system
 ```
 
 If Helm history is unavailable, install an older chart only with the values
@@ -224,7 +224,7 @@ saved and tested for that release:
 helm upgrade semantic-router \
   oci://ghcr.io/vllm-project/charts/semantic-router \
   --version 0.2.0 \
-  --namespace vllm-semantic-router-system \
+  --namespace meliclaw-decision-router-system \
   -f values-0.2.0.yaml \
   --wait
 ```
@@ -236,17 +236,17 @@ Deployment to the previous revision using the built-in rollout history:
 
 ```bash
 # View rollout history
-kubectl rollout history deployment/semantic-router -n vllm-semantic-router-system
+kubectl rollout history deployment/semantic-router -n meliclaw-decision-router-system
 
 # Undo the last rollout
-kubectl rollout undo deployment/semantic-router -n vllm-semantic-router-system
+kubectl rollout undo deployment/semantic-router -n meliclaw-decision-router-system
 
 # Undo to a specific revision
 kubectl rollout undo deployment/semantic-router \
-  --to-revision=3 -n vllm-semantic-router-system
+  --to-revision=3 -n meliclaw-decision-router-system
 
 # Verify
-kubectl rollout status deployment/semantic-router -n vllm-semantic-router-system
+kubectl rollout status deployment/semantic-router -n meliclaw-decision-router-system
 ```
 
 If using pinned image digests, update your manifest to the previous image digest
@@ -280,7 +280,7 @@ helm upgrade semantic-router \
   oci://ghcr.io/vllm-project/charts/semantic-router \
   --version 0.4.0 \
   -f values-production.yaml \
-  --namespace vllm-semantic-router-system
+  --namespace meliclaw-decision-router-system
 ```
 
 ---
@@ -316,7 +316,7 @@ helm show chart oci://ghcr.io/vllm-project/charts/semantic-router \
 helm install semantic-router \
   oci://ghcr.io/vllm-project/charts/semantic-router \
   --version "0.0.0-nightly.${NIGHTLY_DATE}" \
-  --namespace vllm-semantic-router-system --create-namespace
+  --namespace meliclaw-decision-router-system --create-namespace
 ```
 
 Nightly builds are not automatically promoted to a versioned release. Use them
@@ -339,14 +339,14 @@ helm show chart oci://ghcr.io/vllm-project/charts/semantic-router --version 0.4.
 ### Helm: release is in a broken state after failed upgrade
 
 ```bash
-helm rollback semantic-router -n vllm-semantic-router-system --wait
+helm rollback semantic-router -n meliclaw-decision-router-system --wait
 # If rollback also fails due to a bad state, force-reinstall:
-helm uninstall semantic-router -n vllm-semantic-router-system
+helm uninstall semantic-router -n meliclaw-decision-router-system
 helm install semantic-router \
   oci://ghcr.io/vllm-project/charts/semantic-router \
   --version <last-known-good> \
   -f your-values.yaml \
-  --namespace vllm-semantic-router-system --create-namespace
+  --namespace meliclaw-decision-router-system --create-namespace
 ```
 
 ### Kubernetes: `ImagePullBackOff` after upgrade
@@ -355,12 +355,12 @@ The image tag may not exist yet (release still publishing) or the pull secret
 is missing. Check:
 
 ```bash
-kubectl describe pod -n vllm-semantic-router-system <pod-name>
+kubectl describe pod -n meliclaw-decision-router-system <pod-name>
 # Look for "ErrImagePull" and the exact tag that failed
 ```
 
 If the tag genuinely does not exist, roll back while the release completes:
 
 ```bash
-helm rollback semantic-router -n vllm-semantic-router-system
+helm rollback semantic-router -n meliclaw-decision-router-system
 ```

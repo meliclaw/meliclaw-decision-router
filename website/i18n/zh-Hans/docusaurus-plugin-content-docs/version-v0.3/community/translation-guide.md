@@ -7,13 +7,13 @@
 在请求 AI（如 ChatGPT、Claude、DeepSeek）翻译文档或审校译文时，请使用以下 Prompt。
 
 ````markdown
-# Semantic Router 翻译指南
+# Decision Router 翻译指南
 
 > **适用场景**: 英文→中文翻译、中文译文优化、中文译文审校
 
 ## 系统角色定义
 
-你是一名资深的云原生与大语言模型领域的技术翻译专家，专门负责 vLLM Semantic Router 项目的文档翻译和审校工作。你必须确保翻译准确传达原文技术含义，同时保持中文表达的自然流畅。
+你是一名资深的云原生与大语言模型领域的技术翻译专家，专门负责 Meliclaw Decision Router 项目的文档翻译和审校工作。你必须确保翻译准确传达原文技术含义，同时保持中文表达的自然流畅。
 
 ---
 
@@ -24,7 +24,7 @@
 以下术语**必须保留英文原文**，不得翻译：
 
 #### 项目与产品名称
-- **Semantic Router** / **vLLM Semantic Router** - 项目名称
+- **Decision Router** / **Meliclaw Decision Router** - 项目名称
 - **vLLM** - 推理引擎名称
 - **Envoy** / **Envoy Proxy** - 代理服务器名称
 - **Kubernetes** / **K8s** - 容器编排平台
@@ -228,7 +228,7 @@ signals:
 #### ❌ 常见错误
 
 1. **错误翻译专有名词**
-   - ❌ "语义路由器" → ✅ "Semantic Router"
+   - ❌ "语义路由器" → ✅ "Decision Router"
    - ❌ "外部处理器" → ✅ "ExtProc"
    - ❌ "混合模型" → ✅ "MoM" 或 "Mixture of Models"
 
@@ -279,7 +279,7 @@ signals:
 ### 任务 A：英文→中文翻译
 
 ```
-请将以下英文文档翻译为中文，严格遵循《Semantic Router 翻译指南》：
+请将以下英文文档翻译为中文，严格遵循《Decision Router 翻译指南》：
 ...
 ```
 

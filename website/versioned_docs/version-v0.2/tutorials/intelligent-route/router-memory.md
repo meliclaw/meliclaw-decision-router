@@ -4,7 +4,7 @@ Router Memory enables stateful conversations via the [OpenAI Response API](https
 
 ## Overview
 
-Semantic Router acts as the **unified brain** for multiple LLM backends that only support the Chat Completions API. It provides:
+Decision Router acts as the **unified brain** for multiple LLM backends that only support the Chat Completions API. It provides:
 
 - **Cross-Model Stateful Conversations**: Maintain conversation history across different models
 - **Unified Response API**: Single API interface regardless of backend model
@@ -17,7 +17,7 @@ flowchart TB
         C2[Agent B]
     end
 
-    subgraph SR["Semantic Router"]
+    subgraph SR["Decision Router"]
         API[Response API]
         Store[(Conversation<br/>Store)]
     end
@@ -44,7 +44,7 @@ flowchart TB
         A1[POST /v1/responses]
     end
 
-    subgraph Router["Semantic Router (extproc)"]
+    subgraph Router["Decision Router (extproc)"]
         B1[Receive Request]
         B2{Has previous_response_id?}
         B3[Load Conversation Chain]

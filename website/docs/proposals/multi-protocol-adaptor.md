@@ -224,5 +224,5 @@ A new codec is complete only when it provides:
 ## References
 
 - [Router API](../api/router)
-- [Semantic Router system overview](../overview/semantic-router-overview)
+- [Decision Router system overview](../overview/semantic-router-overview)
 - [Gateway deployment options](../installation/k8s/gateways)

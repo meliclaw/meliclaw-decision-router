@@ -2,7 +2,7 @@
 
 **相关问题：** [#313](https://github.com/vllm-project/semantic-router/issues/313), [#200](https://github.com/vllm-project/semantic-router/issues/200)
 
-该提议引入了一个**统一的内容扫描和路由框架**，通过三个互补的信号源扩展了 vLLM Semantic Router：
+该提议引入了一个**统一的内容扫描和路由框架**，通过三个互补的信号源扩展了 Meliclaw Decision Router：
 
 1. **基于关键字的路由** - 确定性的、快速的、用于精确术语匹配的布尔逻辑 (Boolean Logic)。
 2. **Regex 内容扫描** - 基于模式的检测，用于安全、合规和结构化数据。
@@ -22,7 +22,7 @@
 
 ### 当前局限性
 
-vLLM Semantic Router 目前完全依赖 **ModernBERT 分类**进行语义类别检测。虽然功能强大，但这种方法有几个局限性：
+Meliclaw Decision Router 目前完全依赖 **ModernBERT 分类**进行语义类别检测。虽然功能强大，但这种方法有几个局限性：
 
 #### 来自 Issue #313：缺乏确定性路由
 

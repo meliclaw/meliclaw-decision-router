@@ -1,12 +1,12 @@
 ---
 title: Deploy with agentgateway
-description: Attach Semantic Router as an ExtProc service to an agentgateway Kubernetes data plane.
+description: Attach Decision Router as an ExtProc service to an agentgateway Kubernetes data plane.
 ---
 
 # Deploy with agentgateway
 
 Use this topology when [agentgateway](https://agentgateway.dev/) owns the
-Kubernetes Gateway API data plane. Semantic Router runs as an Envoy ExtProc
+Kubernetes Gateway API data plane. Decision Router runs as an Envoy ExtProc
 service: it evaluates the selected recipe and writes the chosen model into the
 request before agentgateway forwards it to an OpenAI-compatible backend.
 
@@ -14,7 +14,7 @@ request before agentgateway forwards it to an OpenAI-compatible backend.
 
 The deployment consists of:
 
-- **Semantic Router** owns semantic policy, model selection, and recipe-scoped
+- **Decision Router** owns semantic policy, model selection, and recipe-scoped
   request or response processing.
 - **agentgateway** owns the Gateway, `HTTPRoute`, backend, and ExtProc policy.
 - **The model server** owns inference capacity. The simulator below is for
@@ -99,7 +99,7 @@ kubectl wait --for=condition=Available deployment/agentgateway-proxy \
 
 ## Step 4: Deploy Demo LLM
 
-Deploy a lightweight OpenAI-compatible simulator that serves `base-model` plus the LoRA adapter names selected by the Semantic Router demo configuration:
+Deploy a lightweight OpenAI-compatible simulator that serves `base-model` plus the LoRA adapter names selected by the Decision Router demo configuration:
 
 ```bash
 kubectl apply -f- <<'EOF'
@@ -170,9 +170,9 @@ kubectl wait --for=condition=Available deployment/vllm-llama3-8b-instruct \
   --timeout=300s
 ```
 
-## Step 5: Deploy vLLM Semantic Router
+## Step 5: Deploy Meliclaw Decision Router
 
-Install the Semantic Router in the `agentgateway-system` namespace so the agentgateway ExtProc policy can reference the `semantic-router` service directly:
+Install the Decision Router in the `agentgateway-system` namespace so the agentgateway ExtProc policy can reference the `semantic-router` service directly:
 
 ```bash
 helm install semantic-router oci://ghcr.io/vllm-project/charts/semantic-router \
@@ -188,7 +188,7 @@ kubectl wait --for=condition=Available deployment/semantic-router \
   --timeout=600s
 ```
 
-The values file configures Semantic Router to send traffic to `vllm-llama3-8b-instruct.default.svc.cluster.local:8000` and to select adapter names such as `math-expert`, `science-expert`, and `general-expert`.
+The values file configures Decision Router to send traffic to `vllm-llama3-8b-instruct.default.svc.cluster.local:8000` and to select adapter names such as `math-expert`, `science-expert`, and `general-expert`.
 
 ## Step 6: Create agentgateway routing resources
 
@@ -226,11 +226,11 @@ spec:
 EOF
 ```
 
-The `openai.model` field is intentionally omitted so agentgateway uses the model name from the request body after Semantic Router selects the target model or LoRA adapter.
+The `openai.model` field is intentionally omitted so agentgateway uses the model name from the request body after Decision Router selects the target model or LoRA adapter.
 
-## Step 7: Attach Semantic Router as ExtProc
+## Step 7: Attach Decision Router as ExtProc
 
-Create an `AgentgatewayPolicy` that sends request and response processing phases to the Semantic Router ExtProc service:
+Create an `AgentgatewayPolicy` that sends request and response processing phases to the Decision Router ExtProc service:
 
 ```bash
 kubectl apply -f- <<'EOF'
@@ -263,7 +263,7 @@ EOF
 
 The bundled agentgateway example explicitly opts into full-duplex streamed request
 bodies. This is an example-specific choice; other proxy defaults and examples
-may continue to use buffered request bodies. The Semantic Router Helm command
+may continue to use buffered request bodies. The Decision Router Helm command
 above explicitly enables `global.router.streamed_body`, allowing the router to
 accumulate request chunks and process the complete body at end-of-stream.
 
@@ -298,7 +298,7 @@ curl -i -X POST http://localhost:8080/v1/chat/completions \
   }'
 ```
 
-Semantic Router should classify the math prompt, select the configured math route, and mutate the request model before agentgateway forwards the request to the vLLM-compatible backend. Use `-i` to inspect Semantic Router response headers such as the selected model metadata.
+Decision Router should classify the math prompt, select the configured math route, and mutate the request model before agentgateway forwards the request to the vLLM-compatible backend. Use `-i` to inspect Decision Router response headers such as the selected model metadata.
 
 ## Troubleshooting
 
@@ -317,7 +317,7 @@ kubectl describe httproute semantic-router-vllm -n agentgateway-system
 kubectl describe agentgatewaybackend semantic-router-vllm -n agentgateway-system
 ```
 
-**Semantic Router not responding to ExtProc:**
+**Decision Router not responding to ExtProc:**
 
 ```bash
 kubectl get pods -n agentgateway-system

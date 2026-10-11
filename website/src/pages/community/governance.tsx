@@ -31,7 +31,7 @@ export default function Governance(): ReactNode {
   return (
     <Layout
       title="Community Roles & Governance"
-      description="Roles, promotion, duties, and emeritus policy for vLLM Semantic Router"
+      description="Roles, promotion, duties, and emeritus policy for Meliclaw Decision Router"
     >
       <CommunityLayout
         activeKey="governance"

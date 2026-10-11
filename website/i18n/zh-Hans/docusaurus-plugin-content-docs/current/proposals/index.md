@@ -1,6 +1,6 @@
 ---
 title: 提案
-description: vLLM Semantic Router 的设计提案、概念验证探索、实现记录和架构决策。
+description: Meliclaw Decision Router 的设计提案、概念验证探索、实现记录和架构决策。
 translation:
   source_commit: "9156d5bc1ed9edff626b95a2b8260a77cb1712c5"
   source_file: "docs/proposals/index.md"

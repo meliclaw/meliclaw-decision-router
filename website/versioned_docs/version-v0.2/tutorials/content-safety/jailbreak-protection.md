@@ -1,6 +1,6 @@
 # Jailbreak Protection
 
-Semantic Router includes advanced jailbreak detection to identify and block adversarial prompts that attempt to bypass AI safety measures. Two complementary detection methods are available:
+Decision Router includes advanced jailbreak detection to identify and block adversarial prompts that attempt to bypass AI safety measures. Two complementary detection methods are available:
 
 - **BERT Classifier** — fast, high-precision detection of single-turn jailbreak attempts using a fine-tuned BERT model
 - **Contrastive Embedding** — embedding-based detection designed to catch multi-turn escalation ("boiling frog") attacks where individual messages appear benign but the conversation gradually steers the model toward unsafe behavior

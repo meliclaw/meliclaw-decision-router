@@ -7,11 +7,11 @@ translation:
 
 # 使用 OpenTelemetry 进行分布式追踪 (Distributed Tracing)
 
-本指南介绍如何在 vLLM Semantic Router 中配置和使用分布式追踪，以增强可观测性和调试能力。
+本指南介绍如何在 Meliclaw Decision Router 中配置和使用分布式追踪，以增强可观测性和调试能力。
 
 ## 概览
 
-vLLM Semantic Router 使用 OpenTelemetry 实现了全面的分布式追踪，提供对请求处理管道的细粒度可见性。追踪可以帮助您：
+Meliclaw Decision Router 使用 OpenTelemetry 实现了全面的分布式追踪，提供对请求处理管道的细粒度可见性。追踪可以帮助您：
 
 - **调试生产问题**：跟踪单个请求在整个路由管道中的路径
 - **优化性能**：识别分类、缓存和路由中的瓶颈
@@ -99,7 +99,7 @@ observability:
       type: "always_on"  # 或 "probabilistic"
       rate: 1.0
     resource:
-      service_name: "vllm-semantic-router"
+      service_name: "meliclaw-decision-router"
       service_version: "v0.1.0"
       deployment_environment: "production"
 ```
@@ -162,7 +162,7 @@ observability:
     sampling:
       type: "always_on"
     resource:
-      service_name: "vllm-semantic-router-dev"
+      service_name: "meliclaw-decision-router-dev"
       deployment_environment: "development"
 ```
 
@@ -181,7 +181,7 @@ observability:
       type: "probabilistic"
       rate: 0.1  # 10% 采样率
     resource:
-      service_name: "vllm-semantic-router"
+      service_name: "meliclaw-decision-router"
       service_version: "v0.1.0"
       deployment_environment: "production"
 ```
@@ -281,7 +281,7 @@ data:
           type: "probabilistic"
           rate: 0.1
         resource:
-          service_name: "vllm-semantic-router"
+          service_name: "meliclaw-decision-router"
           deployment_environment: "production"
 ---
 apiversion: apps/v1
@@ -293,7 +293,7 @@ spec:
     spec:
       containers:
       - name: router
-        image: vllm-semantic-router:latest
+        image: meliclaw-decision-router:latest
         env:
         - name: CONFIG_PATH
           value: /config/config.yaml
@@ -336,7 +336,7 @@ spec:
 #### Jaeger UI
 
 1. 导航至 http://localhost:16686
-2. 选择服务：`vllm-semantic-router`
+2. 选择服务：`meliclaw-decision-router`
 3. 点击 "Find Traces"
 4. 查看追踪详情和时间线
 
@@ -345,7 +345,7 @@ spec:
 **查找慢请求：**
 
 ```
-Service: vllm-semantic-router
+Service: meliclaw-decision-router
 Min Duration: 1s
 Limit: 20
 ```

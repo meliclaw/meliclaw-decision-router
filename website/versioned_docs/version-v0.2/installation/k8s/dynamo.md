@@ -1,6 +1,6 @@
 # Install with NVIDIA Dynamo
 
-This guide provides step-by-step instructions for integrating vLLM Semantic Router with NVIDIA Dynamo.
+This guide provides step-by-step instructions for integrating Meliclaw Decision Router with NVIDIA Dynamo.
 
 ## About NVIDIA Dynamo
 
@@ -17,11 +17,11 @@ This guide provides step-by-step instructions for integrating vLLM Semantic Rout
 
 ### Integration Benefits
 
-Integrating vLLM Semantic Router with NVIDIA Dynamo provides several advantages:
+Integrating Meliclaw Decision Router with NVIDIA Dynamo provides several advantages:
 
-1. **Dual-Layer Intelligence**: Semantic Router provides request-level intelligence (model selection, classification) while Dynamo optimizes infrastructure-level efficiency (worker selection, KV cache reuse)
+1. **Dual-Layer Intelligence**: Decision Router provides request-level intelligence (model selection, classification) while Dynamo optimizes infrastructure-level efficiency (worker selection, KV cache reuse)
 
-2. **Intelligent Model Selection**: Semantic Router analyzes incoming requests and routes them to the most appropriate model based on content understanding, while Dynamo's KV-aware router efficiently selects optimal workers
+2. **Intelligent Model Selection**: Decision Router analyzes incoming requests and routes them to the most appropriate model based on content understanding, while Dynamo's KV-aware router efficiently selects optimal workers
 
 3. **Dual-Layer Caching**: Semantic cache (request-level, Milvus-backed) combined with KV cache (token-level, Dynamo-managed) for maximum latency reduction
 
@@ -307,7 +307,7 @@ echo "✅ GPU setup complete"
 ```
 
 :::tip E2E Testing
-The Semantic Router project includes automated E2E tests that handle all of this GPU setup automatically. You can run:
+The Decision Router project includes automated E2E tests that handle all of this GPU setup automatically. You can run:
 
 ```bash
 make e2e-test E2E_PROFILE=dynamo E2E_VERBOSE=true
@@ -341,7 +341,7 @@ kubectl wait --for=condition=Available deployment -l app.kubernetes.io/instance=
 
 ## Step 3: Install Envoy Gateway
 
-Deploy Envoy Gateway with ExtensionAPIs enabled for Semantic Router integration:
+Deploy Envoy Gateway with ExtensionAPIs enabled for Decision Router integration:
 
 ```bash
 # Install Envoy Gateway with custom values
@@ -355,32 +355,32 @@ helm install envoy-gateway oci://docker.io/envoyproxy/gateway-helm \
 kubectl wait --for=condition=Available deployment/envoy-gateway -n envoy-gateway-system --timeout=300s
 ```
 
-**Important:** The values file enables `extensionApis.enableEnvoyPatchPolicy: true`, which is required for the Semantic Router ExtProc integration.
+**Important:** The values file enables `extensionApis.enableEnvoyPatchPolicy: true`, which is required for the Decision Router ExtProc integration.
 
-## Step 4: Deploy vLLM Semantic Router
+## Step 4: Deploy Meliclaw Decision Router
 
-Deploy the Semantic Router with Dynamo-specific configuration:
+Deploy the Decision Router with Dynamo-specific configuration:
 
 ```bash
-# Install Semantic Router from GHCR OCI registry
+# Install Decision Router from GHCR OCI registry
 helm install semantic-router oci://ghcr.io/vllm-project/charts/semantic-router \
   --version v0.0.0-latest \
-  --namespace vllm-semantic-router-system \
+  --namespace meliclaw-decision-router-system \
   --create-namespace \
   -f https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/dynamo/semantic-router-values/values.yaml
 
 # Wait for deployment to be ready
-kubectl wait --for=condition=Available deployment/semantic-router -n vllm-semantic-router-system --timeout=600s
+kubectl wait --for=condition=Available deployment/semantic-router -n meliclaw-decision-router-system --timeout=600s
 
 # Verify deployment status
-kubectl get pods -n vllm-semantic-router-system
+kubectl get pods -n meliclaw-decision-router-system
 ```
 
-**Note:** The values file configures Semantic Router to route to the TinyLlama model served by Dynamo workers.
+**Note:** The values file configures Decision Router to route to the TinyLlama model served by Dynamo workers.
 
 ## Step 5: Deploy RBAC Resources
 
-Apply RBAC permissions for Semantic Router to access Dynamo CRDs:
+Apply RBAC permissions for Decision Router to access Dynamo CRDs:
 
 ```bash
 kubectl apply -f https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/dynamo/dynamo-resources/rbac.yaml
@@ -628,10 +628,10 @@ export ENVOY_SERVICE=$(kubectl get svc -n envoy-gateway-system \
   --selector=gateway.envoyproxy.io/owning-gateway-namespace=default,gateway.envoyproxy.io/owning-gateway-name=semantic-router \
   -o jsonpath='{.items[0].metadata.name}')
 
-# Port forward to Envoy Gateway (with Semantic Router protection)
+# Port forward to Envoy Gateway (with Decision Router protection)
 kubectl port-forward -n envoy-gateway-system svc/$ENVOY_SERVICE 8080:80 &
 
-# Port forward directly to Dynamo (bypasses Semantic Router)
+# Port forward directly to Dynamo (bypasses Decision Router)
 kubectl port-forward -n dynamo-system svc/dynamo-vllm-frontend 8000:8000 &
 ```
 
@@ -748,10 +748,10 @@ print(f'Total connections: {data.get(\"num_connections\", 0)}')
 "
 ```
 
-### Check Semantic Router Logs
+### Check Decision Router Logs
 
 ```bash
-kubectl logs -n vllm-semantic-router-system deployment/semantic-router -f | grep -E "category|routing_decision|pii"
+kubectl logs -n meliclaw-decision-router-system deployment/semantic-router -f | grep -E "category|routing_decision|pii"
 ```
 
 ## Helm Chart Configuration Reference
@@ -792,8 +792,8 @@ helm uninstall dynamo-vllm -n dynamo-system
 # Remove RBAC
 kubectl delete -f https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/dynamo/dynamo-resources/rbac.yaml
 
-# Remove Semantic Router
-helm uninstall semantic-router -n vllm-semantic-router-system
+# Remove Decision Router
+helm uninstall semantic-router -n meliclaw-decision-router-system
 
 # Remove Envoy Gateway
 helm uninstall envoy-gateway -n envoy-gateway-system
@@ -803,7 +803,7 @@ helm uninstall dynamo-platform -n dynamo-system
 helm uninstall dynamo-crds -n dynamo-system
 
 # Delete namespaces
-kubectl delete namespace vllm-semantic-router-system
+kubectl delete namespace meliclaw-decision-router-system
 kubectl delete namespace envoy-gateway-system
 kubectl delete namespace dynamo-system
 
@@ -866,4 +866,4 @@ When using `tensorParallelSize=N`, you must also set `resources.requests.gpu=N` 
 
 - [NVIDIA Dynamo GitHub](https://github.com/ai-dynamo/dynamo)
 - [Dynamo Documentation](https://docs.nvidia.com/dynamo/latest/)
-- [Demo Video: Semantic Router + Dynamo E2E](https://www.youtube.com/watch?v=rRULSR9gTds&list=PLmrddZ45wYcuPrXisC-yl7bMI39PLo4LO&index=2)
+- [Demo Video: Decision Router + Dynamo E2E](https://www.youtube.com/watch?v=rRULSR9gTds&list=PLmrddZ45wYcuPrXisC-yl7bMI39PLo4LO&index=2)

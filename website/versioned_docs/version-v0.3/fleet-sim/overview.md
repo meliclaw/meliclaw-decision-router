@@ -4,7 +4,7 @@ title: Overview
 
 # Fleet Sim Overview
 
-Fleet Sim is the maintained fleet simulator for vLLM Semantic Router. The
+Fleet Sim is the maintained fleet simulator for Meliclaw Decision Router. The
 `vllm-sr-sim` package is its CLI and service entrypoint. It helps you plan GPU
 fleets before deployment, compare routing and split strategies, and expose those
 workflows inside the dashboard without reviving a separate simulator frontend.

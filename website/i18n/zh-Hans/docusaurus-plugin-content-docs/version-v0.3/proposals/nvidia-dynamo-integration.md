@@ -2,9 +2,9 @@
 
 ## 1. 执行摘要
 
-本提案概述了 **vLLM Semantic Router** 与 **NVIDIA Dynamo** 之间的全面集成策略，将语义智能与高性能分布式 Inference 相结合。该集成通过利用以下特性，创建了一个统一的 Inference 堆栈：
+本提案概述了 **Meliclaw Decision Router** 与 **NVIDIA Dynamo** 之间的全面集成策略，将语义智能与高性能分布式 Inference 相结合。该集成通过利用以下特性，创建了一个统一的 Inference 堆栈：
 
-- **Semantic Router** 的智能请求分类（14 个领域类别）、领域感知的 System Prompt、融合路由（BERT 分类 + 关键词匹配 + 相似度搜索）、安全过滤、基于 Milvus 的 Semantic Cache
+- **Decision Router** 的智能请求分类（14 个领域类别）、领域感知的 System Prompt、融合路由（BERT 分类 + 关键词匹配 + 相似度搜索）、安全过滤、基于 Milvus 的 Semantic Cache
 - **Dynamo** 的分离式服务 (Disaggregated Serving)、KV-aware 路由和多层内存管理
 
 结果是一个具有系统级智能的生产级 LLM 服务平台，在**准确性**（通过优化的 Prompt 路由到正确的模型以获得最佳质量）和**效率**（最大化 GPU 利用率并最小化延迟）之间实现了最佳平衡，构建了一个整体智能的 Inference 系统。
@@ -22,7 +22,7 @@
 
 ---
 
-## 2. 动机：为什么为 Dynamo 引入 Semantic Router？
+## 2. 动机：为什么为 Dynamo 引入 Decision Router？
 
 ### 2.1 Dynamo 路由能力（现状）
 
@@ -43,9 +43,9 @@ NVIDIA Dynamo 提供了一个复杂的 **KV-aware 路由**，针对基础设施�
 - **负载均衡**：在工作节点之间分配解码 (Decode) 工作负载
 - **性能导向**：通过智能调度最小化 TTFT 和 ITL
 
-### 2.2 Semantic Router 能力（系统智能层）
+### 2.2 Decision Router 能力（系统智能层）
 
-vLLM Semantic Router 提供了在请求理解层运行的**系统级智能**，通过在 **14 个领域类别**中进行智能决策，实现**准确性**与**效率**之间的最佳平衡：
+Meliclaw Decision Router 提供了在请求理解层运行的**系统级智能**，通过在 **14 个领域类别**中进行智能决策，实现**准确性**与**效率**之间的最佳平衡：
 
 | 能力 | 描述 | 智能焦点 |
 |------------|-------------|---------------------|
@@ -71,7 +71,7 @@ vLLM Semantic Router 提供了在请求理解层运行的**系统级智能**，�
 
 #### 2.2.1 具有 System Prompt 的 14 个领域分类
 
-Semantic Router 将查询分为 **14 个专业类别**：数学、计算机科学、物理、化学、生物、工程、经济、商业、法律、心理学、哲学、历史、健康和其他。每个类别都有一个根据查询分类自动注入的优化 System Prompt。
+Decision Router 将查询分为 **14 个专业类别**：数学、计算机科学、物理、化学、生物、工程、经济、商业、法律、心理学、哲学、历史、健康和其他。每个类别都有一个根据查询分类自动注入的优化 System Prompt。
 
 **System Prompt 收益：**
 
@@ -113,7 +113,7 @@ dynamics, competitive landscape, and stakeholder interests in your recommendatio
 
 #### 2.2.2 融合路由策略
 
-Semantic Router 实现了一种**多信号融合路由**方法，结合了三种互补的路由方法（详见 [Prompt 分类路由提案](./prompt-classification-routing.md)）：
+Decision Router 实现了一种**多信号融合路由**方法，结合了三种互补的路由方法（详见 [Prompt 分类路由提案](./prompt-classification-routing.md)）：
 
 **1. 基于关键词 (Keyword) 的路由（快速路径）**
 
@@ -163,7 +163,7 @@ Semantic Router 实现了一种**多信号融合路由**方法，结合了三种
 
 这两个系统在 Inference 堆栈的**不同层**运行，**重叠极小**：
 
-#### Semantic Router：请求智能层
+#### Decision Router：请求智能层
 
 ```
 用户查询 → [语义理解] → 模型选择 → 请求增强
@@ -187,7 +187,7 @@ Semantic Router 实现了一种**多信号融合路由**方法，结合了三种
 
 #### 集成价值主张
 
-| 维度 | 仅 Semantic Router | 仅 Dynamo 路由 | **集成系统** |
+| 维度 | 仅 Decision Router | 仅 Dynamo 路由 | **集成系统** |
 |-----------|----------------------|---------------------|----------------------|
 | **模型选择** | ✅ 语义准确性（14 类别） | ❌ 无模型感知 | ✅ 任务的最佳模型 |
 | **工作节点选择** | ❌ 无工作节点感知 | ✅ KV Cache 优化 | ✅ 模型的最佳工作节点 |
@@ -204,7 +204,7 @@ Semantic Router 实现了一种**多信号融合路由**方法，结合了三种
 查询："请逐步解释费马大定理的证明"
 
 ┌─────────────────────────────────────────────────────────────────┐
-│ Semantic Router 层                                              │
+│ Decision Router 层                                              │
 ├─────────────────────────────────────────────────────────────────┤
 │ 1. 融合路由（3 信号分析）：                                      │
 │    a) 关键词匹配："定理"、"证明" → 数学 (置信度: 0.8)            │
@@ -257,7 +257,7 @@ Semantic Router 实现了一种**多信号融合路由**方法，结合了三种
 
 **挑战 2：缺乏基础设施感知的智能**
 
-- Semantic Router 提供了智能模型选择，但缺乏基础设施可见性
+- Decision Router 提供了智能模型选择，但缺乏基础设施可见性
 - 选择了正确的模型，但没有选择最优的工作节点
 - 无法利用跨工作节点的 KV Cache 重用
 - 对 GPU 利用率或工作节点负载没有感知，无法进行效率优化
@@ -265,7 +265,7 @@ Semantic Router 实现了一种**多信号融合路由**方法，结合了三种
 **解决方案：通过分层集成实现整体系统智能**
 
 ```
-系统智能层 (Semantic Router)
+系统智能层 (Decision Router)
     ↓ [准确性：模型选择、质量优化、安全]
     ↓ [效率：Semantic Cache、自适应路由、成本控制]
 基础设施优化层 (Dynamo)
@@ -284,9 +284,9 @@ Semantic Router 实现了一种**多信号融合路由**方法，结合了三种
 
 **核心目标：**
 
-1. **无缝集成**：Semantic Router 作为 Dynamo 路由之前的预处理层运行
+1. **无缝集成**：Decision Router 作为 Dynamo 路由之前的预处理层运行
 2. **双层缓存**：Semantic Cache（请求级）+ KV Cache（Token 级）协同工作
-3. **模型感知路由**：Dynamo 路由到由 Semantic Router 模型选择过滤后的工作节点池
+3. **模型感知路由**：Dynamo 路由到由 Decision Router 模型选择过滤后的工作节点池
 4. **安全执行**：在请求到达 Dynamo 之前进行 PII 和 Jailbreak 检测
 5. **统一可观测性**：单次追踪跨越语义和基础设施两层
 6. **零停机时间**：热重载语义路由规则，无需重启 Dynamo
@@ -299,7 +299,7 @@ Semantic Router 实现了一种**多信号融合路由**方法，结合了三种
 
 ### 3.2 非目标
 
-1. **替换 Dynamo 路由**：Semantic Router 是增强而非替换 Dynamo 的 KV-aware 路由
+1. **替换 Dynamo 路由**：Decision Router 是增强而非替换 Dynamo 的 KV-aware 路由
 2. **修改 Dynamo 核心**：通过标准 API 进行集成，无需更改 Dynamo 内部
 3. **统一配置**：为语义层和基础设施层保持独立的配置
 4. **同步耦合**：如果需要，系统可以独立运行
@@ -310,7 +310,7 @@ Semantic Router 实现了一种**多信号融合路由**方法，结合了三种
 
 ### 4.1 深度学习模型
 
-Semantic Router 利用**四个专业的深度学习模型**进行智能请求处理。系统结合了针对不同任务优化的 **BERT** 和 **ModernBERT** 架构。
+Decision Router 利用**四个专业的深度学习模型**进行智能请求处理。系统结合了针对不同任务优化的 **BERT** 和 **ModernBERT** 架构。
 
 #### 4.1.1 相似度模型 (BERT Embeddings)
 
@@ -540,7 +540,7 @@ global:
 
 1. **关注点分离**：语义智能与基础设施优化保持解耦
 2. **API 驱动集成**：使用 Dynamo 的前端 API 和工作节点注册机制
-3. **故障安全设计**：Semantic Router 故障时回退到 Dynamo 的默认路由
+3. **故障安全设计**：Decision Router 故障时回退到 Dynamo 的默认路由
 4. **可观测性优先**：每个决策（语义 + 基础设施）都会被追踪并记录
 5. **Kubernetes 原生**：针对具有 CRD 和 operator 的云原生部署而设计
 
@@ -556,10 +556,10 @@ import ZoomableMermaid from '@site/src/components/ZoomableMermaid';
     subgraph Main["主要处理流程"]
         direction TB
 
-        subgraph SIL["① vLLM Semantic Router 层"]
+        subgraph SIL["① Meliclaw Decision Router 层"]
             direction TB
             Gateway[Envoy 网关 :8080]
-            ExtProc[Semantic Router ExtProc :50051]
+            ExtProc[Decision Router ExtProc :50051]
 
             subgraph SC["语义组件"]
                 direction LR
@@ -654,7 +654,7 @@ import ZoomableMermaid from '@site/src/components/ZoomableMermaid';
 
 **架构分层：**
 
-1. **语义智能层 (Semantic Router)**
+1. **语义智能层 (Decision Router)**
    - 带有 ExtProc 用于请求拦截的 Envoy Gateway
    - 基于 BERT 的分类和安全过滤
    - 带有 Milvus 后端的 Semantic Cache
@@ -682,11 +682,11 @@ import ZoomableMermaid from '@site/src/components/ZoomableMermaid';
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│ 阶段 1：语义智能 (Semantic Router)                                           │
+│ 阶段 1：语义智能 (Decision Router)                                           │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │ 步骤 1：请求拦截                                                             │
 │   - Envoy Gateway 接收 OpenAI API 请求                                      │
-│   - 通过 ExtProc gRPC 调用 Semantic Router                                  │
+│   - 通过 ExtProc gRPC 调用 Decision Router                                  │
 │   - 从 messages 数组中提取查询                                              │
 │                                                                              │
 │ 步骤 2：安全过滤（并行执行）                                                 │
@@ -762,7 +762,7 @@ import ZoomableMermaid from '@site/src/components/ZoomableMermaid';
 │   - 将响应流传回 Dynamo Frontend                                             │
 │                                                                              │
 │ 步骤 11：Semantic Cache 更新                                                │
-│   - Semantic Router 通过 ExtProc 接收响应                                    │
+│   - Decision Router 通过 ExtProc 接收响应                                    │
 │   - 将查询 Embedding + 响应存储在 Milvus 中                                  │
 │   - TTL：7200 秒（可配置）                                                   │
 │                                                                              │
@@ -837,7 +837,7 @@ import ZoomableMermaid from '@site/src/components/ZoomableMermaid';
 │  │                                                             │    │
 │  │  [Envoy Gateway]                                           │    │
 │  │       ↓ (ExtProc gRPC)                                     │    │
-│  │  [Semantic Router 服务]                                    │    │
+│  │  [Decision Router 服务]                                    │    │
 │  │   - Pods: 3 个副本 (高可用)                                │    │
 │  │   - 端口: 50051 (gRPC)                                     │    │
 │  │   - 功能:                                                   │    │
@@ -911,7 +911,7 @@ import ZoomableMermaid from '@site/src/components/ZoomableMermaid';
 **关键 Kubernetes 服务：**
 
 1. **semantic-router-svc** (ClusterIP)
-   - 在 50051 端口暴露 Semantic Router ExtProc
+   - 在 50051 端口暴露 Decision Router ExtProc
    - 被 Envoy Gateway 用于请求处理
    - 选择器：`app=semantic-router`
 
@@ -928,7 +928,7 @@ import ZoomableMermaid from '@site/src/components/ZoomableMermaid';
 
 4. **milvus-svc** (ClusterIP)
    - 在 19530 端口暴露 Milvus (gRPC)
-   - 被 Semantic Router 用于 Semantic Cache
+   - 被 Decision Router 用于 Semantic Cache
    - 用于 Embedding 相似度搜索的向量数据库
    - 选择器：`app=milvus`
 
@@ -957,11 +957,11 @@ import ZoomableMermaid from '@site/src/components/ZoomableMermaid';
 ├──────────────────────────────────────────────────────────────────────┤
 │ - 接收 HTTP 请求                                                    │
 │ - 调用 ExtProc: semantic-router-svc:50051 (gRPC)                    │
-│ - 将请求体 + 请求头发送到 Semantic Router                            │
+│ - 将请求体 + 请求头发送到 Decision Router                            │
 └──────────────────────────────────────────────────────────────────────┘
                               ↓
 ┌──────────────────────────────────────────────────────────────────────┐
-│ 步骤 3：Semantic Router 服务 (ExtProc gRPC)                         │
+│ 步骤 3：Decision Router 服务 (ExtProc gRPC)                         │
 ├──────────────────────────────────────────────────────────────────────┤
 │ 处理流水线：                                                         │
 │                                                                       │
@@ -1002,7 +1002,7 @@ import ZoomableMermaid from '@site/src/components/ZoomableMermaid';
 ┌──────────────────────────────────────────────────────────────────────┐
 │ 步骤 4：Envoy Gateway (转发)                                         │
 ├──────────────────────────────────────────────────────────────────────┤
-│ - 接收来自 Semantic Router 的增强请求                                │
+│ - 接收来自 Decision Router 的增强请求                                │
 │ - 转发到：dynamo-frontend-svc:8000                                   │
 │ - 请求体现已包含：model="deepseek-v31" (覆盖自 "auto")               │
 │ - 保留可选的可观测性头                                               │
@@ -1074,23 +1074,23 @@ import ZoomableMermaid from '@site/src/components/ZoomableMermaid';
 
 1. **透明模型覆盖（关键设计）**
    - 用户发送：`{"model": "auto", "messages": [...]}`
-   - Semantic Router 修改请求体：`model: "auto" → "deepseek-v31"`
+   - Decision Router 修改请求体：`model: "auto" → "deepseek-v31"`
    - Dynamo 接收：`{"model": "deepseek-v31", "messages": [...]}`
    - **Dynamo 对 VSR 的参与完全无感知**
    - 无需为模型路由提供特殊请求头
    - 维持了标准 OpenAI API 的兼容性
 
 2. **System Prompt 注入**
-   - Semantic Router 将 System Prompt 注入到 messages 数组中
+   - Decision Router 将 System Prompt 注入到 messages 数组中
    - 示例：`messages: [{"role": "system", "content": "你是一名数学专家..."}, {"role": "user", "content": "..."}]`
    - 工作节点接收经过预增强的请求
    - Dynamo 或工作节点无需进行额外处理
 
 3. **服务发现**
-   - Envoy → Semantic Router: `semantic-router-svc.llm-inference-stack.svc.cluster.local:50051` (gRPC ExtProc)
+   - Envoy → Decision Router: `semantic-router-svc.llm-inference-stack.svc.cluster.local:50051` (gRPC ExtProc)
    - Envoy → Dynamo: `dynamo-frontend-svc.llm-inference-stack.svc.cluster.local:8000` (HTTP)
    - Dynamo → 工作节点: `vllm-\{model\}-svc.llm-inference-stack.svc.cluster.local` (Headless Service)
-   - Semantic Router → Milvus: `milvus-svc.llm-inference-stack.svc.cluster.local:19530` (gRPC)
+   - Decision Router → Milvus: `milvus-svc.llm-inference-stack.svc.cluster.local:19530` (gRPC)
 
 4. **可观测性（可选头）**
    - `x-vsr-selected-category`：查询分类结果（如 "math"）
@@ -1145,7 +1145,7 @@ Dynamo Frontend 通过 Kubernetes Headless Service 发现工作节点，这些�
    - 每个模型都有专门的 StatefulSet + Headless Service
    - 示例：`vllm-deepseek-v31-svc` → 4 个服务于 DeepSeek-V3 的 pod
    - Dynamo 查询服务 DNS 以获取所有 pod IP
-   - 根据来自 Semantic Router 的 `X-VSR-Model` 头过滤工作节点
+   - 根据来自 Decision Router 的 `X-VSR-Model` 头过滤工作节点
 
 4. **动态扩缩容**
    - 水平 Pod 自动扩缩器 (HPA) 根据 GPU 利用率调整副本数
@@ -1158,13 +1158,13 @@ Dynamo Frontend 通过 Kubernetes Headless Service 发现工作节点，这些�
 
 **目标：**
 
-- 建立 Semantic Router 与 Dynamo 之间的基础集成
+- 建立 Decision Router 与 Dynamo 之间的基础集成
 - 在请求体中实现透明的模型覆盖
 - 验证端到端请求流程
 
 **任务：**
 
-1. **Semantic Router 增强：**
+1. **Decision Router 增强：**
    - 实现请求体修改：`model: "auto" → "selected-model"`
    - 将 System Prompt 注入添加到 messages 数组
    - 添加可选的可观测性头：
@@ -1240,7 +1240,7 @@ Dynamo Frontend 通过 Kubernetes Headless Service 发现工作节点，这些�
    - 追踪上下文从 VSR 经由 Dynamo 传播到工作节点
    - Span 层级：
      - 根 span：Envoy Gateway
-     - 子 span：Semantic Router (融合路由, 缓存, 安全)
+     - 子 span：Decision Router (融合路由, 缓存, 安全)
        - 子 span：BERT 分类
        - 子 span：关键词匹配
        - 子 span：相似度搜索
@@ -1251,7 +1251,7 @@ Dynamo Frontend 通过 Kubernetes Headless Service 发现工作节点，这些�
    - 支持 Jaeger、Tempo 和其他兼容 OTLP 的后端
 
 2. **指标收集：**
-   - Semantic Router 指标：
+   - Decision Router 指标：
      - 融合路由性能：
        - BERT 分类延迟和准确性
        - 关键词匹配命中率和延迟
@@ -1290,7 +1290,7 @@ Dynamo Frontend 通过 Kubernetes Headless Service 发现工作节点，这些�
 **任务：**
 
 1. **韧性：**
-   - Semantic Router 故障时回退到 Dynamo
+   - Decision Router 故障时回退到 Dynamo
    - 缓存后端的断路器
    - 优雅降级策略
 
@@ -1415,7 +1415,7 @@ global:
 
 | 指标 | 阈值 | 告警级别 |
 |--------|-----------|----------------|
-| Semantic Router 延迟 (P99) | 高 | 警告 |
+| Decision Router 延迟 (P99) | 高 | 警告 |
 | Dynamo 路由延迟 (P99) | 高 | 警告 |
 | 综合延迟 (P99) | 极高 | 紧急 |
 | Semantic Cache 命中率 | 低 | 警告 |
@@ -1433,7 +1433,7 @@ global:
 
 ### 7.3 故障模式与恢复
 
-**故障场景 1：Semantic Router 不可用**
+**故障场景 1：Decision Router 不可用**
 
 - **检测**：健康检查失败、超时错误
 - **影响**：无语义路由、安全过滤或缓存
@@ -1448,7 +1448,7 @@ global:
 - **检测**：连接错误、超时
 - **影响**：无 Semantic Cache（缓存未命中）
 - **恢复**：
-  - Semantic Router 继续使用内存缓存
+  - Decision Router 继续使用内存缓存
   - 所有请求转发到 Dynamo
   - 性能下降但无停机
 - **缓解**：部署 Milvus 集群以实现高可用
@@ -1469,7 +1469,7 @@ global:
 - **影响**：TTFT 和 ITL 增加
 - **恢复**：
   - Dynamo Planner 自动扩缩工作节点
-  - Semantic Router 可能会路由到备选模型
+  - Decision Router 可能会路由到备选模型
   - 请求排队直到容量可用
 - **缓解**：自动扩缩容策略、过度配置
 
@@ -1530,9 +1530,9 @@ global:
 - [Dynamo 分离式服务](https://docs.nvidia.com/dynamo/latest/_sections/disaggregated-serving.html)
 - [Dynamo KVBM](https://docs.nvidia.com/dynamo/latest/components/kvbm/README.html)
 
-### 9.2 vLLM Semantic Router 文档
+### 9.2 Meliclaw Decision Router 文档
 
-- [Semantic Router 概览](https://vllm-sr.ai/docs/overview/semantic-router-overview/)
+- [Decision Router 概览](https://vllm-sr.ai/docs/overview/semantic-router-overview/)
 - [系统架构](https://vllm-sr.ai/docs/overview/architecture/system-architecture/)
 - [Kubernetes 部署](https://vllm-sr.ai/docs/installation/k8s/ai-gateway)
 - [分布式追踪支持 (PR #322)](https://github.com/vllm-project/semantic-router/pull/322)
@@ -1657,7 +1657,7 @@ medical advice.
 
 ### 10.3 API 示例
 
-**带有 Semantic Router 请求头的请求：**
+**带有 Decision Router 请求头的请求：**
 
 ```bash
 curl -X POST http://llm-gateway:8080/v1/chat/completions \
@@ -1711,7 +1711,7 @@ x-request-id: 7f3e9a2b4c5d6e8f
 
 ## 结论
 
-本提案概述了 vLLM Semantic Router 与 NVIDIA Dynamo 之间的全面集成策略，将语义智能与基础设施优化相结合。分层架构确保了：
+本提案概述了 Meliclaw Decision Router 与 NVIDIA Dynamo 之间的全面集成策略，将语义智能与基础设施优化相结合。分层架构确保了：
 
 1. **语义正确性**：基于查询理解选择正确的模型
 2. **基础设施效率**：最优的工作节点选择和 KV Cache 利用

@@ -107,7 +107,7 @@ helm upgrade --install semantic-router \
   oci://ghcr.io/vllm-project/charts/semantic-router \
   -f values.yaml --set dashboard.enabled=true
 
-kubectl --namespace vllm-semantic-router-system port-forward \
+kubectl --namespace meliclaw-decision-router-system port-forward \
   svc/semantic-router-dashboard 8700:8700
 ```
 

@@ -20,7 +20,7 @@ spec:
         component: gateway
         app.kubernetes.io/name: semantic-router
         app.kubernetes.io/component: gateway
-        app.kubernetes.io/part-of: vllm-semantic-router
+        app.kubernetes.io/part-of: meliclaw-decision-router
       annotations:
         sidecar.istio.io/inject: "true"  # Enable Istio injection for service mesh integration with KServe
         proxy.istio.io/config: '{ "holdApplicationUntilProxyStarts": true }'  # Ensure proxy is ready

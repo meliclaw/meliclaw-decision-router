@@ -19,15 +19,15 @@ This guide provides step-by-step instructions for integrating the vLLM AIBrix.
 
 ### Integration Benefits
 
-Integrating vLLM Semantic Router with AIBrix provides several advantages:
+Integrating Meliclaw Decision Router with AIBrix provides several advantages:
 
-1. **Intelligent Request Routing**: Semantic Router analyzes incoming requests and routes them to the most appropriate model based on content understanding, while AIBrix's gateway efficiently manages traffic distribution across model replicas
+1. **Intelligent Request Routing**: Decision Router analyzes incoming requests and routes them to the most appropriate model based on content understanding, while AIBrix's gateway efficiently manages traffic distribution across model replicas
 
-2. **Enhanced Scalability**: AIBrix's autoscaler works seamlessly with Semantic Router to dynamically adjust resources based on routing patterns and real-time demand
+2. **Enhanced Scalability**: AIBrix's autoscaler works seamlessly with Decision Router to dynamically adjust resources based on routing patterns and real-time demand
 
-3. **Cost Optimization**: By combining Semantic Router's intelligent routing with AIBrix's heterogeneous serving capabilities, you can optimize GPU utilization and reduce infrastructure costs while maintaining SLO guarantees
+3. **Cost Optimization**: By combining Decision Router's intelligent routing with AIBrix's heterogeneous serving capabilities, you can optimize GPU utilization and reduce infrastructure costs while maintaining SLO guarantees
 
-4. **Production-Ready Infrastructure**: AIBrix provides enterprise-grade features like distributed KV cache, GPU failure detection, and unified runtime management, making it easier to deploy Semantic Router in production environments
+4. **Production-Ready Infrastructure**: AIBrix provides enterprise-grade features like distributed KV cache, GPU failure detection, and unified runtime management, making it easier to deploy Decision Router in production environments
 
 5. **Simplified Operations**: The integration leverages Kubernetes-native patterns and Gateway API resources, providing a familiar operational model for DevOps teams
 
@@ -50,7 +50,7 @@ kind create cluster --name semantic-router-cluster
 kubectl wait --for=condition=Ready nodes --all --timeout=300s
 ```
 
-## Step 2: Deploy vLLM Semantic Router
+## Step 2: Deploy Meliclaw Decision Router
 
 Deploy the semantic router service with all required components using Helm:
 
@@ -59,15 +59,15 @@ Deploy the semantic router service with all required components using Helm:
 # (Optional) If you use a registry mirror/proxy, append: --set global.imageRegistry=<your-registry>
 helm install semantic-router oci://ghcr.io/vllm-project/charts/semantic-router \
   --version v0.0.0-latest \
-  --namespace vllm-semantic-router-system \
+  --namespace meliclaw-decision-router-system \
   --create-namespace \
   -f https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/aibrix/semantic-router-values/values.yaml
 
 # Wait for deployment to be ready (this may take several minutes for model downloads)
-kubectl wait --for=condition=Available deployment/semantic-router -n vllm-semantic-router-system --timeout=600s
+kubectl wait --for=condition=Available deployment/semantic-router -n meliclaw-decision-router-system --timeout=600s
 
 # Verify deployment status
-kubectl get pods -n vllm-semantic-router-system
+kubectl get pods -n meliclaw-decision-router-system
 ```
 
 **Note**: The values file contains the configuration for the semantic router, including model settings, categories, and routing rules. You can download and customize it from [values.yaml](https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/aibrix/semantic-router-values/values.yaml).
@@ -167,7 +167,7 @@ kubectl delete -f https://raw.githubusercontent.com/vllm-project/semantic-router
 kubectl delete -f https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/aibrix/aigw-resources/base-model.yaml
 
 # Remove semantic router
-helm uninstall semantic-router -n vllm-semantic-router-system
+helm uninstall semantic-router -n meliclaw-decision-router-system
 
 # Delete kind cluster (optional)
 kind delete cluster --name semantic-router-cluster

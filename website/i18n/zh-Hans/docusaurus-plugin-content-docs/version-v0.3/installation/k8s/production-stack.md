@@ -2,9 +2,9 @@
 
 本教程改编自 [vLLM production stack 教程](https://github.com/vllm-project/production-stack/blob/main/tutorials/24-semantic-router-integration.md)
 
-## 什么是 vLLM Semantic Router？
+## 什么是 Meliclaw Decision Router？
 
-vLLM Semantic Router 是一个智能的 Mixture of Models (MoM) Router，作为 Envoy 外部处理器运行，将 OpenAI API 兼容请求 Semantic Router 到最合适的后端模型。使用基于 BERT 的分类，它通过将请求（例如 math、code、creative、general）匹配到专业模型来提高质量和成本效率。
+Meliclaw Decision Router 是一个智能的 Mixture of Models (MoM) Router，作为 Envoy 外部处理器运行，将 OpenAI API 兼容请求 Decision Router 到最合适的后端模型。使用基于 BERT 的分类，它通过将请求（例如 math、code、creative、general）匹配到专业模型来提高质量和成本效率。
 
 - **模型自动选择**：将 math、creative writing、code 和 general 查询路由到最适合的模型。
 - **安全与隐私**：PII 检测、Prompt Guard 和敏感 prompt 的安全路由。
@@ -12,20 +12,20 @@ vLLM Semantic Router 是一个智能的 Mixture of Models (MoM) Router，作为 
 - **架构**：紧密的 Envoy ExtProc 集成；双 Go 和 Python 实现；生产就绪且可扩展。
 - **监控**：Grafana 仪表板、Prometheus 指标和 tracing，实现全面可见性。
 
-了解更多：[vLLM Semantic Router](https://vllm-sr.ai/docs/intro)
+了解更多：[Meliclaw Decision Router](https://vllm-sr.ai/docs/intro)
 
 ## 集成有什么好处？
 
-vLLM Production Stack 提供了多种部署方式，可以启动 vLLM 服务器，将流量定向到不同模型，通过 Kubernetes API 执行服务发现和容错，并支持轮询、基于会话、前缀感知、KV 感知和分解预填充路由，原生支持 LMCache。 Semantic Router 添加了一个系统智能层，对每个用户请求进行分类，从池中选择最合适的模型，注入领域特定的系统提示词，执行语义缓存并执行企业级安全检查，如 PII 和越狱检测。
+vLLM Production Stack 提供了多种部署方式，可以启动 vLLM 服务器，将流量定向到不同模型，通过 Kubernetes API 执行服务发现和容错，并支持轮询、基于会话、前缀感知、KV 感知和分解预填充路由，原生支持 LMCache。 Decision Router 添加了一个系统智能层，对每个用户请求进行分类，从池中选择最合适的模型，注入领域特定的系统提示词，执行语义缓存并执行企业级安全检查，如 PII 和越狱检测。
 
-通过结合这两个系统，我们获得了一个统一的推理堆栈。Semantic Router 确保每个请求由最佳可能的模型回答。Production-Stack 路由最大化基础设施和推理效率，并暴露丰富的指标。
+通过结合这两个系统，我们获得了一个统一的推理堆栈。Decision Router 确保每个请求由最佳可能的模型回答。Production-Stack 路由最大化基础设施和推理效率，并暴露丰富的指标。
 
 ---
 
 本教程将指导您：
 
 - 部署一个最小的 vLLM Production Stack
-- 部署 vLLM Semantic Router 并将其指向您的 vLLM Router 服务
+- 部署 Meliclaw Decision Router 并将其指向您的 vLLM Router 服务
 - 通过 Envoy AI Gateway 测试 endpoint
 
 ## 前置条件
@@ -91,23 +91,23 @@ kubectl get svc vllm-router-service
 
 ---
 
-## 步骤 2：部署 vLLM Semantic Router 并将其指向您的 vLLM Router 服务
+## 步骤 2：部署 Meliclaw Decision Router 并将其指向您的 vLLM Router 服务
 
 按照官方网站的官方指南和**以下更新的配置文件**：[在 Kubernetes 中安装](https://vllm-sr.ai/docs/installation/k8s/ai-gateway)。
 
 使用自定义 values 通过 Helm 部署：
 
 ```bash
-   # 从 GHCR OCI 仓库部署 vLLM Semantic Router 并使用自定义 values
+   # 从 GHCR OCI 仓库部署 Meliclaw Decision Router 并使用自定义 values
    # （可选）如果使用镜像代理，请添加：--set global.imageRegistry=<your-registry>
    helm install semantic-router oci://ghcr.io/vllm-project/charts/semantic-router \
      --version v0.0.0-latest \
-     --namespace vllm-semantic-router-system \
+     --namespace meliclaw-decision-router-system \
      --create-namespace \
      -f https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/ai-gateway/semantic-router-values/values.yaml
 
    kubectl wait --for=condition=Available deployment/semantic-router \
-     -n vllm-semantic-router-system --timeout=600s
+     -n meliclaw-decision-router-system --timeout=600s
 
    # 安装 Envoy Gateway
    helm upgrade -i eg oci://docker.io/envoyproxy/gateway-helm \
@@ -131,7 +131,7 @@ kubectl get svc vllm-router-service
      deployment/ai-gateway-controller --for=condition=Available
 ```
 
-**注意**：values 文件包含 Semantic Router 的配置。您可以从 [values.yaml](https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/ai-gateway/semantic-router-values/values.yaml) 下载并自定义以匹配您的 vLLM Production Stack 设置。
+**注意**：values 文件包含 Decision Router 的配置。您可以从 [values.yaml](https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/ai-gateway/semantic-router-values/values.yaml) 下载并自定义以匹配您的 vLLM Production Stack 设置。
 
 创建 LLM 演示后端和 AI Gateway 路由：
 
@@ -180,8 +180,8 @@ kubectl get svc vllm-router-service
 kubectl delete -f https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/ai-gateway/aigw-resources/gwapi-resources.yaml
 kubectl delete -f https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/ai-gateway/aigw-resources/base-model.yaml
 
-# 删除Semantic Router 
-helm uninstall semantic-router -n vllm-semantic-router-system
+# 删除Decision Router 
+helm uninstall semantic-router -n meliclaw-decision-router-system
 
 # 删除 AI gateway
 helm uninstall aieg -n envoy-ai-gateway-system
@@ -203,5 +203,5 @@ kind delete cluster --name semantic-router-cluster
 
 - 如果网关无法访问，请按照指南检查 Gateway 和 Envoy 服务。
 - 如果推理池未就绪，请 `kubectl describe` InferencePool 并检查 controller 日志。
-- 如果 Semantic Router 无响应，请检查其 pod 状态和日志。
+- 如果 Decision Router 无响应，请检查其 pod 状态和日志。
 - 如果返回错误代码，请检查 production stack 路由日志。

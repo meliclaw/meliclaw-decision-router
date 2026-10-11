@@ -1,7 +1,7 @@
 ---
 sidebar_position: 2
 title: Install with an agent
-description: Give a coding agent one prompt to install, configure, and verify vLLM Semantic Router on a CPU or GPU host, through its CLI and Router API.
+description: Give a coding agent one prompt to install, configure, and verify Meliclaw Decision Router on a CPU or GPU host, through its CLI and Router API.
 ---
 
 import CodeBlock from '@theme/CodeBlock'

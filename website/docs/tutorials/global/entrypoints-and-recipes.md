@@ -1,13 +1,13 @@
 ---
 title: Virtual Models
-description: Give clients stable virtual model names backed by isolated routing policies in one Semantic Router deployment.
+description: Give clients stable virtual model names backed by isolated routing policies in one Decision Router deployment.
 ---
 
 # Virtual Models
 
 ## Overview
 
-Entrypoints and recipes turn one Semantic Router deployment into a set of
+Entrypoints and recipes turn one Decision Router deployment into a set of
 purpose-built virtual models:
 
 - an **entrypoint** is the model name a client requests;
@@ -126,7 +126,7 @@ This is the entry for `vllm-sr/auto`:
   "id": "vllm-sr/auto",
   "object": "model",
   "created": 1790323030,
-  "owned_by": "vllm-semantic-router",
+  "owned_by": "meliclaw-decision-router",
   "description": "Intelligent Router for Mixture-of-Models",
   "routing": {
     "resolution": "virtual",

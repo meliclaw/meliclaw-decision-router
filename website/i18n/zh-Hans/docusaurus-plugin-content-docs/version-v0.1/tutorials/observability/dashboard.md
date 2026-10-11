@@ -5,9 +5,9 @@ translation:
   outdated: false
 ---
 
-# Semantic Router 仪表板 (Semantic Router Dashboard)
+# Decision Router 仪表板 (Decision Router Dashboard)
 
-Semantic Router 仪表板是一个统一的操作员界面，集成了配置管理 (Configuration Management)、交互式演练场 (Interactive Playground) 以及实时监控与可观测性。它为本地开发、Docker Compose 和 Kubernetes 部署提供了一个统一的入口点。
+Decision Router 仪表板是一个统一的操作员界面，集成了配置管理 (Configuration Management)、交互式演练场 (Interactive Playground) 以及实时监控与可观测性。它为本地开发、Docker Compose 和 Kubernetes 部署提供了一个统一的入口点。
 
 - 统一查看和编辑配置（带有防护机制）
 - 通过您喜欢的 UI (Open WebUI) 测试提示词

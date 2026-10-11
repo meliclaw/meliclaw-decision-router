@@ -9,7 +9,7 @@ sidebar_position: 4
 
 # 什么是 Signal-Driven Decision？
 
-**Signal-Driven Decision** 是 Semantic Router 的核心路由架构。它不再依赖单一分类器，而是并行提取请求的多个维度信号（Signal），并通过布尔树组合它们以做出精确的路由决策。
+**Signal-Driven Decision** 是 Decision Router 的核心路由架构。它不再依赖单一分类器，而是并行提取请求的多个维度信号（Signal），并通过布尔树组合它们以做出精确的路由决策。
 
 ## 核心理念
 

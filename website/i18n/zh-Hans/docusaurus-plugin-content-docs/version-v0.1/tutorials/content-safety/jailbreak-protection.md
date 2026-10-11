@@ -7,7 +7,7 @@ translation:
 
 # Jailbreak Protection
 
-Semantic Router 包含先进的 jailbreak 检测功能，可识别并拦截试图绕过 AI 安全措施的对抗性 prompt。该系统使用经过微调的 BERT 模型来检测各种 jailbreak 技术和 prompt injection 攻击。
+Decision Router 包含先进的 jailbreak 检测功能，可识别并拦截试图绕过 AI 安全措施的对抗性 prompt。该系统使用经过微调的 BERT 模型来检测各种 jailbreak 技术和 prompt injection 攻击。
 
 ## 概览
 

@@ -1,6 +1,6 @@
 # Jailbreak Protection
 
-Semantic Router includes advanced jailbreak detection to identify and block adversarial prompts that attempt to bypass AI safety measures. The system uses fine-tuned BERT models to detect various jailbreak techniques and prompt injection attacks.
+Decision Router includes advanced jailbreak detection to identify and block adversarial prompts that attempt to bypass AI safety measures. The system uses fine-tuned BERT models to detect various jailbreak techniques and prompt injection attacks.
 
 ## Overview
 

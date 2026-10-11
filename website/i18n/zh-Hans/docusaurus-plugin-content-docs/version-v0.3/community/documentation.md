@@ -1,6 +1,6 @@
 # 文档指南
 
-本指南介绍如何为 vLLM Semantic Router 贡献文档。
+本指南介绍如何为 Meliclaw Decision Router 贡献文档。
 
 ## 目录结构
 

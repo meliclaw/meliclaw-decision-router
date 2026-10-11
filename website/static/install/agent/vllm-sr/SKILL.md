@@ -1,9 +1,9 @@
 ---
 name: vllm-sr
-description: Install, configure, and verify vLLM Semantic Router on a Docker host (CPU, AMD, or NVIDIA GPU) or a Kubernetes cluster, then operate it through its CLI and Router API. Use for a first install, an upgrade, routing verification, configuration changes, recipe tuning, and single-model/MoM evaluation.
+description: Install, configure, and verify Meliclaw Decision Router on a Docker host (CPU, AMD, or NVIDIA GPU) or a Kubernetes cluster, then operate it through its CLI and Router API. Use for a first install, an upgrade, routing verification, configuration changes, recipe tuning, and single-model/MoM evaluation.
 ---
 
-# vLLM Semantic Router: install, configure, verify
+# Meliclaw Decision Router: install, configure, verify
 
 Run the steps in order. Each one says what to run, what success looks like and
 what to do otherwise, and each is safe to run again.
@@ -219,7 +219,7 @@ vllm-sr serve --config config.yaml --platform rocm      # ROCm; CUDA uses --plat
 
 Add `--gateway extproc` only if you chose it, and `--minimal` to run without
 the Dashboard and the observability stack. `serve` returns once the Router is
-ready and prints `✓ vLLM Semantic Router is running (standalone gateway)` with
+ready and prints `✓ Meliclaw Decision Router is running (standalone gateway)` with
 its endpoints. The first start pulls about 5 GB of images, or about 22 GB with
 `--platform rocm`: minutes on a fast link, longer on a slow one. It waits up to
 30 minutes (`--startup-timeout SECONDS` changes that). If your shell can't wait

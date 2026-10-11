@@ -1,11 +1,11 @@
 ---
 sidebar_position: 2
-description: Overview of Semantic Router, explaining how multi-signal model selection improves cost, quality, safety, and flexibility in LLM systems.
+description: Overview of Decision Router, explaining how multi-signal model selection improves cost, quality, safety, and flexibility in LLM systems.
 ---
 
-# What is Semantic Router?
+# What is Decision Router?
 
-**Semantic Router** is an intelligent routing layer that dynamically selects the most suitable language model for each query based on multiple signals extracted from the request.
+**Decision Router** is an intelligent routing layer that dynamically selects the most suitable language model for each query based on multiple signals extracted from the request.
 
 ## The Problem
 
@@ -24,7 +24,7 @@ User Query → Single LLM → Response
 
 ## The Solution
 
-Semantic Router uses **signal-driven decision making** to route queries intelligently:
+Decision Router uses **signal-driven decision making** to route queries intelligently:
 
 ```text
 User Query → Signal Extraction → Projection Coordination → Decision Engine → Plugins + Model Dispatch → Response

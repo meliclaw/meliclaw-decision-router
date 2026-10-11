@@ -1,13 +1,13 @@
 ---
 title: Deploy with Istio Gateway
-description: Run Semantic Router as an ExtProc service behind an Istio Gateway and two model backends.
+description: Run Decision Router as an ExtProc service behind an Istio Gateway and two model backends.
 ---
 
 # Deploy with Istio Gateway
 
-This guide shows a reference topology for running Semantic Router as an
+This guide shows a reference topology for running Decision Router as an
 ExtProc service behind an Istio Gateway. Istio owns ingress and `HTTPRoute`
-processing; Semantic Router owns prompt-aware model selection. The supplied
+processing; Decision Router owns prompt-aware model selection. The supplied
 `EnvoyFilter` and `DestinationRule` are specific to this example, so do not
 reuse manifests from a different gateway integration without comparing its
 ExtProc mode.
@@ -16,8 +16,8 @@ ExtProc mode.
 
 The deployment consists of:
 
-- **Semantic Router** evaluates routing policy and selects a model.
-- **Istio Gateway** accepts client traffic and calls Semantic Router through
+- **Decision Router** evaluates routing policy and selects a model.
+- **Istio Gateway** accepts client traffic and calls Decision Router through
   ExtProc.
 - **Gateway API resources** map the selected model to a Kubernetes backend.
 - **The two vLLM deployments** are example inference backends and require
@@ -108,23 +108,23 @@ curl -O https://raw.githubusercontent.com/vllm-project/semantic-router/refs/head
 
 Ensure that the models in the config file match the models you are using. It is usually good to start with basic features of vsr such as prompt classification and model routing before experimenting with other features such as PromptGuard or ToolCalling.
 
-## Step 5: Deploy vLLM Semantic Router
+## Step 5: Deploy Meliclaw Decision Router
 
-Deploy Semantic Router with the integration values:
+Deploy Decision Router with the integration values:
 
 ```bash
 # Install semantic router using Helm from GHCR OCI registry
 helm install semantic-router oci://ghcr.io/vllm-project/charts/semantic-router \
   --version 0.0.0-latest \
-  --namespace vllm-semantic-router-system \
+  --namespace meliclaw-decision-router-system \
   --create-namespace \
   -f https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/istio/semantic-router-values/values.yaml
 
 # Wait for deployment to be ready (this may take several minutes for model downloads)
-kubectl wait --for=condition=Available deployment/semantic-router -n vllm-semantic-router-system --timeout=600s
+kubectl wait --for=condition=Available deployment/semantic-router -n meliclaw-decision-router-system --timeout=600s
 
 # Verify deployment status
-kubectl get pods -n vllm-semantic-router-system
+kubectl get pods -n meliclaw-decision-router-system
 ```
 
 **Note**: The values file contains provider bindings, signals, decisions, and
@@ -138,7 +138,7 @@ header-based `HTTPRoute` again.
 ## Step 6: Install additional Istio configuration
 
 Install the `DestinationRule` and gateway-scoped `EnvoyFilter` that connect the
-Istio gateway to Semantic Router over ExtProc:
+Istio gateway to Decision Router over ExtProc:
 
 ```bash
 kubectl apply -f https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/istio/destinationrule.yaml
@@ -191,13 +191,13 @@ kubectl logs deploy/inference-gateway-istio -c istio-proxy
 
 ```bash
 # Check semantic router pod
-kubectl get pods -n vllm-semantic-router-system
+kubectl get pods -n meliclaw-decision-router-system
 
 # Check semantic router service
-kubectl get svc -n vllm-semantic-router-system
+kubectl get svc -n meliclaw-decision-router-system
 
 # Check semantic router logs
-kubectl logs -n vllm-semantic-router-system deployment/semantic-router
+kubectl logs -n meliclaw-decision-router-system deployment/semantic-router
 ```
 
 ## Cleanup
@@ -215,7 +215,7 @@ kubectl delete -f https://raw.githubusercontent.com/vllm-project/semantic-router
 kubectl delete -f https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/istio/destinationrule.yaml
 
 # Remove semantic router
-helm uninstall semantic-router -n vllm-semantic-router-system
+helm uninstall semantic-router -n meliclaw-decision-router-system
 
 # Remove Istio
 istioctl uninstall --purge

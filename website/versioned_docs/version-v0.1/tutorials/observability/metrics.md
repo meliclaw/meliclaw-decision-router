@@ -1,6 +1,6 @@
 # Metrics & Monitoring
 
-Metrics collection and visualization for Semantic Router using Prometheus and Grafana.
+Metrics collection and visualization for Decision Router using Prometheus and Grafana.
 
 ---
 
@@ -106,7 +106,7 @@ Same configs as local mode (`tools/observability/`), but:
 
 Production-ready Prometheus + Grafana for K8s clusters.
 
-> **Namespace**: `vllm-semantic-router-system`
+> **Namespace**: `meliclaw-decision-router-system`
 
 ### Components
 
@@ -123,7 +123,7 @@ Production-ready Prometheus + Grafana for K8s clusters.
 kubectl apply -k deploy/kubernetes/observability/
 
 # Verify
-kubectl get pods -n vllm-semantic-router-system
+kubectl get pods -n meliclaw-decision-router-system
 ```
 
 ### Access
@@ -131,8 +131,8 @@ kubectl get pods -n vllm-semantic-router-system
 **Port-forward:**
 
 ```bash
-kubectl port-forward svc/prometheus 9090:9090 -n vllm-semantic-router-system
-kubectl port-forward svc/grafana 3000:3000 -n vllm-semantic-router-system
+kubectl port-forward svc/prometheus 9090:9090 -n meliclaw-decision-router-system
+kubectl port-forward svc/grafana 3000:3000 -n meliclaw-decision-router-system
 ```
 
 **Ingress:** Customize `ingress.yaml` with your domain and TLS
@@ -147,14 +147,14 @@ scrape_configs:
     kubernetes_sd_configs:
       - role: endpoints
         namespaces:
-          names: [vllm-semantic-router-system]
+          names: [meliclaw-decision-router-system]
 ```
 
 **Grafana** credentials (change in production):
 
 ```bash
 kubectl create secret generic grafana-admin \
-  --namespace vllm-semantic-router-system \
+  --namespace meliclaw-decision-router-system \
   --from-literal=admin-user=admin \
   --from-literal=admin-password='your-password'
 ```

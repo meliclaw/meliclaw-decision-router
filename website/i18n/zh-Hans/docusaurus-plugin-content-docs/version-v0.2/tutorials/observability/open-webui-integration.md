@@ -7,14 +7,14 @@ translation:
 
 # Open WebUI 集成
 
-本指南介绍如何使用提供的管道 (Pipe) 将 vLLM Semantic Router 与 Open WebUI 集成。
+本指南介绍如何使用提供的管道 (Pipe) 将 Meliclaw Decision Router 与 Open WebUI 集成。
 
 ## 架构
 
 ```mermaid
 graph LR
-    A[Open WebUI] --> B[vLLM Semantic Router 管道]
-    B --> C[vLLM Semantic Router ]
+    A[Open WebUI] --> B[Meliclaw Decision Router 管道]
+    B --> C[Meliclaw Decision Router ]
     C --> D{路由决策}
     D --> E[模型 A]
     D --> F[模型 B]
@@ -33,7 +33,7 @@ graph LR
 
 ## 前提条件
 
-- 已部署且可访问的 **vLLM Semantic Router **（推荐：通过 `kubectl apply -k deploy/kubernetes/` 进行 Kubernetes 部署）
+- 已部署且可访问的 **Meliclaw Decision Router **（推荐：通过 `kubectl apply -k deploy/kubernetes/` 进行 Kubernetes 部署）
 - 已安装并运行的 **Open WebUI**
 
 ## 安装步骤
@@ -56,14 +56,14 @@ graph LR
 
 | 设置 | 描述 | 示例 |
 |---------|-------------|---------|
-| `vsr_base_url` | Semantic Router 端点 URL | `http://semantic-router.vllm-semantic-router-system.svc.cluster.local:8000` |
+| `vsr_base_url` | Decision Router 端点 URL | `http://semantic-router.meliclaw-decision-router-system.svc.cluster.local:8000` |
 | `show_vsr_info` | 在聊天中显示路由决策 | `true` |
 | `timeout` | 请求超时（秒） | `300` |
 
 **对于 Kubernetes 部署**，请使用服务 DNS 名称：
 
 ```text
-http://semantic-router.vllm-semantic-router-system.svc.cluster.local:8000
+http://semantic-router.meliclaw-decision-router-system.svc.cluster.local:8000
 ```
 
 点击 **"保存 (Save)"** 应用配置。
@@ -71,7 +71,7 @@ http://semantic-router.vllm-semantic-router-system.svc.cluster.local:8000
 ### 第 3 步：使用模型
 
 1. 进入 **聊天 (Chat)** 界面
-2. 从模型下拉菜单中选择 **"vllm-semantic-router/auto"**
+2. 从模型下拉菜单中选择 **"meliclaw-decision-router/auto"**
 3. 开始聊天！
 
 ## 用法
@@ -79,7 +79,7 @@ http://semantic-router.vllm-semantic-router-system.svc.cluster.local:8000
 管道将在聊天界面中显示路由信息：
 
 ```text
-🔀 vLLM Semantic Router Decision 🔀
+🔀 Meliclaw Decision Router Decision 🔀
 
 📂 用户意图类别: general-qa
 ⚡ 思维链 (CoT): off
@@ -96,7 +96,7 @@ http://semantic-router.vllm-semantic-router-system.svc.cluster.local:8000
 
 如果您看到连接错误：
 
-1. 验证Semantic Router 正在运行
+1. 验证Decision Router 正在运行
 2. 检查 `vsr_base_url` 是否正确
 3. 对于 Kubernetes，确保服务 DNS 名称可以从 Open WebUI pod 访问
 

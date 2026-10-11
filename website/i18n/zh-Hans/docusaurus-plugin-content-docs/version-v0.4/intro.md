@@ -10,12 +10,12 @@ translation:
 
 import ThemedImage from '@theme/ThemedImage';
 
-# 欢迎使用 vLLM Semantic Router
+# 欢迎使用 Meliclaw Decision Router
 
 <div className="docs-intro-brand">
  <ThemedImage
  className="docs-intro-brand__logo"
- alt="vLLM Semantic Router"
+ alt="Meliclaw Decision Router"
  sources={{
  light: '/img/vllm-sr-logo.light.png',
  dark: '/img/vllm-sr-logo.white.png',
@@ -24,7 +24,7 @@ import ThemedImage from '@theme/ThemedImage';
  <p className="docs-intro-brand__tagline">让你的 Mixture-of-Models 可编程。</p>
 </div>
 
-vLLM Semantic Router 是开源的路由与控制层，用于在异构 AI 基础设施上构建 Mixture-of-Models 系统。应用调用稳定的 OpenAI 或 Anthropic 兼容端点，由服务层为每次请求选择——或组合——能力路径。
+Meliclaw Decision Router 是开源的路由与控制层，用于在异构 AI 基础设施上构建 Mixture-of-Models 系统。应用调用稳定的 OpenAI 或 Anthropic 兼容端点，由服务层为每次请求选择——或组合——能力路径。
 
 ## 问题：一次 AI 请求不只是流量
 
@@ -36,7 +36,7 @@ vLLM Semantic Router 是开源的路由与控制层，用于在异构 AI 基础�
 
 ## 思路：让智能可编程
 
-Semantic Router 把这项决策放到请求路径上的共享层。它可以观察眼前的工作——意图、难度、上下文、模态、身份、风险、偏好和系统状态——再把稳定的入口解析到隔离的配方。
+Decision Router 把这项决策放到请求路径上的共享层。它可以观察眼前的工作——意图、难度、上下文、模态、身份、风险、偏好和系统状态——再把稳定的入口解析到隔离的配方。
 
 配方可以选择一个模型、沿级联升级、协调有界的多模型工作流，或挂接检索、记忆、工具过滤、缓存、安全检查和校验等行为。应用继续使用熟悉的单一 API，能力路径则可以在背后演进。
 
@@ -47,7 +47,7 @@ Semantic Router 把这项决策放到请求路径上的共享层。它可以观�
 - **正确的执行边界：** 在异构硬件上使用已配置的云、数据中心或边缘后端。
 - **发生了什么的证据：** 路由元数据，以及已配置的反馈、回放和评估工作流。
 
-vLLM Semantic Router 不替代网关或模型服务。Envoy 继续承载流量，推理运行时继续生成响应。Router 负责协调二者之间的语义工作。
+Meliclaw Decision Router 不替代网关或模型服务。Envoy 继续承载流量，推理运行时继续生成响应。Router 负责协调二者之间的语义工作。
 
 ## 从你想做的事开始
 
@@ -59,4 +59,4 @@ vLLM Semantic Router 不替代网关或模型服务。Envoy 继续承载流量�
 
 ## 项目
 
-vLLM Semantic Router 以 Apache 2.0 许可开源。要提出变更或加入社区，请参阅[贡献指南](https://github.com/vllm-project/semantic-router/blob/main/CONTRIBUTING.md)。
+Meliclaw Decision Router 以 Apache 2.0 许可开源。要提出变更或加入社区，请参阅[贡献指南](https://github.com/vllm-project/semantic-router/blob/main/CONTRIBUTING.md)。

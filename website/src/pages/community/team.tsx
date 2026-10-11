@@ -16,12 +16,12 @@ export default function Team(): ReactNode {
   return (
     <Layout
       title="Project Team"
-      description="Maintainers, committers, and emeritus committers of vLLM Semantic Router"
+      description="Maintainers, committers, and emeritus committers of Meliclaw Decision Router"
     >
       <CommunityLayout
         activeKey="team"
         title="Project Team"
-        description="The people responsible for the health, quality, and continuity of vLLM Semantic Router."
+        description="The people responsible for the health, quality, and continuity of Meliclaw Decision Router."
       >
         <div className={styles.roster}>
           <RosterSection
