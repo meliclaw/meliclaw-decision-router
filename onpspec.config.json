@@ -1,0 +1,11 @@
+{
+  "testCommand": "node --test",
+  "reporter": "tap",
+  "testGlobs": [
+    "test/**"
+  ],
+  "srcGlobs": [
+    "deploy/compose/**",
+    "*.md"
+  ]
+}
