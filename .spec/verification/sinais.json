@@ -5,10 +5,10 @@
       "codigo": "ARQUIVO_INEXISTENTE",
       "feature": "rebrand-meliclaw-decision-router",
       "ref": "T-001",
-      "ocorrencias": 2,
+      "ocorrencias": 6,
       "primeiraVez": "2026-10-11T19:32:03.726Z",
-      "ultimaVez": "2026-10-11T19:32:11.751Z",
-      "gitRev": "a648ea780"
+      "ultimaVez": "2026-10-11T19:35:24.179Z",
+      "gitRev": "554bff52b"
     },
     "AC_SEM_TASK::rebrand-meliclaw-decision-router::AC-004": {
       "codigo": "AC_SEM_TASK",
@@ -20993,10 +20993,154 @@
       "codigo": "GLOB_SEM_ARQUIVOS",
       "feature": "—",
       "ref": "P-002",
-      "ocorrencias": 2,
+      "ocorrencias": 3,
       "primeiraVez": "2026-10-11T19:32:03.738Z",
-      "ultimaVez": "2026-10-11T19:32:11.755Z",
-      "gitRev": "a648ea780"
+      "ultimaVez": "2026-10-11T19:35:24.179Z",
+      "gitRev": "554bff52b"
+    },
+    "VERIFY_FALHOU::rebrand-meliclaw-decision-router::AC-001": {
+      "codigo": "VERIFY_FALHOU",
+      "feature": "rebrand-meliclaw-decision-router",
+      "ref": "AC-001",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-10-11T19:35:23.903Z",
+      "ultimaVez": "2026-10-11T19:35:23.903Z",
+      "gitRev": "554bff52b"
+    },
+    "VERIFY_FALHOU::rebrand-meliclaw-decision-router::AC-002": {
+      "codigo": "VERIFY_FALHOU",
+      "feature": "rebrand-meliclaw-decision-router",
+      "ref": "AC-002",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-10-11T19:35:23.903Z",
+      "ultimaVez": "2026-10-11T19:35:23.903Z",
+      "gitRev": "554bff52b"
+    },
+    "VERIFY_FALHOU::rebrand-meliclaw-decision-router::AC-003": {
+      "codigo": "VERIFY_FALHOU",
+      "feature": "rebrand-meliclaw-decision-router",
+      "ref": "AC-003",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-10-11T19:35:23.903Z",
+      "ultimaVez": "2026-10-11T19:35:23.903Z",
+      "gitRev": "554bff52b"
+    },
+    "VERIFY_FALHOU::rebrand-meliclaw-decision-router::AC-004": {
+      "codigo": "VERIFY_FALHOU",
+      "feature": "rebrand-meliclaw-decision-router",
+      "ref": "AC-004",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-10-11T19:35:23.903Z",
+      "ultimaVez": "2026-10-11T19:35:23.903Z",
+      "gitRev": "554bff52b"
+    },
+    "VERIFY_FALHOU::rebrand-meliclaw-decision-router::AC-005": {
+      "codigo": "VERIFY_FALHOU",
+      "feature": "rebrand-meliclaw-decision-router",
+      "ref": "AC-005",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-10-11T19:35:23.903Z",
+      "ultimaVez": "2026-10-11T19:35:23.903Z",
+      "gitRev": "554bff52b"
+    },
+    "ARQUIVO_INEXISTENTE::rebrand-meliclaw-decision-router::T-003": {
+      "codigo": "ARQUIVO_INEXISTENTE",
+      "feature": "rebrand-meliclaw-decision-router",
+      "ref": "T-003",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-10-11T19:35:24.179Z",
+      "ultimaVez": "2026-10-11T19:35:24.179Z",
+      "gitRev": "554bff52b"
+    },
+    "ARQUIVO_INEXISTENTE::rebrand-meliclaw-decision-router::T-004": {
+      "codigo": "ARQUIVO_INEXISTENTE",
+      "feature": "rebrand-meliclaw-decision-router",
+      "ref": "T-004",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-10-11T19:35:24.179Z",
+      "ultimaVez": "2026-10-11T19:35:24.179Z",
+      "gitRev": "554bff52b"
+    },
+    "ARQUIVO_INEXISTENTE::rebrand-meliclaw-decision-router::T-005": {
+      "codigo": "ARQUIVO_INEXISTENTE",
+      "feature": "rebrand-meliclaw-decision-router",
+      "ref": "T-005",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-10-11T19:35:24.179Z",
+      "ultimaVez": "2026-10-11T19:35:24.179Z",
+      "gitRev": "554bff52b"
+    },
+    "ARQUIVO_INEXISTENTE::rebrand-meliclaw-decision-router::T-006": {
+      "codigo": "ARQUIVO_INEXISTENTE",
+      "feature": "rebrand-meliclaw-decision-router",
+      "ref": "T-006",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-10-11T19:35:24.179Z",
+      "ultimaVez": "2026-10-11T19:35:24.179Z",
+      "gitRev": "554bff52b"
+    },
+    "ARQUIVO_INEXISTENTE::rebrand-meliclaw-decision-router::T-007": {
+      "codigo": "ARQUIVO_INEXISTENTE",
+      "feature": "rebrand-meliclaw-decision-router",
+      "ref": "T-007",
+      "ocorrencias": 2,
+      "primeiraVez": "2026-10-11T19:35:24.179Z",
+      "ultimaVez": "2026-10-11T19:35:24.179Z",
+      "gitRev": "554bff52b"
+    },
+    "ARQUIVO_INEXISTENTE::rebrand-meliclaw-decision-router::T-008": {
+      "codigo": "ARQUIVO_INEXISTENTE",
+      "feature": "rebrand-meliclaw-decision-router",
+      "ref": "T-008",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-10-11T19:35:24.179Z",
+      "ultimaVez": "2026-10-11T19:35:24.179Z",
+      "gitRev": "554bff52b"
+    },
+    "AC_SEM_PROVA::rebrand-meliclaw-decision-router::AC-001": {
+      "codigo": "AC_SEM_PROVA",
+      "feature": "rebrand-meliclaw-decision-router",
+      "ref": "AC-001",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-10-11T19:35:24.179Z",
+      "ultimaVez": "2026-10-11T19:35:24.179Z",
+      "gitRev": "554bff52b"
+    },
+    "AC_SEM_PROVA::rebrand-meliclaw-decision-router::AC-002": {
+      "codigo": "AC_SEM_PROVA",
+      "feature": "rebrand-meliclaw-decision-router",
+      "ref": "AC-002",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-10-11T19:35:24.179Z",
+      "ultimaVez": "2026-10-11T19:35:24.179Z",
+      "gitRev": "554bff52b"
+    },
+    "AC_SEM_PROVA::rebrand-meliclaw-decision-router::AC-003": {
+      "codigo": "AC_SEM_PROVA",
+      "feature": "rebrand-meliclaw-decision-router",
+      "ref": "AC-003",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-10-11T19:35:24.179Z",
+      "ultimaVez": "2026-10-11T19:35:24.179Z",
+      "gitRev": "554bff52b"
+    },
+    "AC_SEM_PROVA::rebrand-meliclaw-decision-router::AC-004": {
+      "codigo": "AC_SEM_PROVA",
+      "feature": "rebrand-meliclaw-decision-router",
+      "ref": "AC-004",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-10-11T19:35:24.179Z",
+      "ultimaVez": "2026-10-11T19:35:24.179Z",
+      "gitRev": "554bff52b"
+    },
+    "AC_SEM_PROVA::rebrand-meliclaw-decision-router::AC-005": {
+      "codigo": "AC_SEM_PROVA",
+      "feature": "rebrand-meliclaw-decision-router",
+      "ref": "AC-005",
+      "ocorrencias": 1,
+      "primeiraVez": "2026-10-11T19:35:24.179Z",
+      "ultimaVez": "2026-10-11T19:35:24.179Z",
+      "gitRev": "554bff52b"
     }
   }
 }
