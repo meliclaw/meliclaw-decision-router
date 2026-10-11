@@ -15,6 +15,10 @@ listeners:
     # Optional client keys the listener requires (standalone mode and the
     # CLI-managed Envoy listener).
     api_keys: []
+    # Standalone mode has no authenticating gateway in front locally, so trust
+    # whatever identity headers the caller sends (dev only).
+    identity:
+      trust_headers: true
 
 providers:
   defaults:
