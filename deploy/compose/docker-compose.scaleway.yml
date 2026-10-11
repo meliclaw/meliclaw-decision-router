@@ -1,0 +1,32 @@
+name: meliclaw-decision-router
+
+# Production compose for a Scaleway VPS (arm64). Builds on the host — see
+# deploy/compose/README.md. Local/Orbstack dev uses the top-level
+# meliclaw-ai-gateway-core.yml instead of this file.
+services:
+  meliclaw-decision-router:
+    build:
+      context: ../..
+      dockerfile: deploy/compose/Dockerfile.local
+    image: ${MELICLAW_DECISION_ROUTER_IMAGE:-meliclaw-decision-router:scaleway}
+    container_name: meliclaw-decision-router
+    restart: unless-stopped
+    environment:
+      - CONFIG_FILE=/app/config/config.yaml
+    ports:
+      - "${MELICLAW_DECISION_ROUTER_PORT:-8899}:8899"
+      - "${MELICLAW_DECISION_ROUTER_GRPC_PORT:-50051}:50051"
+      - "127.0.0.1:${MELICLAW_DECISION_ROUTER_METRICS_PORT:-9190}:9190"
+    volumes:
+      - ../../config/config.yaml:/app/config/config.yaml:ro
+      - ../../config/certs:/app/config/certs:ro
+      - meliclaw-decision-router-models:/app/models
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8080/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 60s
+
+volumes:
+  meliclaw-decision-router-models:

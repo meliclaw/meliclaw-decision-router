@@ -68,7 +68,7 @@
     "description": "The label of footer link with label=License linking to https://github.com/vllm-project/semantic-router/blob/main/LICENSE"
   },
   "copyright": {
-    "message": "版权所有 © 2026 vLLM Semantic Router 团队。由 Docusaurus 构建。",
+    "message": "版权所有 © 2026 Meliclaw Decision Router 团队。由 Docusaurus 构建。",
     "description": "The footer copyright"
   }
 }

@@ -1,7 +1,7 @@
 # Spec: Rebrand meliclaw decision router
 
 > feature: rebrand-meliclaw-decision-router
-> status: rascunho
+> status: pronto
 
 ## Contexto
 

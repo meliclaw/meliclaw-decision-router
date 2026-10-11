@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Semantic Router Apiserver",
+    "title": "Decision Router Apiserver",
     "description": "Router management API for configuration, plugin operations, prepared-model diagnostics, storage, and observability",
     "version": "v1"
   },

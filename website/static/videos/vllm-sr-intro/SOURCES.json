@@ -28,7 +28,7 @@
   },
   "imagery": {
     "cover_background": "AI-generated for this film; no stock or third-party photography.",
-    "vllm_sr_logo": "Official vLLM Semantic Router logo, color and pure-white variants.",
+    "vllm_sr_logo": "Official Meliclaw Decision Router logo, color and pure-white variants.",
     "model_logos": "Model and provider marks from @lobehub/icons-static-svg (MIT) and Simple Icons (CC0 1.0), shown to identify the respective projects; trademarks remain with their owners.",
     "contributor_avatars": "GitHub avatars of vllm-project/semantic-router contributors, rendered by contrib.rocks."
   },

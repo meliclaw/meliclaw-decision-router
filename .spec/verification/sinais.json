@@ -5,10 +5,10 @@
       "codigo": "ARQUIVO_INEXISTENTE",
       "feature": "rebrand-meliclaw-decision-router",
       "ref": "T-001",
-      "ocorrencias": 6,
+      "ocorrencias": 18,
       "primeiraVez": "2026-10-11T19:32:03.726Z",
-      "ultimaVez": "2026-10-11T19:35:24.179Z",
-      "gitRev": "554bff52b"
+      "ultimaVez": "2026-10-11T20:01:22.283Z",
+      "gitRev": "8b9458583"
     },
     "AC_SEM_TASK::rebrand-meliclaw-decision-router::AC-004": {
       "codigo": "AC_SEM_TASK",
@@ -20993,28 +20993,28 @@
       "codigo": "GLOB_SEM_ARQUIVOS",
       "feature": "—",
       "ref": "P-002",
-      "ocorrencias": 3,
+      "ocorrencias": 7,
       "primeiraVez": "2026-10-11T19:32:03.738Z",
-      "ultimaVez": "2026-10-11T19:35:24.179Z",
-      "gitRev": "554bff52b"
+      "ultimaVez": "2026-10-11T20:01:37.330Z",
+      "gitRev": "8b9458583"
     },
     "VERIFY_FALHOU::rebrand-meliclaw-decision-router::AC-001": {
       "codigo": "VERIFY_FALHOU",
       "feature": "rebrand-meliclaw-decision-router",
       "ref": "AC-001",
-      "ocorrencias": 1,
+      "ocorrencias": 2,
       "primeiraVez": "2026-10-11T19:35:23.903Z",
-      "ultimaVez": "2026-10-11T19:35:23.903Z",
-      "gitRev": "554bff52b"
+      "ultimaVez": "2026-10-11T19:54:53.504Z",
+      "gitRev": "8b9458583"
     },
     "VERIFY_FALHOU::rebrand-meliclaw-decision-router::AC-002": {
       "codigo": "VERIFY_FALHOU",
       "feature": "rebrand-meliclaw-decision-router",
       "ref": "AC-002",
-      "ocorrencias": 1,
+      "ocorrencias": 5,
       "primeiraVez": "2026-10-11T19:35:23.903Z",
-      "ultimaVez": "2026-10-11T19:35:23.903Z",
-      "gitRev": "554bff52b"
+      "ultimaVez": "2026-10-11T19:58:38.316Z",
+      "gitRev": "8b9458583"
     },
     "VERIFY_FALHOU::rebrand-meliclaw-decision-router::AC-003": {
       "codigo": "VERIFY_FALHOU",
@@ -21047,10 +21047,10 @@
       "codigo": "ARQUIVO_INEXISTENTE",
       "feature": "rebrand-meliclaw-decision-router",
       "ref": "T-003",
-      "ocorrencias": 1,
+      "ocorrencias": 4,
       "primeiraVez": "2026-10-11T19:35:24.179Z",
-      "ultimaVez": "2026-10-11T19:35:24.179Z",
-      "gitRev": "554bff52b"
+      "ultimaVez": "2026-10-11T20:01:22.283Z",
+      "gitRev": "8b9458583"
     },
     "ARQUIVO_INEXISTENTE::rebrand-meliclaw-decision-router::T-004": {
       "codigo": "ARQUIVO_INEXISTENTE",
@@ -21074,10 +21074,10 @@
       "codigo": "ARQUIVO_INEXISTENTE",
       "feature": "rebrand-meliclaw-decision-router",
       "ref": "T-006",
-      "ocorrencias": 1,
+      "ocorrencias": 3,
       "primeiraVez": "2026-10-11T19:35:24.179Z",
-      "ultimaVez": "2026-10-11T19:35:24.179Z",
-      "gitRev": "554bff52b"
+      "ultimaVez": "2026-10-11T20:00:47.431Z",
+      "gitRev": "8b9458583"
     },
     "ARQUIVO_INEXISTENTE::rebrand-meliclaw-decision-router::T-007": {
       "codigo": "ARQUIVO_INEXISTENTE",
