@@ -1052,7 +1052,7 @@ _Appears in:_
 
 | Field | Description | Default | Validation |
 | --- | --- | --- | --- |
-| `service_name` _string_ |  | meliclaw-decision-router | Optional: \{\} <br /> |
+| `service_name` _string_ |  | vllm-semantic-router | Optional: \{\} <br /> |
 | `service_version` _string_ |  | v0.1.0 | Optional: \{\} <br /> |
 | `deployment_environment` _string_ |  | development | Optional: \{\} <br /> |
 

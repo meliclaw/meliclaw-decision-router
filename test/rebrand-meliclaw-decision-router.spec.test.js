@@ -21,7 +21,7 @@ function grepFiles(pattern, dir) {
 // Docs gerados (docs-cli-check, api-docs-check) refletem código Go/Python
 // não tocado nesta spec (fora de escopo — ver .spec/.../spec.md, Fora de
 // escopo) — rebrandeá-los à mão quebraria o check de geração no CI.
-const HISTORICAL_PATTERN = /(^|\/)blog(\/|$)|docusaurus-plugin-content-blog|researchContent\.js$|publications\.js$|fleet-sim\/(refs\.bib|fleet-sim\.tex)$|docs\/api\/cli\.md$|docs\/api\/apiserver\.md$|openapi\/apiserver\/apiserver\.openapi\.json$/;
+const HISTORICAL_PATTERN = /(^|\/)blog(\/|$)|docusaurus-plugin-content-blog|researchContent\.js$|publications\.js$|fleet-sim\/(refs\.bib|fleet-sim\.tex)$|docs\/api\/cli\.md$|docs\/api\/apiserver\.md$|openapi\/apiserver\/apiserver\.openapi\.json$|docs\/api\/crd-reference\.md$/;
 
 // US-001 — Rebrand de marca em docs e website
 test('AC-001: Website sem a marca antiga @spec:AC-001', () => {

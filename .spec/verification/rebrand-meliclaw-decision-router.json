@@ -1,7 +1,7 @@
 {
   "feature": "rebrand-meliclaw-decision-router",
-  "timestamp": "2026-10-11T21:16:40.787Z",
-  "gitRev": "fa47eb590",
+  "timestamp": "2026-10-11T21:32:42.126Z",
+  "gitRev": "32a0222aa",
   "command": "node --test",
   "reporter": "tap",
   "exitCode": 1,
