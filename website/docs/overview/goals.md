@@ -33,7 +33,7 @@ paths first and ranks only the remaining candidates.
 Keywords can express a hard policy but cannot capture every semantic intent.
 A classifier can recognize intent but should not override an authorization
 boundary. Runtime metrics can choose a healthy replica but do not understand
-the task. Semantic Router keeps these responsibilities separate, then composes
+the task. Decision Router keeps these responsibilities separate, then composes
 them into one decision.
 
 ### The physical pool is dynamic
@@ -52,7 +52,7 @@ responsible for the surrounding task loop and tool execution.
 
 ## Design goals
 
-vLLM Semantic Router is designed around five goals:
+Meliclaw Decision Router is designed around five goals:
 
 1. **One stable API over many backends.** Harnesses use a public entrypoint while
    operators manage the pool behind it.
@@ -66,7 +66,7 @@ vLLM Semantic Router is designed around five goals:
 5. **Operational feedback.** Replay, evaluation, metrics, and user feedback
    support deliberate policy changes.
 
-## What Semantic Router is not
+## What Decision Router is not
 
 - The agent harness owns task orchestration, tool execution, and durable task
   state. The Router supplies decisions for its model calls.

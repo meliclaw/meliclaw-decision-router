@@ -7,7 +7,7 @@ description: Connect inference backends, compose a Mixture-of-Model, and expose 
 
 ## Overview
 
-Semantic Router gives applications stable model names while operators can
+Decision Router gives applications stable model names while operators can
 change the physical models and routing policy behind them. The Dashboard is the
 fastest path to a working topology; YAML remains available for reviewed,
 version-controlled deployments.

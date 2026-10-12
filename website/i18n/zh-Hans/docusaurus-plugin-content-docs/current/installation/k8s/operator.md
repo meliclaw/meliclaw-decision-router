@@ -2,7 +2,7 @@
 sidebar_position: 3
 sidebar_label: Kubernetes 操作符
 title: 使用 Kubernetes 操作符部署
-description: 安装 Semantic Router Operator，连接模型服务，并创建第一个 Router 部署。
+description: 安装 Decision Router Operator，连接模型服务，并创建第一个 Router 部署。
 translation:
   source_commit: "f8c1197a9ed47f7a265cbab83bf2d84eb5fa505e"
   source_file: "docs/installation/k8s/operator.md"
@@ -11,7 +11,7 @@ translation:
 
 # 使用 Kubernetes 操作符部署
 
-Semantic Router Operator 将 `SemanticRouter` 自定义资源协调为 Router 工作负载、Service、配置、存储和可选平台集成。当 Kubernetes 应负责 Router 生命周期，且模型后端已作为 Kubernetes 服务、KServe `InferenceService` 或 Llama Stack 服务暴露时，使用它。
+Decision Router Operator 将 `SemanticRouter` 自定义资源协调为 Router 工作负载、Service、配置、存储和可选平台集成。当 Kubernetes 应负责 Router 生命周期，且模型后端已作为 Kubernetes 服务、KServe `InferenceService` 或 Llama Stack 服务暴露时，使用它。
 
 Operator 不部署模型服务器。它发现或引用它们，并生成 Router 使用的提供商 binding。
 
@@ -60,7 +60,7 @@ kubectl logs -n semantic-router-operator-system \
 
 在 OpenShift 上直接部署控制器时，使用上面的 Kustomize 流程。协调器会检测 OpenShift 并应用其平台特定的工作负载默认值。
 
-对于 Operator Lifecycle Manager 安装，先发布或选择包含 Semantic Router bundle 的 OLM catalog，然后创建集群所需的 `CatalogSource`、`OperatorGroup` 和 `Subscription`。仓库的 `make openshift-deploy` 目标只创建命名空间、OperatorGroup 和 Subscription；它假定 `openshift-marketplace` 中已存在 `semantic-router-catalog` CatalogSource。因此它是维护者便利目标，不是独立安装命令。
+对于 Operator Lifecycle Manager 安装，先发布或选择包含 Decision Router bundle 的 OLM catalog，然后创建集群所需的 `CatalogSource`、`OperatorGroup` 和 `Subscription`。仓库的 `make openshift-deploy` 目标只创建命名空间、OperatorGroup 和 Subscription；它假定 `openshift-marketplace` 中已存在 `semantic-router-catalog` CatalogSource。因此它是维护者便利目标，不是独立安装命令。
 
 ## 创建第一个 Router
 

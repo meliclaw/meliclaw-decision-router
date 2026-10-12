@@ -193,7 +193,7 @@ contain evaluated scores and configured names. Aggregate signal evaluation does
 not invent a confidence score. Traces exclude raw prompts, signal errors and
 retrieval exception text. Earlier traces cannot be enriched retroactively.
 
-The local `vllm-sr serve` stack provisions the **vLLM Semantic Router**
+The local `vllm-sr serve` stack provisions the **Meliclaw Decision Router**
 in Grafana. Its main groups cover public inference outcomes, recipe workflow,
 backend usage, plugins and response cache, and telemetry health. Additional
 accounting and MoM panels distinguish reported model usage from supported looper

@@ -18,7 +18,7 @@ decision-making or below it in the serving layer.
 
 ## Decision
 
-Semantic Router remains per-query. It selects a logical model from request meaning,
+Decision Router remains per-query. It selects a logical model from request meaning,
 policy, and configured algorithm inputs.
 
 Capacity, queue depth, replica health, and worker-local cache state remain serving and
@@ -26,7 +26,7 @@ load-balancing concerns:
 
 ```mermaid
 flowchart LR
-  Request --> Semantic["Semantic Router: logical model"]
+  Request --> Semantic["Decision Router: logical model"]
   Semantic --> Serving["Serving layer: eligible replica"]
   Serving --> Worker["Model worker"]
   Telemetry["Capacity and health"] --> Serving
@@ -58,7 +58,7 @@ production capacity behavior and should not be presented as product guarantees.
 
 ## Consequences
 
-Semantic Router cannot guarantee that the preferred model has immediate capacity.
+Decision Router cannot guarantee that the preferred model has immediate capacity.
 The serving layer may queue, reject, or use an explicitly compatible fallback.
 Cross-model fallback still needs its own safety contract because changing a logical
 model is not equivalent to selecting another replica.

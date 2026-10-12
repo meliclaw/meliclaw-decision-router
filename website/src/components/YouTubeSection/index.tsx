@@ -19,12 +19,12 @@ const videos: Video[] = [
   },
   {
     id: 'QoHlqjSkNoo',
-    title: '[vLLM Office Hours #52] - vLLM Semantic Router: Safer, Faster, Multi-Model Inference - June 25, 2026',
+    title: '[vLLM Office Hours #52] - Meliclaw Decision Router: Safer, Faster, Multi-Model Inference - June 25, 2026',
     publisher: 'Red Hat',
   },
   {
     id: 'b-ciRqvbtsk',
-    title: '[vLLM Office Hours #34] AI-Powered vLLM Semantic Router - October 09, 2025',
+    title: '[vLLM Office Hours #34] AI-Powered Meliclaw Decision Router - October 09, 2025',
     publisher: 'Red Hat',
   },
   {
@@ -34,12 +34,12 @@ const videos: Video[] = [
   },
   {
     id: '6SL27J7EyXM',
-    title: 'Intelligent Query Routing using vLLM Semantic Router',
+    title: 'Intelligent Query Routing using Meliclaw Decision Router',
     publisher: 'NVIDIA Developer',
   },
   {
     id: 'A-gKzIJF6CA',
-    title: 'vLLM Semantic Router: Intelligent Auto Reasoning for Efficient LLM Inference on Mixture-of-Models',
+    title: 'Meliclaw Decision Router: Intelligent Auto Reasoning for Efficient LLM Inference on Mixture-of-Models',
     publisher: 'Red Hat Open',
   },
   {

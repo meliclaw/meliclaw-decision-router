@@ -146,7 +146,7 @@ LoRA 路由结合了智能分类与 vLLM 的 LoRA 适配器支持：
 
 ```mermaid
 graph TB
-    A[用户查询: '解释 async/await'] --> B[Semantic Router ]
+    A[用户查询: '解释 async/await'] --> B[Decision Router ]
     B --> C[分类方法]
     C --> |领域路由| D1[检测到: technical]
     C --> |嵌入路由| D2[匹配到: programming]

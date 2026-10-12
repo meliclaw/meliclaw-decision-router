@@ -1,6 +1,6 @@
 # ML-Based Model Selection
 
-This document covers the configuration and experimental results for ML-based model selection techniques implemented in the Semantic Router.
+This document covers the configuration and experimental results for ML-based model selection techniques implemented in the Decision Router.
 
 ## Overview
 
@@ -22,7 +22,7 @@ ML-based model selection uses machine learning algorithms to intelligently route
 
 ## Dashboard GUI Setup
 
-The **Semantic Router Dashboard** includes a guided 3-step wizard for the full ML model selection pipeline. This is the easiest way to get started — no CLI required.
+The **Decision Router Dashboard** includes a guided 3-step wizard for the full ML model selection pipeline. This is the easiest way to get started — no CLI required.
 
 ### Accessing the Wizard
 

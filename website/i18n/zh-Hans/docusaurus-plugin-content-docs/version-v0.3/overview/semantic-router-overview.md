@@ -7,9 +7,9 @@ translation:
 sidebar_position: 2
 ---
 
-# 什么是语义路由器（Semantic Router）？
+# 什么是语义路由器（Decision Router）？
 
-**语义路由器（Semantic Router）** 是一层智能路由：根据从请求中提取的多种信号，为每次查询动态选择最合适的语言模型。
+**语义路由器（Decision Router）** 是一层智能路由：根据从请求中提取的多种信号，为每次查询动态选择最合适的语言模型。
 
 ## 问题
 

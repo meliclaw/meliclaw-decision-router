@@ -310,7 +310,7 @@ EOF
 ### 启动路由
 
 ```bash
-# 启动Semantic Router 
+# 启动Decision Router 
 make run-router
 
 # 或直接运行

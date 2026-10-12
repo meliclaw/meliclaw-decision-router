@@ -5,7 +5,7 @@ description: Understand the canonical v0.3 YAML document and where routing, prov
 
 # Configuration
 
-Semantic Router uses one canonical YAML document across the CLI, Dashboard,
+Decision Router uses one canonical YAML document across the CLI, Dashboard,
 Helm, and Operator. The top-level structure is:
 
 ```yaml

@@ -1,11 +1,11 @@
 ---
 title: NVIDIA CUDA
-description: Run vLLM backends on NVIDIA GPUs and optionally accelerate Semantic Router's local signal models with CUDA.
+description: Run vLLM backends on NVIDIA GPUs and optionally accelerate Decision Router's local signal models with CUDA.
 ---
 
 # Deploy with NVIDIA CUDA
 
-The model server and Semantic Router are separate services. A common deployment
+The model server and Decision Router are separate services. A common deployment
 keeps the Router on CPU and gives the NVIDIA GPU to vLLM. Use the Router's CUDA
 image when its local embeddings or classifiers also need GPU acceleration.
 
@@ -17,7 +17,7 @@ It does **not** download a language model or start a vLLM server.
 ## Prerequisites
 
 - Linux and an NVIDIA GPU supported by the vLLM release you plan to run;
-- an x86-64 host when using the current Semantic Router CUDA image;
+- an x86-64 host when using the current Decision Router CUDA image;
 - a GPU of compute capability 7.0 or newer (Volta and later) for the Router
   image, which compiles its local models for that minimum; build with
   `CUDA_COMPUTE_CAP=<value>` to target an older or newer floor;
@@ -27,7 +27,7 @@ It does **not** download a language model or start a vLLM server.
 - Docker and NVIDIA Container Toolkit;
 - enough GPU memory for the vLLM model, KV cache, and any Router-side models;
   and
-- a complete Semantic Router configuration with a reachable model endpoint.
+- a complete Decision Router configuration with a reachable model endpoint.
 
 Use the current
 [vLLM NVIDIA requirements](https://docs.vllm.ai/en/latest/getting_started/installation/gpu/)
@@ -201,7 +201,7 @@ routed request proves the Router, recipe, and backend binding work together.
 
 Configure Docker with `nvidia-ctk`, restart Docker, and repeat NVIDIA's sample
 container command. Debug the container runtime before debugging either vLLM or
-Semantic Router. This is not optional for the CUDA Router image: it links the
+Decision Router. This is not optional for the CUDA Router image: it links the
 driver library, so without working passthrough the container exits at startup
 with `libcuda.so.1: cannot open shared object file`.
 

@@ -95,7 +95,7 @@ make start-redis
 docker exec redis-semantic-cache redis-cli PING
 ```
 
-### 2. Configure Semantic Router
+### 2. Configure Decision Router
 
 Basic Redis Configuration:
 
@@ -142,7 +142,7 @@ decisions:
           similarity_threshold: 0.95  # Very strict for math accuracy
 ```
 
-Run Semantic Router:
+Run Decision Router:
 
 ```bash
 # Start router

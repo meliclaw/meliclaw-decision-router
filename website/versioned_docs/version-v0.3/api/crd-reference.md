@@ -1,7 +1,7 @@
 ---
 sidebar_position: 3
 title: CRD API Reference
-description: Kubernetes Custom Resource Definitions (CRDs) API reference for vLLM Semantic Router
+description: Kubernetes Custom Resource Definitions (CRDs) API reference for Meliclaw Decision Router
 ---
 
 # API Reference

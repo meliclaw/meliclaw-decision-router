@@ -226,7 +226,7 @@ function DecisionCenter(): JSX.Element {
           </span>
         </div>
         <span className={styles.routerBrand}>
-          <ThemedImage sources={sources} alt="vLLM Semantic Router" />
+          <ThemedImage sources={sources} alt="Meliclaw Decision Router" />
         </span>
         <p>
           <Translate id="homepage.architecture.center.promise">

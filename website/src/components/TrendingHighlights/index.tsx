@@ -35,7 +35,7 @@ const highlights: Highlight[] = [
     label: 'Hugging Face models',
     title: '143K+ downloads across open router models',
     statement:
-      'As of October 10, 2026, vLLM Semantic Router models on Hugging Face total about 143,000 downloads across 96 models in 6 collections—Decision, Vela, and MoM families.',
+      'As of October 10, 2026, Meliclaw Decision Router models on Hugging Face total about 143,000 downloads across 96 models in 6 collections—Decision, Vela, and MoM families.',
     metrics: [
       { value: '143K+', label: 'Downloads' },
       { value: '96', label: 'Models' },
@@ -103,7 +103,7 @@ const highlights: Highlight[] = [
     image: '/img/trending/vela-20-alphasignal.svg',
     imageWidth: 1200,
     imageHeight: 675,
-    imageAlt: 'AlphaSignal and vLLM Semantic Router logos — Vela 2.0 press coverage.',
+    imageAlt: 'AlphaSignal and Meliclaw Decision Router logos — Vela 2.0 press coverage.',
     sourceLabel: 'AlphaSignal · Vela 2.0',
     sourceUrl:
       'https://alphasignal.ai/news/vllm-s-vela-2-0-collapses-nine-ai-safety-checks-into-one-open-model',
@@ -134,7 +134,7 @@ const highlights: Highlight[] = [
     image: '/img/blog/vllm/2026-09-24-v0.4-hermes-release/hero.png',
     imageWidth: 1731,
     imageHeight: 909,
-    imageAlt: 'vLLM Semantic Router v0.4 Hermes hero: many models, one improving system.',
+    imageAlt: 'Meliclaw Decision Router v0.4 Hermes hero: many models, one improving system.',
     sourceLabel: 'Release post · v0.4 Hermes',
     sourceUrl: '/blog/v0.4-vllm-sr-hermes-release',
     internal: true,

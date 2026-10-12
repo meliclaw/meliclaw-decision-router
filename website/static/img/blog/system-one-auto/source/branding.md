@@ -1,6 +1,6 @@
 # System One Auto — brand and ecosystem references
 
-The cover is an ImageGen illustration based on the vLLM Semantic Router
+The cover is an ImageGen illustration based on the Meliclaw Decision Router
 [v0.4 Hermes release cover](../../vllm/2026-09-24-v0.4-hermes-release/hero.png).
 Its primary mark is the project's existing `vllm-sr-logo.light.png`; the article's
 responsive figures use that original asset directly. The design uses a white
@@ -17,7 +17,7 @@ as a compatible backend; a logo does not establish adapter conformance.
 
 | Example | Primary model or API source | Logo reference |
 | --- | --- | --- |
-| Decision 2.0 | [vLLM-SR model collection](https://huggingface.co/collections/vllm-sr/decision-20) | Original vLLM Semantic Router project mark |
+| Decision 2.0 | [vLLM-SR model collection](https://huggingface.co/collections/vllm-sr/decision-20) | Original Meliclaw Decision Router project mark |
 | Cloudflare Clef | [Open checkpoint](https://huggingface.co/Cloudflare/clef) | [Official Cloudflare organization](https://huggingface.co/Cloudflare) avatar |
 | Perplexity Decider | [Open checkpoint](https://huggingface.co/perplexity-ai/pplx-decider-v1.1-27b) | [Official Perplexity organization](https://huggingface.co/perplexity-ai) avatar |
 | Laya | [Project repository](https://github.com/NandhaKishorM/laya) | Original `assets/logo-lockup.png` in that repository |
@@ -43,7 +43,7 @@ respective owners.
 ## Illustration brief
 
 Create a white, blue and amber research launch banner in the Hermes identity.
-Place the complete vLLM Semantic Router mark and System One Auto title on the
+Place the complete Meliclaw Decision Router mark and System One Auto title on the
 left, with the slogan “Route language. Route decisions.” On the right, show
 an intelligent Auto selection hub with six uncluttered provider destinations.
 Highlight one selected path in amber, with quieter paths for other candidates;

@@ -8,7 +8,7 @@ translation:
 
 # 快速开始
 
-Fleet Sim 是独立的规划工具。它不会由 `vllm-sr serve` 启动，也不会通过 Semantic Router 仪表盘对外暴露。
+Fleet Sim 是独立的规划工具。它不会由 `vllm-sr serve` 启动，也不会通过 Decision Router 仪表盘对外暴露。
 
 ## 安装 CLI {#install-the-cli}
 

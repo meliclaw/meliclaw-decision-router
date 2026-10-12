@@ -1,6 +1,6 @@
 ---
 title: 虚拟模型
-description: 在同一 Semantic Router 部署中，为客户端提供由隔离路由策略支撑的稳定虚拟模型名。
+description: 在同一 Decision Router 部署中，为客户端提供由隔离路由策略支撑的稳定虚拟模型名。
 translation:
   source_commit: "867155c924b6527d6a412e1412ce712a9e5cc9b8"
   source_file: "docs/tutorials/global/entrypoints-and-recipes.md"
@@ -11,7 +11,7 @@ translation:
 
 ## 概览
 
-入口与配方把一个 Semantic Router 部署变成一组面向目标的虚拟模型：
+入口与配方把一个 Decision Router 部署变成一组面向目标的虚拟模型：
 
 - **入口** 是客户端请求的模型名；
 - **配方** 是处理该名称请求的路由策略；

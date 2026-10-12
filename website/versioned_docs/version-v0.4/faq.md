@@ -1,18 +1,18 @@
 ---
 sidebar_position: 6
 title: FAQ
-description: What vLLM Semantic Router is, how it differs from llm-d and AI gateways, how to measure routing value, and how to debug a bad route.
+description: What Meliclaw Decision Router is, how it differs from llm-d and AI gateways, how to measure routing value, and how to debug a bad route.
 ---
 
 # FAQ
 
-Short answers to the questions that come up most often when evaluating vLLM Semantic Router. Each answer links to the page that carries the detail, so this page stays short as those pages grow.
+Short answers to the questions that come up most often when evaluating Meliclaw Decision Router. Each answer links to the page that carries the detail, so this page stays short as those pages grow.
 
 ## Is it an AI gateway, or something else?
 
 It is a **content- and policy-aware control plane** for Mixture-of-Models serving. It reads the request — signals, projections and declared evidence — decides *what* should run, and applies the decision through Envoy as an ExtProc filter.
 
-That makes it a decision layer above a gateway rather than a gateway itself: it does not terminate TLS, does not load-balance providers, and does not schedule pods. An AI gateway answers "how do I reach N backends"; Semantic Router answers "which model, recipe and policy should serve this request" — and then runs through whatever gateway or listener you already have.
+That makes it a decision layer above a gateway rather than a gateway itself: it does not terminate TLS, does not load-balance providers, and does not schedule pods. An AI gateway answers "how do I reach N backends"; Decision Router answers "which model, recipe and policy should serve this request" — and then runs through whatever gateway or listener you already have.
 
 See the [System Overview](overview/semantic-router-overview) for the component layout and [Mixture of Models](overview/mom-model-family) for the serving model behind it.
 
@@ -27,27 +27,27 @@ The repository's answer is **sr-bench**: freeze the cases, grader versions, requ
 
 [sr-bench 1.0](benchmarking/sr-bench) defines the full measurement protocol, from freezing cases to reading the outcome.
 
-## Why Semantic Router and not just llm-d?
+## Why Decision Router and not just llm-d?
 
 Because the two systems answer different questions.
 
-| | Semantic Router | llm-d |
+| | Decision Router | llm-d |
 | --- | --- | --- |
 | Decides | which logical model or **pool** — *what* | which healthy **replica** inside that pool — *which / how / where* |
 | Reads | request content, policy, semantic evidence | load, prefix-cache locality, replica health |
 | Layer | control-plane decision | scheduling and placement |
 
-llm-d should not decide business policy, and Semantic Router is not meant to choose a Pod. The project states the rule directly: *"Do not configure both systems to make the same decision."*
+llm-d should not decide business policy, and Decision Router is not meant to choose a Pod. The project states the rule directly: *"Do not configure both systems to make the same decision."*
 
 The [llm-d integration guide](installation/k8s/llm-d) states this boundary in its deployment context.
 
 ## How do we avoid conflicts with llm-d?
 
-They avoid them by **not overlapping** rather than by arbitration. Semantic Router resolves the pool first; llm-d then picks a replica inside it. Because the two decisions live at different layers, a disagreement between "the best model for this request" and "the best replica for cache locality" resolves itself — the first decision constrains the second.
+They avoid them by **not overlapping** rather than by arbitration. Decision Router resolves the pool first; llm-d then picks a replica inside it. Because the two decisions live at different layers, a disagreement between "the best model for this request" and "the best replica for cache locality" resolves itself — the first decision constrains the second.
 
 Two operational rules follow from that shape:
 
-- **Deploy and verify llm-d independently before adding Semantic Router**, and use one supported llm-d release rather than mixing copied manifests.
+- **Deploy and verify llm-d independently before adding Decision Router**, and use one supported llm-d release rather than mixing copied manifests.
 - **Make the final decision visible.** The Router writes `x-vsr-selected-model` as its receipt and `x-selected-model` as the value a gateway matches on; `vllm-sr route probe --expect-selected-model` asserts the receipt. Read the decision from those rather than inferring it after the fact.
 
 See [Integrate with llm-d](installation/k8s/llm-d) for the shared deployment and decision rules.

@@ -8,7 +8,7 @@ sidebar_position: 3
 
 # 使用 Docker Compose 安装
 
-本指南提供了使用 Docker Compose 部署带有 Envoy AI Gateway 的 vLLM Semantic Router 的分步说明。
+本指南提供了使用 Docker Compose 部署带有 Envoy AI Gateway 的 Meliclaw Decision Router 的分步说明。
 
 ## 通用前提条件
 

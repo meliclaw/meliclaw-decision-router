@@ -1,29 +1,11 @@
 <div align="center">
 
-<img src="website/static/img/artworks/vllm-sr-logo.dark.png" alt="vLLM Semantic Router" width="50%"/>
+<img src="website/static/img/artworks/vllm-sr-logo.dark.png" alt="Meliclaw Decision Router" width="50%"/>
 
 <p>An open, programmable <strong>decision layer</strong> for models and compute.</p>
 
-<p>
-  <a href="https://vllm-sr.ai">Documentation</a> |
-  <a href="https://app.vllm-sr.ai/playground">Playground</a> |
-  <a href="https://vllm-sr.ai/blog/">Blog</a> |
-  <a href="https://vllm-sr.ai/publications/">Publications</a> |
-  <a href="https://huggingface.co/vllm-sr">Hugging Face</a> |
-  <a href="https://vllm-dev.slack.com/archives/C09CTGF8KCN">Slack</a>
-</p>
-
-<a href="https://trendshift.io/repositories/15581?utm_source=trendshift-badge&utm_medium=badge&utm_campaign=badge-trendshift-15581" target="_blank" rel="noopener noreferrer">
-  <img src="https://trendshift.io/api/badge/trendshift/repositories/15581/daily?language=Go" alt="vllm-project%2Fsemantic-router | Trendshift" width="250" height="55"/>
-</a>
-<a href="https://huggingface.co/collections/vllm-sr/decision-20">
-  <img src="website/static/img/hf-trending.svg" alt="Decision 2.0 — #1 on Hugging Face Trending Collections, October 6, 2026" width="300" height="55"/>
-</a>
-
-[![Main](https://github.com/vllm-project/semantic-router/actions/workflows/main.yml/badge.svg)](https://github.com/vllm-project/semantic-router/actions/workflows/main.yml)
-![GitHub Release](https://img.shields.io/github/v/release/vllm-project/semantic-router?sort=semver)
 ![Go](https://img.shields.io/badge/Go-1.25-00ADD8?logo=go&logoColor=white)
-[![Ask DeepWiki](https://img.shields.io/badge/Ask-DeepWiki-6E56CF)](https://deepwiki.com/vllm-project/semantic-router)
+![License](https://img.shields.io/badge/license-Apache%202.0-blue)
 
 </div>
 
@@ -33,45 +15,47 @@
 
 **Intelligence beyond any one model.**
 
-Give your agent harness one API for many models. vLLM Semantic Router selects or combines models for each call, guided by your policy.
+Meliclaw Decision Router is a fork of
+[vLLM Semantic Router](https://github.com/vllm-project/semantic-router),
+licensed Apache 2.0. It gives your agent harness one API for many models,
+selecting or combining models for each call, guided by your policy.
 
-Your harness keeps the agent loop, tools, and task state. The Router chooses among configured backends across local, private, and cloud compute.
+Your harness keeps the agent loop, tools, and task state. The Router chooses
+among configured backends across local, private, and cloud compute.
 
-| Dimension | Fragmented today | With vLLM SR |
+| Dimension | Fragmented today | With Meliclaw Decision Router |
 | --- | --- | --- |
 | **Models** | Different models excel at different tasks. | Select or combine models. |
 | **Compute** | Hardware varies in speed and capacity. | Choose among configured backends. |
 | **Location** | Edge, private, and cloud. | Keep calls within approved locations. |
 | **Preference** | Priorities change by task. | Set quality, latency, and cost priorities. |
 
-[Explore how it works →](https://vllm-sr.ai/docs/intro/)
+See [AGENTS.md](AGENTS.md) for the repository entrypoint and
+[tools/agent/docs/README.md](tools/agent/docs/README.md) for the canonical
+documentation index.
 
 ## Getting Started
 
-### Install
+### Build from source
 
 ```bash
-curl -fsSL https://vllm-sr.ai/install.sh | bash -s -- --channel stable
+make build-router
 ```
 
-For pip, uv, or agent-driven installation, see the **[Installation Guide](https://vllm-sr.ai/docs/installation/)**.
+See **[AGENTS.md](AGENTS.md)** and the root `Makefile` for the full set of
+build, run, and test targets (`make docker-help` lists container targets).
 
 ### Connect your agent harness
 
-Point your harness at the Router's inference endpoint. Use a public model ID such as `vllm-sr/auto`.
+Point your harness at the Router's inference endpoint; see
+`config/config.yaml` for listener configuration.
 
-Follow **[Connect an agent harness](https://vllm-sr.ai/docs/installation/agent-harness/)** for setup and compatibility.
+## Project history
 
-### Online playground
-
-Try the online playground at <https://app.vllm-sr.ai/playground>.
-
-Credentials:
-
-- Username: `love@vllm-sr.ai`
-- Password: `vllm-sr-read`
-
-## Latest News
+Meliclaw Decision Router inherits its codebase and release history from the
+upstream vLLM Semantic Router project. The entries below are historical
+announcements from that upstream project (unmodified titles/links,
+preserved for attribution and context):
 
 - [2026/10/06] [Decision 2.0](https://huggingface.co/collections/vllm-sr/decision-20) reached #1 on Hugging Face Trending Collections.
 - [2026/10/06] [Vela 2.0: Towards Open Foundation Routing Models](https://vllm-sr.ai/blog/vela-2-0-open-foundation-routing-models/)
@@ -82,7 +66,7 @@ Credentials:
 - [2026/08/05] [LettuceDetect v2 in Semantic Router: Generative Hallucination Detection as a vLLM Endpoint](https://vllm-sr.ai/blog/lettucedetect-v2-generative-hallucination-detection/)
 
 <details>
-<summary>Earlier announcements</summary>
+<summary>Earlier announcements (upstream)</summary>
 
 - [2026/07/21] [Beyond a Single Model: Building Mixture-of-Models Systems with vLLM Semantic Router](https://vllm-sr.ai/blog/vllm-sr-new-chapter-mom/)
 - [2026/07/09] [Adding Cursor-Style Auto Model Selection to OpenCode with vLLM Semantic Router](https://vllm-sr.ai/blog/opencode-auto-mode/)
@@ -104,24 +88,6 @@ Credentials:
 
 </details>
 
-More announcements are available on the **[Blog](https://vllm-sr.ai/blog/)** and **[Publications](https://vllm-sr.ai/publications/)** pages.
-
-## Community
-
-For questions, feedback, or to contribute, please join the [`#semantic-router`](https://vllm-dev.slack.com/archives/C09CTGF8KCN) channel in vLLM Slack.
-Track contributors, workgroups, and weekly activity at [community.vllm-sr.ai](https://community.vllm-sr.ai).
-
-### Community Meetings
-
-We host two monthly community meetings across APAC and the Americas:
-
-- **APAC-friendly meeting — second Wednesday of the month**: 9:00-10:00 AM Singapore time (UTC+8; the same local time in Beijing)
-  - [Google Meet](https://meet.google.com/sed-jmht-ddm)
-  - [Google Calendar Invite](https://calendar.app.google/w3r6mfKf4X4xCMAm9)
-- **Americas-friendly meeting — fourth Wednesday of the month**: 8:00-9:00 PM Eastern Time (`America/New_York`) / 5:00-6:00 PM Pacific Time
-  - [Google Meet](https://meet.google.com/wvm-vbfy-xzj)
-  - [Google Calendar Invite](https://calendar.app.google/xHPHx8xhD1wHQfhH6)
-
 ## Contributing
 
 If you want to contribute, start with **[CONTRIBUTING.md](CONTRIBUTING.md)**.
@@ -130,7 +96,8 @@ For repository-native development workflow and validation commands, use **[AGENT
 
 ## Citation
 
-If you find Semantic Router helpful in your research or projects, please consider citing it:
+Meliclaw Decision Router is a derivative work. If you find it helpful in
+your research or projects, please cite the original upstream project:
 
 ```
 @misc{semanticrouter2025,
@@ -140,13 +107,3 @@ If you find Semantic Router helpful in your research or projects, please conside
   howpublished={\url{https://github.com/vllm-project/semantic-router}},
 }
 ```
-
-## Ecosystem & partnerships
-
-An open ecosystem spanning research, infrastructure, and enterprise adoption.
-
-<div align="center">
-  <a href="https://vllm-sr.ai/#ecosystem">
-    <img src="website/static/img/ecosystem/ecosystem.webp" alt="vLLM Semantic Router's growing ecosystem: AMD, Hugging Face, Microsoft, Intel, NVIDIA, Red Hat, IBM, Liquid, DaoCloud, Delta, MBZUAI, McGill, KR Labs, University of Chicago, UC Berkeley, UMass Boston, University of Illinois Chicago, National Taiwan University, New York University, UBS, AI21, Bayer, Dell, and Nutanix." width="100%"/>
-  </a>
-</div>

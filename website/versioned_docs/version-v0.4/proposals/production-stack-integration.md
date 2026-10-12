@@ -13,29 +13,29 @@ The vLLM Production Stack manages model serving, service discovery, replica
 scheduling, and inference lifecycle. Those capabilities do not decide which model pool
 best fits the meaning or policy requirements of an incoming request.
 
-Semantic Router can make that logical model choice, but it should not duplicate the
+Decision Router can make that logical model choice, but it should not duplicate the
 Production Stack's replica scheduling or infrastructure control plane.
 
 ## Proposal
 
-Run Semantic Router before the Production Stack request router:
+Run Decision Router before the Production Stack request router:
 
 ```mermaid
 flowchart LR
   Client --> Gateway
-  Gateway -->|"ExtProc"| Semantic["Semantic Router"]
+  Gateway -->|"ExtProc"| Semantic["Decision Router"]
   Semantic -->|"provider model"| Router["Production Stack router"]
   Router --> Replica["Eligible vLLM replica"]
 ```
 
-Semantic Router selects a provider model from the recipe. The Production Stack then
+Decision Router selects a provider model from the recipe. The Production Stack then
 selects a replica that serves that model.
 
 ## Responsibilities
 
 | Component | Owns |
 | --- | --- |
-| Semantic Router | Entrypoints, signals, decisions, logical model selection, and recipe-scoped plugins. |
+| Decision Router | Entrypoints, signals, decisions, logical model selection, and recipe-scoped plugins. |
 | vLLM Production Stack | Model deployment, service discovery, replica scheduling, and inference lifecycle. |
 | Gateway | Client traffic, ExtProc attachment, and forwarding to the selected backend. |
 
@@ -51,7 +51,7 @@ logical model names rather than cluster addresses.
 The end-to-end path is ready only when:
 
 1. every backend works directly;
-2. the full Semantic Router configuration validates;
+2. the full Decision Router configuration validates;
 3. the gateway invokes ExtProc before backend selection;
 4. the selected logical model maps to the intended Production Stack pool; and
 5. logs or traces show which replica ultimately executed the request.
@@ -77,7 +77,7 @@ backend but may bypass semantic and security policy. Fail-closed protects policy
 cost of availability. The correct choice is route-specific and should be tested.
 
 Secrets, tenant identity, and data-retention settings must remain consistent across
-the gateway, Semantic Router, Production Stack, and any external stores.
+the gateway, Decision Router, Production Stack, and any external stores.
 
 ## Scope
 
@@ -86,7 +86,7 @@ This proposal defines the layering and model-binding contract. It does not:
 - replace Production Stack deployment or scheduling APIs;
 - prescribe a particular replica-routing algorithm;
 - make quality, cost, or latency claims;
-- couple Semantic Router releases to Production Stack releases; or
+- couple Decision Router releases to Production Stack releases; or
 - require shared cache state between the two systems.
 
 ## Validation
@@ -100,7 +100,7 @@ performance comparison.
 
 - Should a deployment expose one multi-model endpoint or one endpoint per model pool?
 - Which request identifier should correlate gateway, semantic, and replica traces?
-- Which routes must fail closed when Semantic Router is unavailable?
+- Which routes must fail closed when Decision Router is unavailable?
 - How should model aliases be rolled out without breaking in-flight requests?
 
 ## References
@@ -108,4 +108,4 @@ performance comparison.
 - [Current Production Stack integration guide](../installation/k8s/production-stack)
 - [vLLM Production Stack documentation](https://docs.vllm.ai/projects/production-stack/en/latest/)
 - [Production Stack semantic-routing use case](https://docs.vllm.ai/projects/production-stack/en/latest/use_cases/semantic-router-integration.html)
-- [Semantic Router system overview](../overview/semantic-router-overview)
+- [Decision Router system overview](../overview/semantic-router-overview)

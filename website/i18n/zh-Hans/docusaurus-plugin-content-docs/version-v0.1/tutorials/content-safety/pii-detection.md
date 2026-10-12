@@ -7,7 +7,7 @@ translation:
 
 # PII 检测 (PII Detection)
 
-Semantic Router 提供了内置的个人身份信息 (PII) 检测功能，以保护用户查询中的敏感数据。系统使用经过微调的 BERT 模型，根据可配置的策略识别并处理各种类型的 PII。
+Decision Router 提供了内置的个人身份信息 (PII) 检测功能，以保护用户查询中的敏感数据。系统使用经过微调的 BERT 模型，根据可配置的策略识别并处理各种类型的 PII。
 
 ## 概览
 

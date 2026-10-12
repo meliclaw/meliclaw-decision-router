@@ -6,7 +6,7 @@ translation:
 is_mtpe: true
 sidebar_position: 3
 title: CRD API 参考
-description: vLLM Semantic Router 的 Kubernetes 自定义资源定义 (CRD) API 参考
+description: Meliclaw Decision Router 的 Kubernetes 自定义资源定义 (CRD) API 参考
 ---
 
 # API 参考

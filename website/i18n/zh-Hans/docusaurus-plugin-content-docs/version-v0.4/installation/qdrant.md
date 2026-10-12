@@ -8,7 +8,7 @@ translation:
 
 # Qdrant 向量库
 
-本指南介绍将 [Qdrant](https://qdrant.tech/) 部署为 Semantic Router 后端。Qdrant 可以用作语义缓存、智能体记忆存储、向量存储和路由回放存储。
+本指南介绍将 [Qdrant](https://qdrant.tech/) 部署为 Decision Router 后端。Qdrant 可以用作语义缓存、智能体记忆存储、向量存储和路由回放存储。
 
 ## 前置条件
 

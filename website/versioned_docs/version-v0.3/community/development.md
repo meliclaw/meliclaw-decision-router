@@ -1,6 +1,6 @@
 # Development Guide
 
-This guide covers the prerequisites, setup, and testing procedures for the vLLM Semantic Router.
+This guide covers the prerequisites, setup, and testing procedures for the Meliclaw Decision Router.
 
 ## Prerequisites
 

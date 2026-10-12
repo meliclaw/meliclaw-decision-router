@@ -1,10 +1,10 @@
 # Distributed Tracing with OpenTelemetry
 
-This guide explains how to configure and use distributed tracing in vLLM Semantic Router for enhanced observability and debugging capabilities.
+This guide explains how to configure and use distributed tracing in Meliclaw Decision Router for enhanced observability and debugging capabilities.
 
 ## Overview
 
-vLLM Semantic Router implements comprehensive distributed tracing using OpenTelemetry, providing fine-grained visibility into the request processing pipeline. Tracing helps you:
+Meliclaw Decision Router implements comprehensive distributed tracing using OpenTelemetry, providing fine-grained visibility into the request processing pipeline. Tracing helps you:
 
 - **Debug Production Issues**: Trace individual requests through the entire routing pipeline
 - **Optimize Performance**: Identify bottlenecks in classification, caching, and routing
@@ -92,7 +92,7 @@ observability:
       type: "always_on"  # or "probabilistic"
       rate: 1.0
     resource:
-      service_name: "vllm-semantic-router"
+      service_name: "meliclaw-decision-router"
       service_version: "v0.1.0"
       deployment_environment: "production"
 ```
@@ -155,7 +155,7 @@ observability:
     sampling:
       type: "always_on"
     resource:
-      service_name: "vllm-semantic-router-dev"
+      service_name: "meliclaw-decision-router-dev"
       deployment_environment: "development"
 ```
 
@@ -174,7 +174,7 @@ observability:
       type: "probabilistic"
       rate: 0.1  # 10% sampling
     resource:
-      service_name: "vllm-semantic-router"
+      service_name: "meliclaw-decision-router"
       service_version: "v0.1.0"
       deployment_environment: "production"
 ```
@@ -274,7 +274,7 @@ data:
           type: "probabilistic"
           rate: 0.1
         resource:
-          service_name: "vllm-semantic-router"
+          service_name: "meliclaw-decision-router"
           deployment_environment: "production"
 ---
 apiVersion: apps/v1
@@ -286,7 +286,7 @@ spec:
     spec:
       containers:
       - name: router
-        image: vllm-semantic-router:latest
+        image: meliclaw-decision-router:latest
         env:
         - name: CONFIG_PATH
           value: /config/config.yaml
@@ -329,7 +329,7 @@ spec:
 #### Jaeger UI
 
 1. Navigate to http://localhost:16686
-2. Select service: `vllm-semantic-router`
+2. Select service: `meliclaw-decision-router`
 3. Click "Find Traces"
 4. View trace details and timeline
 
@@ -338,7 +338,7 @@ spec:
 **Find slow requests:**
 
 ```
-Service: vllm-semantic-router
+Service: meliclaw-decision-router
 Min Duration: 1s
 Limit: 20
 ```

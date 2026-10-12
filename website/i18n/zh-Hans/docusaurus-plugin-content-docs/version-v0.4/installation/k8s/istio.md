@@ -1,6 +1,6 @@
 ---
 title: 使用 Istio Gateway 部署
-description: 在 Istio Gateway 后面将 Semantic Router 作为 ExtProc 服务运行，并接入两个模型后端。
+description: 在 Istio Gateway 后面将 Decision Router 作为 ExtProc 服务运行，并接入两个模型后端。
 translation:
   source_commit: "7c874be29871f6d00b36b2e21b3e549e846b98c5"
   source_file: "docs/installation/k8s/istio.md"
@@ -9,14 +9,14 @@ translation:
 
 # 使用 Istio Gateway 部署
 
-本指南展示参考拓扑：在 Istio Gateway 后面将 Semantic Router 作为 ExtProc 服务运行。Istio 负责入口和 `HTTPRoute` 处理；Semantic Router 负责感知提示词的模型选择。所提供的 `EnvoyFilter` 和 `DestinationRule` 仅适用于本示例，因此不要在未比较 ExtProc 模式的情况下复用其他网关集成的清单。
+本指南展示参考拓扑：在 Istio Gateway 后面将 Decision Router 作为 ExtProc 服务运行。Istio 负责入口和 `HTTPRoute` 处理；Decision Router 负责感知提示词的模型选择。所提供的 `EnvoyFilter` 和 `DestinationRule` 仅适用于本示例，因此不要在未比较 ExtProc 模式的情况下复用其他网关集成的清单。
 
 ## 职责划分
 
 部署包含：
 
-- **Semantic Router** 评估路由策略并选择模型。
-- **Istio Gateway** 接受客户端流量，并通过 ExtProc 调用 Semantic Router。
+- **Decision Router** 评估路由策略并选择模型。
+- **Istio Gateway** 接受客户端流量，并通过 ExtProc 调用 Decision Router。
 - **Gateway API 资源** 将所选模型映射到 Kubernetes 后端。
 - **两个 vLLM 部署** 是示例推理后端，需要合适的算力和模型访问。
 
@@ -84,7 +84,7 @@ kubectl wait --for=condition=Available deployment/istiod \
 
 ## 步骤 4：更新 vsr 配置（可选）
 
-Semantic Router 配置通过 Helm values 文件提供。若需要自定义配置（例如匹配不同的模型名称或端点），下载 values 文件并修改：
+Decision Router 配置通过 Helm values 文件提供。若需要自定义配置（例如匹配不同的模型名称或端点），下载 values 文件并修改：
 
 ```bash
 # Download the values file for customization
@@ -93,9 +93,9 @@ curl -O https://raw.githubusercontent.com/vllm-project/semantic-router/refs/head
 
 确保配置文件中的模型与你使用的模型匹配。通常应先从 vsr 的基础功能开始，例如提示词分类和模型路由，再试验 PromptGuard 或 ToolCalling 等其他功能。
 
-## 步骤 5：部署 vLLM Semantic Router
+## 步骤 5：部署 Meliclaw Decision Router
 
-使用集成 values 部署 Semantic Router：
+使用集成 values 部署 Decision Router：
 
 ```bash
 # Install semantic router using Helm from GHCR OCI registry
@@ -116,7 +116,7 @@ kubectl get pods -n vllm-semantic-router-system
 
 ## 步骤 6：安装额外的 Istio 配置
 
-安装将 Istio 网关通过 ExtProc 连接到 Semantic Router 的 `DestinationRule` 和网关范围的 `EnvoyFilter`：
+安装将 Istio 网关通过 ExtProc 连接到 Decision Router 的 `DestinationRule` 和网关范围的 `EnvoyFilter`：
 
 ```bash
 kubectl apply -f https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/istio/destinationrule.yaml
@@ -156,7 +156,7 @@ kubectl get svc inference-gateway-istio
 kubectl logs deploy/inference-gateway-istio -c istio-proxy
 ```
 
-**Semantic Router 无响应：**
+**Decision Router 无响应：**
 
 ```bash
 # Check semantic router pod

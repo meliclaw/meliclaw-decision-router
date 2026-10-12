@@ -1,7 +1,7 @@
 # TruthLens: 实时幻觉缓解
 
 **版本:** 1.0
-**作者:** vLLM Semantic Router 团队
+**作者:** Meliclaw Decision Router 团队
 **日期:** 2025年12月
 
 ---
@@ -10,7 +10,7 @@
 
 大型语言模型 (LLM) 展现了卓越的能力，但它们产生幻觉（流畅但实际上不正确或无根据的内容）的倾向仍然是企业采用 AI 的关键障碍。行业调查一致表明，幻觉风险是阻止组织在生产环境中部署 LLM 驱动的应用程序的首要担忧之一，特别是在医疗保健、金融和法律服务等高风险领域。
 
-我们提出了 **TruthLens**，这是一个集成到 vLLM Semantic Router 中的实时幻觉检测和缓解框架。通过将幻觉控制定位在推理 Gateway 层，TruthLens 提供了一个与模型无关的集中式解决方案，通过可配置的缓解策略解决“准确率-延迟-成本”三角问题。用户可以根据其对成本和准确率权衡的容忍度，从三种操作模式中进行选择：(1) **Lightweight Mode**——带有警告注入的单轮检测，(2) **Standard Mode**——使用同一模型进行迭代自我完善，以及 (3) **Premium Mode**——多模型交叉验证和协作修正。这种设计使组织能够部署值得信赖的 AI 系统，同时保持对运营成本和响应延迟的控制。
+我们提出了 **TruthLens**，这是一个集成到 Meliclaw Decision Router 中的实时幻觉检测和缓解框架。通过将幻觉控制定位在推理 Gateway 层，TruthLens 提供了一个与模型无关的集中式解决方案，通过可配置的缓解策略解决“准确率-延迟-成本”三角问题。用户可以根据其对成本和准确率权衡的容忍度，从三种操作模式中进行选择：(1) **Lightweight Mode**——带有警告注入的单轮检测，(2) **Standard Mode**——使用同一模型进行迭代自我完善，以及 (3) **Premium Mode**——多模型交叉验证和协作修正。这种设计使组织能够部署值得信赖的 AI 系统，同时保持对运营成本和响应延迟的控制。
 
 ---
 
@@ -58,9 +58,9 @@ flowchart TB
     end
 ```
 
-### 1.3 为什么 vLLM Semantic Router 是理想的解决方案点
+### 1.3 为什么 Meliclaw Decision Router 是理想的解决方案点
 
-vLLM Semantic Router 在 AI 基础设施栈中占据独特位置，使其非常适合幻觉缓解：
+Meliclaw Decision Router 在 AI 基础设施栈中占据独特位置，使其非常适合幻觉缓解：
 
 ```mermaid
 flowchart LR
@@ -70,7 +70,7 @@ flowchart LR
         APP3[应用 N]
     end
 
-    subgraph "vLLM Semantic Router"
+    subgraph "Meliclaw Decision Router"
         direction TB
         GW[统一 Gateway]
 
@@ -617,7 +617,7 @@ graph TD
 
 ### 4.1 高级架构
 
-TruthLens 集成到 vLLM Semantic Router 的 ExtProc 管道中，创建一个全面的请求-响应安全边界：
+TruthLens 集成到 Meliclaw Decision Router 的 ExtProc 管道中，创建一个全面的请求-响应安全边界：
 
 ```mermaid
 flowchart TB
@@ -627,7 +627,7 @@ flowchart TB
         C3[RAG 系统]
     end
 
-    subgraph "vLLM Semantic Router"
+    subgraph "Meliclaw Decision Router"
         direction TB
 
         subgraph "请求阶段（现有）"
@@ -1281,7 +1281,7 @@ flowchart TB
         ENVOY[Envoy Proxy]
     end
 
-    subgraph "vLLM Semantic Router - ExtProc"
+    subgraph "Meliclaw Decision Router - ExtProc"
         direction TB
 
         subgraph "请求处理"

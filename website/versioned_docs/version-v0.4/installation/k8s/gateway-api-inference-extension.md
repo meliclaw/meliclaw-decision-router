@@ -5,10 +5,10 @@ description: Combine semantic model-pool selection with endpoint selection insid
 
 # Gateway API Inference Extension
 
-Gateway API Inference Extension (GAIE) and Semantic Router solve different
+Gateway API Inference Extension (GAIE) and Decision Router solve different
 parts of routing:
 
-- **Semantic Router** chooses a logical model or pool from the request's
+- **Decision Router** chooses a logical model or pool from the request's
   meaning, policy, and recipe state.
 - **GAIE** represents that pool as an `InferencePool` and lets an endpoint
   picker choose a ready replica.
@@ -21,7 +21,7 @@ integration such as [Istio](istio) instead.
 ```text
 client
   -> Gateway
-  -> Semantic Router ExtProc
+  -> Decision Router ExtProc
   -> HTTPRoute chosen by x-selected-model
   -> InferencePool
   -> endpoint picker
@@ -39,19 +39,19 @@ CRDs, charts, and examples copied from different releases.
 - [GAIE releases](https://github.com/kubernetes-sigs/gateway-api-inference-extension/releases)
 - [llm-d gateway providers](https://llm-d.ai/docs/infrastructure/gateway)
 
-Before adding Semantic Router, verify that:
+Before adding Decision Router, verify that:
 
 1. the `Gateway` reports `Programmed=True`;
 2. each `HTTPRoute` reports accepted and resolved references;
 3. each `InferencePool` has ready endpoints; and
 4. a direct request reaches the expected pool.
 
-Semantic Router does not install or own the gateway controller, GAIE CRDs,
+Decision Router does not install or own the gateway controller, GAIE CRDs,
 endpoint picker, or model servers.
 
 ## Define the name contract
 
-The provider model selected by Semantic Router becomes the request header used
+The provider model selected by Decision Router becomes the request header used
 by the Gateway API route. The exact value must agree across all three objects:
 
 ```yaml
@@ -98,7 +98,7 @@ The Router writes `x-selected-model` on the request. It exposes the logical
 selection to clients as `x-vsr-selected-model` on the response. GAIE owns the
 later endpoint choice inside `general-pool`.
 
-## Deploy Semantic Router
+## Deploy Decision Router
 
 Create and validate a complete config before applying it:
 
@@ -113,7 +113,7 @@ Kubernetes-owned rewrites.
 
 ## Re-evaluate the route after ExtProc
 
-The gateway must call Semantic Router in the downstream request path and then
+The gateway must call Decision Router in the downstream request path and then
 re-evaluate the route after `x-selected-model` is written. Keep this Router
 setting enabled in the canonical config:
 
@@ -172,7 +172,7 @@ endpoint selection both ran.
 
 | Symptom | Start here |
 | --- | --- |
-| No `x-vsr-selected-model` response header | Semantic Router recipe selection and ExtProc attachment |
+| No `x-vsr-selected-model` response header | Decision Router recipe selection and ExtProc attachment |
 | Header is present but the route is not selected | `HTTPRoute` header value, route status, and gateway processing order |
 | `ResolvedRefs=False` | `InferencePool` name, group, port, namespace, and reference permissions |
 | Pool is selected but no backend responds | Endpoint-picker status, pool selector, and model-server readiness |

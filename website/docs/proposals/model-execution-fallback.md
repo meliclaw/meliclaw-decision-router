@@ -63,7 +63,7 @@ ordinary semantic selection.
 
 | Dimension | Gateway Transport Retry | Router Model Fallback |
 | :--- | :--- | :--- |
-| **Layer** | Standalone upstream transport or Envoy | Semantic Router Data Plane |
+| **Layer** | Standalone upstream transport or Envoy | Decision Router Data Plane |
 | **Scope** | Same logical model, alternative replica endpoints | Different logical model from hard-eligible candidates |
 | **Request Mutation** | None (identical wire bytes retransmitted) | Re-encoded from neutral request through candidate backend codec |
 | **Credentials & Auth** | Shared across replicas | Model- and provider-scoped credentials re-resolved |

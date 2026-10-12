@@ -8,7 +8,7 @@ sidebar_position: 5
 
 # Milvus Semantic Cache
 
-本指南涵盖在 Kubernetes 中部署 Milvus 作为 Semantic Router 的 Semantic Cache 后端。与默认的 memory cache 相比，Milvus 提供了持久化、可扩展的向量存储。
+本指南涵盖在 Kubernetes 中部署 Milvus 作为 Decision Router 的 Semantic Cache 后端。与默认的 memory cache 相比，Milvus 提供了持久化、可扩展的向量存储。
 
 :::note
 Milvus 是可选的。Router 开箱即用，默认使用 memory backend。当您需要持久化、水平扩展或在 Router 副本之间共享缓存时，请使用 Milvus。
@@ -170,7 +170,7 @@ spec:
 EOF
 ```
 
-## 配置 Semantic Router
+## 配置 Decision Router
 
 ### 应用 Milvus 客户端配置
 

@@ -102,7 +102,7 @@ For any number intended to guide a deployment or public claim, record:
 
 Compare alternatives on the same workload and environment. A QPS, latency,
 accuracy, cost, or savings number without this context is a local observation,
-not an expected property of Semantic Router.
+not an expected property of Decision Router.
 
 Model-selection evaluation used during training is documented separately in
 [Model Performance Evaluation](../training/model-performance-eval).

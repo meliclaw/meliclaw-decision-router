@@ -122,7 +122,7 @@ graph TD
     %% Define subgraphs for clarity
     subgraph "Gateway & Semantic Intelligence"
         Gateway[Envoy Gateway]
-        SemanticRouter[Semantic Router]
+        SemanticRouter[Decision Router]
         Milvus["Milvus - Semantic Cache"]
     end
 
@@ -184,7 +184,7 @@ sequenceDiagram
     autonumber
     participant C as Client
     participant G as Envoy Gateway
-    participant SR as Semantic Router
+    participant SR as Decision Router
     participant V as Production Stack Router
     participant W as Production Stack Worker
     participant SC as Semantic Cache
@@ -192,10 +192,10 @@ sequenceDiagram
     %% Client to Gateway
     C->>G: Send OpenAI-compatible request
 
-    %% Gateway to Semantic Router
+    %% Gateway to Decision Router
     G->>SR: Forward via ExtProc gRPC
 
-    %% Semantic Router processing
+    %% Decision Router processing
     SR->>SR: PII / Jailbreak detection
     SR->>SC: Semantic cache lookup
     SC-->>SR: Cache hit? (if yes, return cached response)
@@ -297,13 +297,13 @@ The integration will be delivered in four phases:
 
 **Objectives:**
 
-* Establish basic integration between Semantic Router and Production Stack
+* Establish basic integration between Decision Router and Production Stack
 * Implement transparent model override in request body
 * Validate end-to-end request flow
 
 **Tasks:**
 
-1. **Semantic Router Enhancements**:
+1. **Decision Router Enhancements**:
    * Implement request body modification: model: "auto" → "selected-model"
    * Add system prompt injection to messages array
    * Add optional observability headers:
@@ -349,7 +349,7 @@ The integration will be delivered in four phases:
    * Trace context propagation from VSR through PS to workers
    * Span hierarchy:
       * Root span: Envoy Gateway
-      * Child span: Semantic Router (fusion routing, cache, security)
+      * Child span: Decision Router (fusion routing, cache, security)
          * Sub-span: BERT classification
          * Sub-span: Keyword matching
          * Sub-span: Similarity search
@@ -360,7 +360,7 @@ The integration will be delivered in four phases:
    * Support for Jaeger, Tempo, and other OTLP-compatible backends
 
 2. **Metrics Collection:**
-   * Semantic Router metrics:
+   * Decision Router metrics:
      * Fusion routing performance:
        * BERT classification latency and accuracy
        * Keyword matching hit rate and latency
@@ -399,7 +399,7 @@ The integration will be delivered in four phases:
 **Tasks:**
 
 1. **Resilience:**
-   * Semantic Router failure fallback to PS
+   * Decision Router failure fallback to PS
    * Circuit breaker for cache backend
    * Graceful degradation strategies
 

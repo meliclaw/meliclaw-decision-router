@@ -9,7 +9,7 @@ sidebar_position: 5
 
 # 使用 NVIDIA Dynamo 安装
 
-本指南提供了将 vLLM Semantic Router 与 NVIDIA Dynamo 集成的分步说明。
+本指南提供了将 Meliclaw Decision Router 与 NVIDIA Dynamo 集成的分步说明。
 
 ## 关于 NVIDIA Dynamo
 
@@ -28,7 +28,7 @@ sidebar_position: 5
 
 集成两者的好处：
 
-- Semantic Router 做请求级决策（模型选择、分类），Dynamo 做基础设施级优化（Worker 选择、KV 缓存重用）
+- Decision Router 做请求级决策（模型选择、分类），Dynamo 做基础设施级优化（Worker 选择、KV 缓存重用）
 - 语义缓存（Milvus）+ KV 缓存（Dynamo）双层缓存
 - PII 检测和越狱防护在请求到达 Worker 之前过滤
 - 分离式 prefill/decode Worker 配合 KV 感知路由
@@ -311,7 +311,7 @@ echo "✅ GPU 设置完成"
 ```
 
 :::tip E2E 测试
-Semantic Router 项目包含自动化的 E2E 测试，可自动处理所有这些 GPU 设置。你可以运行：
+Decision Router 项目包含自动化的 E2E 测试，可自动处理所有这些 GPU 设置。你可以运行：
 
 ```bash
 make e2e-test E2E_PROFILE=dynamo E2E_VERBOSE=true
@@ -345,7 +345,7 @@ kubectl wait --for=condition=Available deployment -l app.kubernetes.io/instance=
 
 ## 步骤 3：安装 Envoy Gateway
 
-部署启用 ExtensionAPIs 的 Envoy Gateway 以支持 Semantic Router 集成：
+部署启用 ExtensionAPIs 的 Envoy Gateway 以支持 Decision Router 集成：
 
 ```bash
 # 使用自定义 values 安装 Envoy Gateway
@@ -359,14 +359,14 @@ helm install envoy-gateway oci://docker.io/envoyproxy/gateway-helm \
 kubectl wait --for=condition=Available deployment/envoy-gateway -n envoy-gateway-system --timeout=300s
 ```
 
-**重要**：values 文件启用了 `extensionApis.enableEnvoyPatchPolicy: true`，这是 Semantic Router ExtProc 集成所必需的。
+**重要**：values 文件启用了 `extensionApis.enableEnvoyPatchPolicy: true`，这是 Decision Router ExtProc 集成所必需的。
 
-## 步骤 4：部署 vLLM Semantic Router
+## 步骤 4：部署 Meliclaw Decision Router
 
-使用 Dynamo 特定配置部署 Semantic Router：
+使用 Dynamo 特定配置部署 Decision Router：
 
 ```bash
-# 从 GHCR OCI registry 安装 Semantic Router
+# 从 GHCR OCI registry 安装 Decision Router
 helm install semantic-router oci://ghcr.io/vllm-project/charts/semantic-router \
   --version v0.0.0-latest \
   --namespace vllm-semantic-router-system \
@@ -380,11 +380,11 @@ kubectl wait --for=condition=Available deployment/semantic-router -n vllm-semant
 kubectl get pods -n vllm-semantic-router-system
 ```
 
-**注意**：values 文件配置 Semantic Router 将请求路由到由 Dynamo Worker 服务的 TinyLlama 模型。
+**注意**：values 文件配置 Decision Router 将请求路由到由 Dynamo Worker 服务的 TinyLlama 模型。
 
 ## 步骤 5：部署 RBAC 资源
 
-应用 RBAC 权限以使 Semantic Router 能够访问 Dynamo CRDs：
+应用 RBAC 权限以使 Decision Router 能够访问 Dynamo CRDs：
 
 ```bash
 kubectl apply -f https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/dynamo/dynamo-resources/rbac.yaml
@@ -632,10 +632,10 @@ export ENVOY_SERVICE=$(kubectl get svc -n envoy-gateway-system \
   --selector=gateway.envoyproxy.io/owning-gateway-namespace=default,gateway.envoyproxy.io/owning-gateway-name=semantic-router \
   -o jsonpath='{.items[0].metadata.name}')
 
-# 端口转发到 Envoy Gateway（带 Semantic Router 保护）
+# 端口转发到 Envoy Gateway（带 Decision Router 保护）
 kubectl port-forward -n envoy-gateway-system svc/$ENVOY_SERVICE 8080:80 &
 
-# 直接端口转发到 Dynamo（绕过 Semantic Router）
+# 直接端口转发到 Dynamo（绕过 Decision Router）
 kubectl port-forward -n dynamo-system svc/dynamo-vllm-frontend 8000:8000 &
 ```
 
@@ -752,7 +752,7 @@ print(f'总连接数: {data.get(\"num_connections\", 0)}')
 "
 ```
 
-### 检查 Semantic Router 日志
+### 检查 Decision Router 日志
 
 ```bash
 kubectl logs -n vllm-semantic-router-system deployment/semantic-router -f | grep -E "category|routing_decision|pii"
@@ -796,7 +796,7 @@ helm uninstall dynamo-vllm -n dynamo-system
 # 删除 RBAC
 kubectl delete -f https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/dynamo/dynamo-resources/rbac.yaml
 
-# 删除 Semantic Router
+# 删除 Decision Router
 helm uninstall semantic-router -n vllm-semantic-router-system
 
 # 删除 Envoy Gateway
@@ -870,4 +870,4 @@ helm install dynamo-vllm ./deploy/kubernetes/dynamo/helm-chart \
 
 - [NVIDIA Dynamo GitHub](https://github.com/ai-dynamo/dynamo)
 - [Dynamo 文档](https://docs.nvidia.com/dynamo/latest/)
-- [演示视频：Semantic Router + Dynamo E2E](https://www.youtube.com/watch?v=rRULSR9gTds&list=PLmrddZ45wYcuPrXisC-yl7bMI39PLo4LO&index=2)
+- [演示视频：Decision Router + Dynamo E2E](https://www.youtube.com/watch?v=rRULSR9gTds&list=PLmrddZ45wYcuPrXisC-yl7bMI39PLo4LO&index=2)

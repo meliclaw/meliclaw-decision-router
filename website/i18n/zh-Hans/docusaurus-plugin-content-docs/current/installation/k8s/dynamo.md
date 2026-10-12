@@ -1,7 +1,7 @@
 ---
 title: 与 NVIDIA Dynamo 集成
 sidebar_label: NVIDIA Dynamo
-description: 将 Semantic Router 放在 Kubernetes 上由 Dynamo 管理的推理集群前面。
+description: 将 Decision Router 放在 Kubernetes 上由 Dynamo 管理的推理集群前面。
 translation:
   source_commit: "867155c924b6527d6a412e1412ce712a9e5cc9b8"
   source_file: "docs/installation/k8s/dynamo.md"
@@ -10,26 +10,26 @@ translation:
 
 # 与 NVIDIA Dynamo 集成
 
-当 NVIDIA Dynamo 已经负责模型服务，而你希望 Semantic Router 在 Dynamo 将请求调度到推理 worker 之前选择模型或策略时，使用此集成。
+当 NVIDIA Dynamo 已经负责模型服务，而你希望 Decision Router 在 Dynamo 将请求调度到推理 worker 之前选择模型或策略时，使用此集成。
 
 两层路由在不同层次做决策：
 
 | 层次 | 职责 |
 |-------|----------------|
-| Semantic Router | 解析入口，评估语义信号和策略，运行请求插件，并选择提供商模型。 |
+| Decision Router | 解析入口，评估语义信号和策略，运行请求插件，并选择提供商模型。 |
 | Dynamo | 协调推理图，暴露其 OpenAI 兼容前端，并按其服务拓扑和缓存感知路由选择 worker。 |
 
-Semantic Router 必须选择 Dynamo 前端所服务的模型名称。随后 Dynamo 可以在该模型的 worker 之间选择。
+Decision Router 必须选择 Dynamo 前端所服务的模型名称。随后 Dynamo 可以在该模型的 worker 之间选择。
 
 ```text
 Client
   -> Envoy Gateway
-     -> Semantic Router (ExtProc)
+     -> Decision Router (ExtProc)
         -> Dynamo frontend
            -> Dynamo router and inference workers
 ```
 
-语义响应缓存与 Dynamo KV-cache 路由相互独立。Semantic Router 缓存可以复用先前响应；Dynamo 的路由器在服务新请求时复用或预测 token 级前缀状态。
+语义响应缓存与 Dynamo KV-cache 路由相互独立。Decision Router 缓存可以复用先前响应；Dynamo 的路由器在服务新请求时复用或预测 token 级前缀状态。
 
 ## 前置条件
 
@@ -82,7 +82,7 @@ kubectl get dynamographdeployments,dynamocomponentdeployments \
 kubectl get services --namespace "$DYNAMO_NAMESPACE"
 ```
 
-记录 Semantic Router 将使用的值：
+记录 Decision Router 将使用的值：
 
 ```bash
 export DYNAMO_FRONTEND_SERVICE=your-frontend-service
@@ -90,7 +90,7 @@ export DYNAMO_FRONTEND_PORT=8000
 export DYNAMO_MODEL=your-served-model-name
 ```
 
-在加入另一层路由之前，在单独终端对前端 Service 做 port-forward，并发送直接的 OpenAI 兼容请求。这样可以把 Dynamo 部署问题与网关或 Semantic Router 问题分开。
+在加入另一层路由之前，在单独终端对前端 Service 做 port-forward，并发送直接的 OpenAI 兼容请求。这样可以把 Dynamo 部署问题与网关或 Decision Router 问题分开。
 
 ```bash
 kubectl port-forward \
@@ -107,11 +107,11 @@ curl -fsS http://localhost:8000/v1/models
 
 :::caution 仓库示例的兼容性
 
-本仓库中的 `deploy/kubernetes/dynamo/helm-chart` 和 `dynamo-resources/dynamo-graph-deployment.yaml` 示例面向较旧的 Dynamo API 和运行时。不要原样与 1.4.0 平台组合使用。Dynamo 模型资源请使用 NVIDIA 当前的部署指南；下面的仓库文件仅用于 Semantic Router 和网关集成。
+本仓库中的 `deploy/kubernetes/dynamo/helm-chart` 和 `dynamo-resources/dynamo-graph-deployment.yaml` 示例面向较旧的 Dynamo API 和运行时。不要原样与 1.4.0 平台组合使用。Dynamo 模型资源请使用 NVIDIA 当前的部署指南；下面的仓库文件仅用于 Decision Router 和网关集成。
 
 :::
 
-## 3. 为 Dynamo 前端配置 Semantic Router
+## 3. 为 Dynamo 前端配置 Decision Router
 
 下载集成 values，安装 chart 前先编辑：
 
@@ -129,7 +129,7 @@ curl -fsSL \
 
 同时更新所有引用示例模型的 `modelRefs[].model` 以及 `providers.defaults.model`。这些名称必须匹配 Dynamo 前端返回的条目。
 
-开发环境可安装持续发布的 Semantic Router chart：
+开发环境可安装持续发布的 Decision Router chart：
 
 ```bash
 export SEMANTIC_ROUTER_NAMESPACE=vllm-semantic-router-system
@@ -143,11 +143,11 @@ helm upgrade --install semantic-router \
   --wait
 ```
 
-`0.0.0-latest` 跟随 main 分支。生产环境请固定经过测试的 chart 版本和明确的 Semantic Router 镜像标签。
+`0.0.0-latest` 跟随 main 分支。生产环境请固定经过测试的 chart 版本和明确的 Decision Router 镜像标签。
 
 ## 4. 连接 Envoy Gateway
 
-仓库集成使用 `EnvoyPatchPolicy` 将 Semantic Router 插入为 ExtProc 过滤器。安装 Envoy Gateway 时启用该扩展：
+仓库集成使用 `EnvoyPatchPolicy` 将 Decision Router 插入为 ExtProc 过滤器。安装 Envoy Gateway 时启用该扩展：
 
 ```bash
 export ENVOY_GATEWAY_VERSION=v1.9.0
@@ -175,7 +175,7 @@ curl -fsSL \
 
 - `HTTPRoute` 后端 Service 的名称、命名空间和端口
 - 当 Dynamo 前端不在 `dynamo-system` 时，更新 `ReferenceGrant` 命名空间
-- 若更改了 Semantic Router 的 release 名称或命名空间，更新其 Service 地址
+- 若更改了 Decision Router 的 release 名称或命名空间，更新其 Service 地址
 - 当 `default` 不合适时，更新 Gateway 和路由的命名空间
 
 然后应用并检查资源状态：
@@ -193,7 +193,7 @@ kubectl describe envoypatchpolicy semantic-router-extproc-patch-policy \
 
 解析集群中真实的 Gateway 地址并设置 `GATEWAY_URL`。[网关测试清单](./gateway-testing) 覆盖 LoadBalancer、本地集群、路由状态和日志检查。
 
-通过 Gateway 发送请求，使用 Semantic Router 中配置的入口。示例 values 使用默认自动入口：
+通过 Gateway 发送请求，使用 Decision Router 中配置的入口。示例 values 使用默认自动入口：
 
 ```bash
 curl -fsS -D - "$GATEWAY_URL/v1/chat/completions" \
@@ -208,7 +208,7 @@ curl -fsS -D - "$GATEWAY_URL/v1/chat/completions" \
   }'
 ```
 
-在 Gateway、Semantic Router 和 Dynamo 前端日志中关联同一请求。仅有成功的 HTTP 响应，并不能证明请求经过了预期路由或到达了所选的 Dynamo 部署。
+在 Gateway、Decision Router 和 Dynamo 前端日志中关联同一请求。仅有成功的 HTTP 响应，并不能证明请求经过了预期路由或到达了所选的 Dynamo 部署。
 
 ## 故障排查
 
@@ -217,7 +217,7 @@ curl -fsS -D - "$GATEWAY_URL/v1/chat/completions" \
 | 直接前端请求失败 | Dynamo 部署状态、GPU 分配、模型凭证和前端日志 |
 | 直接前端可用但 Gateway 失败 | `HTTPRoute` 后端名称和端口、`ReferenceGrant` 和 Gateway 地址 |
 | patch 策略未被接受 | Envoy Gateway 扩展设置、patch 目标命名空间和发行兼容性 |
-| 物理模型可用但 `vllm-sr/auto` 失败 | Semantic Router 入口、提供商模型名称、决策和分类器就绪状态 |
+| 物理模型可用但 `vllm-sr/auto` 失败 | Decision Router 入口、提供商模型名称、决策和分类器就绪状态 |
 | 请求到达错误的 Dynamo 部署 | 所选模型头、提供商端点、Dynamo 前端模型列表，以及两层路由的日志 |
 
 ## 清理
@@ -247,4 +247,4 @@ helm uninstall dynamo-platform \
 - [NVIDIA Dynamo Kubernetes Quickstart](https://docs.nvidia.com/dynamo/dev/kubernetes/getting-started/quickstart)
 - [NVIDIA Dynamo 模型部署概览](https://docs.nvidia.com/dynamo/dev/kubernetes/model-deployment/introduction)
 - [NVIDIA Dynamo 发布产物](https://docs.nvidia.com/dynamo/dev/reference/release-artifacts)
-- [Semantic Router Dynamo 集成文件](https://github.com/vllm-project/semantic-router/tree/main/deploy/kubernetes/dynamo)
+- [Decision Router Dynamo 集成文件](https://github.com/vllm-project/semantic-router/tree/main/deploy/kubernetes/dynamo)

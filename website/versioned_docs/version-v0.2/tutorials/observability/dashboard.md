@@ -1,6 +1,6 @@
-# Semantic Router Dashboard
+# Decision Router Dashboard
 
-The Semantic Router Dashboard is a unified operator UI that brings together Configuration Management, an Interactive Playground, and Real-time Monitoring & Observability. It provides a single entry point across local development, Docker Compose, and Kubernetes deployments.
+The Decision Router Dashboard is a unified operator UI that brings together Configuration Management, an Interactive Playground, and Real-time Monitoring & Observability. It provides a single entry point across local development, Docker Compose, and Kubernetes deployments.
 
 - One place to view and edit configuration (with guardrails)
 - One tab to test prompts via a built-in chat playground

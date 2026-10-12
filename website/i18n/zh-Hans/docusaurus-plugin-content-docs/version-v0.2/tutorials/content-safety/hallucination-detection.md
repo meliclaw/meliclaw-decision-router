@@ -7,7 +7,7 @@ translation:
 
 # 幻觉检测 (Hallucination Detection)
 
-Semantic Router 提供了先进的幻觉检测功能，以验证 LLM 的响应是否基于提供的上下文。系统使用经过微调的 ModernBERT token 分类器来识别未被检索结果或工具输出支持的陈述。
+Decision Router 提供了先进的幻觉检测功能，以验证 LLM 的响应是否基于提供的上下文。系统使用经过微调的 ModernBERT token 分类器来识别未被检索结果或工具输出支持的陈述。
 
 ## 概览
 

@@ -1,7 +1,7 @@
 ---
 sidebar_position: 2
 title: 使用 Agent 安装
-description: 向编码 Agent 提供一条提示词，即可通过 CLI 和 Router API 在 CPU 或 GPU 主机上完成 vLLM Semantic Router 的安装、配置与验证。
+description: 向编码 Agent 提供一条提示词，即可通过 CLI 和 Router API 在 CPU 或 GPU 主机上完成 Meliclaw Decision Router 的安装、配置与验证。
 translation:
   source_commit: "c34ca03a83d8b95eadfd86ab0a4fb11ac17af8d4"
   source_file: "docs/installation/agent.md"

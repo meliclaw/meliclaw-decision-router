@@ -9,7 +9,7 @@ translation:
 
 # 指标与监控
 
-使用 Prometheus 和 Grafana 进行Semantic Router 的指标收集和可视化。
+使用 Prometheus 和 Grafana 进行Decision Router 的指标收集和可视化。
 
 ---
 

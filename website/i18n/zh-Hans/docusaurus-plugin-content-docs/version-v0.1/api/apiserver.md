@@ -10,7 +10,7 @@ Router Apiserver 是运行在 8080 端口上的 HTTP 控制与工具面。它暴
 
 ## 服务器状态
 
-Router Apiserver 与主 Semantic Router ExtProc 服务器一起运行：
+Router Apiserver 与主 Decision Router ExtProc 服务器一起运行：
 
 - **Router Apiserver**：`http://localhost:8080`（HTTP REST API）
 - **ExtProc 服务器**：`http://localhost:50051`（用于 Envoy 集成的 gRPC）

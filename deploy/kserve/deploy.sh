@@ -46,7 +46,7 @@ usage() {
     cat << EOF
 Usage: $0 [OPTIONS]
 
-Deploy vLLM Semantic Router for OpenShift AI KServe LLMInferenceServices
+Deploy Meliclaw Decision Router for OpenShift AI KServe LLMInferenceServices
 
 Required Options:
   -n, --namespace NAMESPACE          OpenShift namespace to deploy to
@@ -266,7 +266,7 @@ trap 'rm -rf "$TEMP_DIR"' EXIT
 # Banner
 echo ""
 echo "=================================================="
-echo "  vLLM Semantic Router - KServe Deployment"
+echo "  Meliclaw Decision Router - KServe Deployment"
 echo "=================================================="
 echo ""
 

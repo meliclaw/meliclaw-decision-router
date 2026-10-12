@@ -1,6 +1,6 @@
 # Admin API Reference
 
-The Classification API provides direct access to the Semantic Router's classification models for intent detection, PII identification, and security analysis. This API is useful for testing, debugging, and standalone classification tasks.
+The Classification API provides direct access to the Decision Router's classification models for intent detection, PII identification, and security analysis. This API is useful for testing, debugging, and standalone classification tasks.
 
 ## API Endpoints
 
@@ -12,7 +12,7 @@ http://localhost:8080/api/v1/classify
 
 ## Server Status
 
-The Classification API server runs alongside the main Semantic Router ExtProc server:
+The Classification API server runs alongside the main Decision Router ExtProc server:
 
 - **Classification API**: `http://localhost:8080` (HTTP REST API)
 - **ExtProc Server**: `http://localhost:50051` (gRPC for Envoy integration)
@@ -1056,4 +1056,4 @@ Development and testing endpoints for model validation:
 }
 ```
 
-This Classification API provides comprehensive access to all the intelligent routing capabilities of the Semantic Router, enabling developers to build sophisticated applications with advanced text understanding and security features.
+This Classification API provides comprehensive access to all the intelligent routing capabilities of the Decision Router, enabling developers to build sophisticated applications with advanced text understanding and security features.

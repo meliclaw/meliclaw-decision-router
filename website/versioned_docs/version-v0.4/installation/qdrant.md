@@ -4,7 +4,7 @@ sidebar_position: 7
 
 # Qdrant
 
-This guide covers deploying [Qdrant](https://qdrant.tech/) as a backend for the Semantic Router. Qdrant can serve as the semantic cache, agentic memory store, vector store, and router replay store.
+This guide covers deploying [Qdrant](https://qdrant.tech/) as a backend for the Decision Router. Qdrant can serve as the semantic cache, agentic memory store, vector store, and router replay store.
 
 ## Prerequisites
 

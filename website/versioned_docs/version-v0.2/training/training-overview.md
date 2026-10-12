@@ -1,10 +1,10 @@
 # Model Training Overview
 
-The Semantic Router relies on multiple specialized classification models to make intelligent routing decisions. This section provides a comprehensive overview of the training process, datasets used, and the purpose of each model in the routing pipeline.
+The Decision Router relies on multiple specialized classification models to make intelligent routing decisions. This section provides a comprehensive overview of the training process, datasets used, and the purpose of each model in the routing pipeline.
 
 ## Training Architecture Overview
 
-The Semantic Router employs a **multi-task learning approach** using ModernBERT as the foundation model for various classification tasks. Each model is trained for specific purposes in the routing pipeline:
+The Decision Router employs a **multi-task learning approach** using ModernBERT as the foundation model for various classification tasks. Each model is trained for specific purposes in the routing pipeline:
 
 ```mermaid
 graph TB
@@ -30,7 +30,7 @@ graph TB
     end
     
     subgraph "Deployment"
-        ModernBERT --> SemanticRouter[Semantic Router<br/>Production System]
+        ModernBERT --> SemanticRouter[Decision Router<br/>Production System]
     end
 ```
 

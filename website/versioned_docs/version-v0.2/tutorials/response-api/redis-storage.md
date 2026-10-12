@@ -151,7 +151,7 @@ docker exec redis-response-api redis-cli PING
 # Expected: PONG
 ```
 
-### 2. Configure Semantic Router
+### 2. Configure Decision Router
 
 Update `config/config.yaml`:
 
@@ -165,7 +165,7 @@ response_api:
     key_prefix: "sr:"
 ```
 
-### 3. Run Semantic Router
+### 3. Run Decision Router
 
 ```bash
 # Build and run

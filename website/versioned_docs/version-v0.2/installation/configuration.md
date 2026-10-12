@@ -4,7 +4,7 @@ sidebar_position: 4
 
 # Configuration
 
-This guide covers the configuration options for the Semantic Router. The system uses a single YAML configuration file that controls **signal-driven routing**, **plugin chain processing**, and **model selection**.
+This guide covers the configuration options for the Decision Router. The system uses a single YAML configuration file that controls **signal-driven routing**, **plugin chain processing**, and **model selection**.
 
 ## Architecture Overview
 
@@ -1949,7 +1949,7 @@ curl -X POST http://localhost:8801/v1/chat/completions \
 
 ## Configuration Generation
 
-The Semantic Router supports automated configuration generation based on model performance benchmarks. This workflow uses MMLU-Pro evaluation results to determine optimal model routing for different categories.
+The Decision Router supports automated configuration generation based on model performance benchmarks. This workflow uses MMLU-Pro evaluation results to determine optimal model routing for different categories.
 
 ### Benchmarking Workflow
 

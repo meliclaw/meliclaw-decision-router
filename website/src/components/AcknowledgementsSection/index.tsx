@@ -32,7 +32,7 @@ const AcknowledgementsSection: React.FC = () => {
           </h2>
           <p className={styles.subtitle}>
             <Translate id="acknowledgements.subtitle">
-              The libraries and platforms beneath vLLM Semantic Router.
+              The libraries and platforms beneath Meliclaw Decision Router.
             </Translate>
           </p>
         </div>

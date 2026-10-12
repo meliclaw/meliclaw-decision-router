@@ -1,0 +1,37 @@
+{
+  "feature": "rebrand-meliclaw-decision-router",
+  "timestamp": "2026-10-11T21:32:42.126Z",
+  "gitRev": "32a0222aa",
+  "command": "node --test",
+  "reporter": "tap",
+  "exitCode": 1,
+  "testsParsed": 196,
+  "results": {
+    "AC-001": {
+      "status": "pass",
+      "testName": "AC-001: Website sem a marca antiga @spec:AC-001",
+      "method": "tap"
+    },
+    "AC-002": {
+      "status": "pass",
+      "testName": "AC-002: Documentos raiz com atribuição preservada @spec:AC-002",
+      "method": "tap"
+    },
+    "AC-003": {
+      "status": "pass",
+      "testName": "AC-003: Estruturas técnicas da marca antiga preservadas @spec:AC-003",
+      "method": "tap"
+    },
+    "AC-004": {
+      "status": "pass",
+      "testName": "AC-004: Serviço sobe e fica saudável @spec:AC-004",
+      "method": "tap"
+    },
+    "AC-005": {
+      "status": "pass",
+      "testName": "AC-005: Compose de produção existe e valida @spec:AC-005",
+      "method": "tap"
+    }
+  },
+  "principles": {}
+}

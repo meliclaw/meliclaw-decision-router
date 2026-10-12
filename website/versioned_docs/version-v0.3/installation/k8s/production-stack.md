@@ -2,9 +2,9 @@
 
 This tutorial is adapted from [vLLM production stack tutorials](https://github.com/vllm-project/production-stack/blob/main/tutorials/24-semantic-router-integration.md)
 
-## What is vLLM Semantic Router?
+## What is Meliclaw Decision Router?
 
-The vLLM Semantic Router is an intelligent Mixture-of-Models (MoM) router that operates as an Envoy External Processor to semantically route OpenAI API–compatible requests to the most suitable backend model. Using BERT-based classification, it improves both quality and cost efficiency by matching requests (e.g., math, code, creative, general) to specialized models.
+The Meliclaw Decision Router is an intelligent Mixture-of-Models (MoM) router that operates as an Envoy External Processor to semantically route OpenAI API–compatible requests to the most suitable backend model. Using BERT-based classification, it improves both quality and cost efficiency by matching requests (e.g., math, code, creative, general) to specialized models.
 
 - **Auto-selection of models**: Routes math, creative writing, code, and general queries to the best-fit models.
 - **Security & privacy**: PII detection, prompt guard, and safe routing for sensitive prompts.
@@ -12,11 +12,11 @@ The vLLM Semantic Router is an intelligent Mixture-of-Models (MoM) router that o
 - **Architecture**: Tight Envoy ExtProc integration; dual Go and Python implementations; production-ready and scalable.
 - **Monitoring**: Grafana dashboards, Prometheus metrics, and tracing for full visibility.
 
-Learn more: [vLLM Semantic Router](https://vllm-sr.ai/docs/intro)
+Learn more: [Meliclaw Decision Router](https://vllm-sr.ai/docs/intro)
 
 ## What are the benefits of integration?
 
-The vLLM Production Stack provides several deployment ways that spin up vLLM servers which can direct traffic to different models, perform service discovery and fault tolerance through the Kubernetes API, and support round‑robin, session‑based, prefix‑aware, KV-aware and disaggregated-prefill routing with LMCache native support. The Semantic Router adds a system‑intelligence layer that classifies each user request, selects the most suitable model from a pool, injects domain‑specific system prompts, performs semantic caching and enforces enterprise‑grade security checks such as PII and jailbreak detection.
+The vLLM Production Stack provides several deployment ways that spin up vLLM servers which can direct traffic to different models, perform service discovery and fault tolerance through the Kubernetes API, and support round‑robin, session‑based, prefix‑aware, KV-aware and disaggregated-prefill routing with LMCache native support. The Decision Router adds a system‑intelligence layer that classifies each user request, selects the most suitable model from a pool, injects domain‑specific system prompts, performs semantic caching and enforces enterprise‑grade security checks such as PII and jailbreak detection.
 
 By combining these two systems we obtain a unified inference stack. Semantic routing ensures that each request is answered by the best possible model. Production‑Stack routing maximizes infrastructure and inference efficiency, and exposes rich metrics.
 
@@ -25,7 +25,7 @@ By combining these two systems we obtain a unified inference stack. Semantic rou
 This tutorial will guide you:
 
 - Deploy a minimal vLLM Production Stack
-- Deploy vLLM Semantic Router and point it to your vLLM router Service
+- Deploy Meliclaw Decision Router and point it to your vLLM router Service
 - Test the endpoint via the Envoy AI Gateway
 
 ## Prerequisites
@@ -91,14 +91,14 @@ kubectl get svc vllm-router-service
 
 ---
 
-## Step 2: Deploy vLLM Semantic Router and point it at your vLLM router Service
+## Step 2: Deploy Meliclaw Decision Router and point it at your vLLM router Service
 
 Follow the official guide from the official website with **the updated config file as the following**: [Install in Kubernetes](https://vllm-sr.ai/docs/installation/k8s/ai-gateway).
 
 Deploy using Helm with custom values:
 
 ```bash
-   # Deploy vLLM Semantic Router with custom values from GHCR OCI registry
+   # Deploy Meliclaw Decision Router with custom values from GHCR OCI registry
    # (Optional) If you use a registry mirror/proxy, append: --set global.imageRegistry=<your-registry>
    helm install semantic-router oci://ghcr.io/vllm-project/charts/semantic-router \
      --version v0.0.0-latest \

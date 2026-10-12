@@ -10,15 +10,15 @@ export default function VisionPaper(): JSX.Element {
       title={translate({ id: 'visionPaper.title', message: 'Vision Paper' })}
       socialTitle={translate({
         id: 'visionPaper.socialTitle',
-        message: 'Our Vision — vLLM Semantic Router',
+        message: 'Our Vision — Meliclaw Decision Router',
       })}
       metaDescription={translate({
         id: 'visionPaper.metaDescription',
-        message: 'The Workload-Router-Pool Architecture for LLM Inference Optimization: A Vision Paper from the vLLM Semantic Router Project',
+        message: 'The Workload-Router-Pool Architecture for LLM Inference Optimization: A Vision Paper from the Meliclaw Decision Router Project',
       })}
       heroDescription={translate({
         id: 'visionPaper.heroDescription',
-        message: 'The Workload-Router-Pool Architecture for LLM Inference Optimization, presented as a full PDF reader for the vLLM Semantic Router vision paper.',
+        message: 'The Workload-Router-Pool Architecture for LLM Inference Optimization, presented as a full PDF reader for the Meliclaw Decision Router vision paper.',
       })}
       pdfUrl={PDF_URL}
     />

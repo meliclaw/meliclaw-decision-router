@@ -1,6 +1,6 @@
 ---
 title: 部署支持
-description: 查看 Semantic Router 项目维护哪些部署路径、集成、示例和硬件配置。
+description: 查看 Decision Router 项目维护哪些部署路径、集成、示例和硬件配置。
 translation:
   source_commit: "d8e75b89b7290df941743270c69a111f80dde50a"
   source_file: "docs/installation/support-matrix.md"
@@ -29,7 +29,7 @@ translation:
 对于每个链接的选项：
 
 1. 使用其指南中命名的外部平台版本；如果没有命名，在你测试之前将你的选择视为未限定；
-2. 从同一发行版获取你使用的每个 Semantic Router 产物——CLI、chart、CRD、控制器和镜像；以及
+2. 从同一发行版获取你使用的每个 Decision Router 产物——CLI、chart、CRD、控制器和镜像；以及
 3. 在升级任何一个组件之前，先在你的环境中测试该精确集合。
 
 支持覆盖的是该经过测试的版本集合，而不是外部项目支持的每个版本。

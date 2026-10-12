@@ -1,6 +1,6 @@
 ---
 sidebar_position: 3
-description: 分步指南：用 Ollama 服务本地模型，并通过设置控制面板或 YAML 配置将其连接到 vLLM Semantic Router。
+description: 分步指南：用 Ollama 服务本地模型，并通过设置控制面板或 YAML 配置将其连接到 Meliclaw Decision Router。
 translation:
   source_commit: "b9b183307e97f3ce8448d2838d0f1bf99972d336"
   source_file: "docs/installation/ollama.md"
@@ -9,22 +9,22 @@ translation:
 
 # 使用 Ollama 配置模型
 
-[Ollama](https://ollama.com/) 是在没有完整 vLLM 或 GPU 栈的情况下运行本地 LLM 的简单方式。Ollama 在端口 `11434` 上暴露 OpenAI 兼容 API，Semantic Router 可以在首次运行设置或手写 YAML 中将其用作模型后端。
+[Ollama](https://ollama.com/) 是在没有完整 vLLM 或 GPU 栈的情况下运行本地 LLM 的简单方式。Ollama 在端口 `11434` 上暴露 OpenAI 兼容 API，Decision Router 可以在首次运行设置或手写 YAML 中将其用作模型后端。
 
 本指南将逐步说明：
 
 1. 在主机上安装 Ollama 并拉取模型
 2. 使 Ollama API 可从 Docker 到达
-3. 在 Semantic Router 设置控制面板中注册模型
+3. 在 Decision Router 设置控制面板中注册模型
 4. 激活配置并发送测试请求
 
 :::tip
-Semantic Router 在 `vllm-sr serve` 期间运行在 Docker 中。名称 `host.docker.internal` 可以从容器解析主机，但不会使仅监听回环的 Ollama 服务器可到达。在启动 Semantic Router 之前，先完成下面的绑定地址步骤。
+Decision Router 在 `vllm-sr serve` 期间运行在 Docker 中。名称 `host.docker.internal` 可以从容器解析主机，但不会使仅监听回环的 Ollama 服务器可到达。在启动 Decision Router 之前，先完成下面的绑定地址步骤。
 :::
 
 ## 前置条件
 
-- 已安装 Semantic Router，并且可以用 [`vllm-sr serve`](/zh-Hans/docs/installation) 运行（Linux、macOS，或带 Docker 的 WSL2）
+- 已安装 Decision Router，并且可以用 [`vllm-sr serve`](/zh-Hans/docs/installation) 运行（Linux、macOS，或带 Docker 的 WSL2）
 - Ollama 安装在运行 Docker 的**同一台机器**上
 - 至少有一个模型所需的磁盘空间（例如，`llama3.2:3b` 大约 2 GB）
 
@@ -97,12 +97,12 @@ ollama list
 ![拉取 Ollama 模型并确认它在本地可用](/img/installation/ollama/ollama-pull-and-list.png)
 
 :::note
-在 Semantic Router 中使用**精确的 Ollama 标签**（例如 `llama3.2:3b`、`qwen2.5-coder:7b`）作为模型名称。Router 会将该名称原样转发给 Ollama。
+在 Decision Router 中使用**精确的 Ollama 标签**（例如 `llama3.2:3b`、`qwen2.5-coder:7b`）作为模型名称。Router 会将该名称原样转发给 Ollama。
 :::
 
 ## 4. 验证 Ollama 正在提供服务
 
-在打开 Semantic Router 控制面板之前，确认 Ollama 在主机上响应：
+在打开 Decision Router 控制面板之前，确认 Ollama 在主机上响应：
 
 ```bash
 curl http://localhost:11434/v1/models
@@ -121,7 +121,7 @@ curl http://localhost:11434/v1/chat/completions \
 
 ![用 curl 验证 Ollama 的 OpenAI 兼容 API](/img/installation/ollama/ollama-api-verify.png)
 
-如果任一命令失败，先在主机上修复 Ollama 再继续。Semantic Router 无法到达尚未在端口 `11434` 上提供服务的后端。
+如果任一命令失败，先在主机上修复 Ollama 再继续。Decision Router 无法到达尚未在端口 `11434` 上提供服务的后端。
 
 然后验证 Router 容器将使用的地址：
 
@@ -136,7 +136,7 @@ docker run --rm \
 
 ## 5. 在设置控制面板中配置模型
 
-启动 Semantic Router（或使用安装程序已启动的实例）：
+启动 Decision Router（或使用安装程序已启动的实例）：
 
 ```bash
 vllm-sr serve
@@ -168,7 +168,7 @@ vllm-sr serve
 
 激活会写入配置并退出设置模式。终端里仍在等待的 `vllm-sr serve` 随后启动 Router，由它在端口 `8899` 提供服务，并把请求路由到你的 Ollama 后端。
 
-## 7. 通过 Semantic Router 测试
+## 7. 通过 Decision Router 测试
 
 通过 Router 代理发送请求：
 
@@ -177,7 +177,7 @@ curl http://localhost:8899/v1/chat/completions \
   -H "Content-Type: application/json" \
   -d '{
     "model": "llama3.2:3b",
-    "messages": [{"role": "user", "content": "Hello from Semantic Router!"}]
+    "messages": [{"role": "user", "content": "Hello from Decision Router!"}]
   }'
 ```
 
@@ -188,7 +188,7 @@ curl http://localhost:8899/v1/chat/completions \
   -H "Content-Type: application/json" \
   -d '{
     "model": "vllm-sr/auto",
-    "messages": [{"role": "user", "content": "Hello from Semantic Router!"}]
+    "messages": [{"role": "user", "content": "Hello from Decision Router!"}]
   }'
 ```
 
@@ -248,7 +248,7 @@ vllm-sr serve --config config.yaml
 
 ### 找不到模型，或 Ollama 返回 404
 
-- Semantic Router 中的 **Model name** 必须与 Ollama 标签完全匹配（`llama3.2:3b`，而不是 `llama3.2`）。
+- Decision Router 中的 **Model name** 必须与 Ollama 标签完全匹配（`llama3.2:3b`，而不是 `llama3.2`）。
 - 运行 `ollama list`，如果缺少该标签则拉取：`ollama pull <tag>`。
 
 ### 第一次请求很慢

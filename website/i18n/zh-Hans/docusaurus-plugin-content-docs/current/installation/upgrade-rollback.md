@@ -8,7 +8,7 @@ translation:
 
 # 升级与回滚
 
-本运行手册介绍如何在生产环境中升级、固定和回滚 vLLM Semantic Router 的每个发行表面。
+本运行手册介绍如何在生产环境中升级、固定和回滚 Meliclaw Decision Router 的每个发行表面。
 
 ---
 
@@ -152,7 +152,7 @@ pip install --upgrade vllm-sr
 
 #### Fleet Simulator 已移除
 
-Fleet Simulator（`vllm-sr-sim`）不再是 Semantic Router 的一部分：发行版既不发布它的包，也不发布它的镜像，CLI 也从不启动它。已安装的副本照常可用。如果早先的 `vllm-sr serve` 自动启动过它的 sidecar，请一次性移除该容器（如果当时使用的是 podman，请替换为 `podman`）：
+Fleet Simulator（`vllm-sr-sim`）不再是 Decision Router 的一部分：发行版既不发布它的包，也不发布它的镜像，CLI 也从不启动它。已安装的副本照常可用。如果早先的 `vllm-sr serve` 自动启动过它的 sidecar，请一次性移除该容器（如果当时使用的是 podman，请替换为 `podman`）：
 
 ```bash
 docker container inspect vllm-sr-sim-container \

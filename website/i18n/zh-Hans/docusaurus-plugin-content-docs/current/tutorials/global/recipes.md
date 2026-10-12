@@ -1,6 +1,6 @@
 ---
 title: 配方
-description: 在同一 Semantic Router 部署中定义隔离的路由策略，同时共享提供商模型和平台服务。
+description: 在同一 Decision Router 部署中定义隔离的路由策略，同时共享提供商模型和平台服务。
 translation:
   source_commit: "7f1b814c97035e96a3780a3b8780ea5d3b6a6b24"
   source_file: "docs/tutorials/global/recipes.md"

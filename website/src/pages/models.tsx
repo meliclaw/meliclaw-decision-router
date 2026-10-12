@@ -240,7 +240,7 @@ export default function ModelsPage() {
   return (
     <Layout
       title="Model Hub"
-      description="Built-in models and exact benchmark evidence for vLLM Semantic Router."
+      description="Built-in models and exact benchmark evidence for Meliclaw Decision Router."
     >
       <div className={styles.page}>
         <BrowseLayout

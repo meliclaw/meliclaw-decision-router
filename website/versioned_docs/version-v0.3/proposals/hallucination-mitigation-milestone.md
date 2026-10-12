@@ -1,7 +1,7 @@
 # TruthLens: Real-Time Hallucination Mitigation
 
 **Version:** 1.0
-**Authors:** vLLM Semantic Router Team
+**Authors:** Meliclaw Decision Router Team
 **Date:** December 2025
 
 ---
@@ -10,7 +10,7 @@
 
 Large Language Models (LLMs) have demonstrated remarkable capabilities, yet their tendency to generate hallucinations—fluent but factually incorrect or ungrounded content—remains a critical barrier to enterprise AI adoption. Industry surveys consistently show that hallucination risks are among the top concerns preventing organizations from deploying LLM-powered applications in production environments, particularly in high-stakes domains such as healthcare, finance, and legal services.
 
-We propose **TruthLens**, a real-time hallucination detection and mitigation framework integrated into the vLLM Semantic Router. By positioning hallucination control at the inference gateway layer, TruthLens provides a model-agnostic, centralized solution that addresses the "accuracy-latency-cost" triangle through configurable mitigation strategies. Users can select from three operational modes based on their tolerance for cost and accuracy trade-offs: (1) **Lightweight Mode**—single-round detection with warning injection, (2) **Standard Mode**—iterative self-refinement with the same model, and (3) **Premium Mode**—multi-model cross-verification and collaborative correction. This design enables organizations to deploy trustworthy AI systems while maintaining control over operational costs and response latency.
+We propose **TruthLens**, a real-time hallucination detection and mitigation framework integrated into the Meliclaw Decision Router. By positioning hallucination control at the inference gateway layer, TruthLens provides a model-agnostic, centralized solution that addresses the "accuracy-latency-cost" triangle through configurable mitigation strategies. Users can select from three operational modes based on their tolerance for cost and accuracy trade-offs: (1) **Lightweight Mode**—single-round detection with warning injection, (2) **Standard Mode**—iterative self-refinement with the same model, and (3) **Premium Mode**—multi-model cross-verification and collaborative correction. This design enables organizations to deploy trustworthy AI systems while maintaining control over operational costs and response latency.
 
 ---
 
@@ -58,9 +58,9 @@ flowchart TB
     end
 ```
 
-### 1.3 Why vLLM Semantic Router is the Ideal Solution Point
+### 1.3 Why Meliclaw Decision Router is the Ideal Solution Point
 
-The vLLM Semantic Router occupies a unique position in the AI infrastructure stack that makes it ideally suited for hallucination mitigation:
+The Meliclaw Decision Router occupies a unique position in the AI infrastructure stack that makes it ideally suited for hallucination mitigation:
 
 ```mermaid
 flowchart LR
@@ -70,7 +70,7 @@ flowchart LR
         APP3[App N]
     end
 
-    subgraph "vLLM Semantic Router"
+    subgraph "Meliclaw Decision Router"
         direction TB
         GW[Unified Gateway]
 
@@ -602,7 +602,7 @@ In production, mode selection can be formulated as a **multi-armed bandit** prob
 
 ### 4.1 High-Level Architecture
 
-TruthLens integrates into the vLLM Semantic Router's ExtProc pipeline, creating a comprehensive request-response security boundary:
+TruthLens integrates into the Meliclaw Decision Router's ExtProc pipeline, creating a comprehensive request-response security boundary:
 
 ```mermaid
 flowchart TB
@@ -612,7 +612,7 @@ flowchart TB
         C3[RAG System]
     end
 
-    subgraph "vLLM Semantic Router"
+    subgraph "Meliclaw Decision Router"
         direction TB
 
         subgraph "Request Phase (Existing)"
@@ -1255,7 +1255,7 @@ flowchart TB
         ENVOY[Envoy Proxy]
     end
 
-    subgraph "vLLM Semantic Router - ExtProc"
+    subgraph "Meliclaw Decision Router - ExtProc"
         direction TB
 
         subgraph "Request Processing"

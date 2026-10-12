@@ -7,7 +7,7 @@ translation:
 
 # PII 检测
 
-Semantic Router 默认支持个人身份信息（PII）检测。通过微调的 BERT 模型识别敏感数据，并基于可配置的策略拦截请求。
+Decision Router 默认支持个人身份信息（PII）检测。通过微调的 BERT 模型识别敏感数据，并基于可配置的策略拦截请求。
 
 ## 概述
 

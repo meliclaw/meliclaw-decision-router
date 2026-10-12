@@ -19,6 +19,7 @@ CLASSIFICATIONS = {
 # This mapping is the contributor-side identity bridge; classifications remain
 # canonical in the public matrix. Multiple directories may back one choice.
 ASSET_LABELS = {
+    "deploy/compose/": "Compose deployment (local and single-host)",
     "deploy/helm/": "Helm chart",
     "deploy/kserve/": "KServe example",
     "deploy/local/": "Local deployment",

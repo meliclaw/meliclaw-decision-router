@@ -10,7 +10,7 @@ translation:
 
 # 测试 Kubernetes Gateway 部署
 
-在 Istio、Envoy Gateway、Gateway API Inference Extension 或其他受支持网关后面安装 Semantic Router 后，使用此清单。
+在 Istio、Envoy Gateway、Gateway API Inference Extension 或其他受支持网关后面安装 Decision Router 后，使用此清单。
 
 ## 1. 解析真实的网关地址
 

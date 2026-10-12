@@ -9,7 +9,7 @@ translation:
 
 # 配置
 
-Semantic Router v0.3 在本地 CLI、控制台、Helm 与 Operator 之间使用**同一套 canonical YAML 契约**：
+Decision Router v0.3 在本地 CLI、控制台、Helm 与 Operator 之间使用**同一套 canonical YAML 契约**：
 
 ```yaml
 version:

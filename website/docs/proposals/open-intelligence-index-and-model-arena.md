@@ -9,7 +9,7 @@ status: Implemented
 
 ## Decision
 
-vLLM Semantic Router uses one versioned evaluation graph for three consumers:
+Meliclaw Decision Router uses one versioned evaluation graph for three consumers:
 
 1. the Model Hub preserves every valid benchmark result and its provenance;
 2. the Arena renders Overall, capability, and benchmark rankings from that graph;

@@ -9,7 +9,7 @@ translation:
 
 # 常见错误及解决方法
 
-本文整理了运行 vLLM Semantic Router 时常见的系统日志报错、原因分析及配置修复方案。
+本文整理了运行 Meliclaw Decision Router 时常见的系统日志报错、原因分析及配置修复方案。
 
 :::tip
 可先尝试本页末尾的[快速诊断命令](#快速诊断命令)。

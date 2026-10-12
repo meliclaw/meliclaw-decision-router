@@ -318,7 +318,7 @@ export const topNewContributorMembers: TeamMember[] = [
     avatar: '/img/team/teemu.jpg',
     github: 'https://github.com/siloteemu',
     linkedin: 'https://fi.linkedin.com/in/teemu-kuusisto-1a7512150',
-    bio: <Translate id="team.members.siloteemu.bio">Open-source contributor to vLLM Semantic Router.</Translate>,
+    bio: <Translate id="team.members.siloteemu.bio">Open-source contributor to Meliclaw Decision Router.</Translate>,
     memberType: 'committer',
   },
   {
@@ -327,7 +327,7 @@ export const topNewContributorMembers: TeamMember[] = [
     company: 'AMD',
     avatar: 'https://github.com/akshayv.png',
     github: 'https://github.com/akshayv',
-    bio: <Translate id="team.members.akshayv.bio">Open-source contributor to vLLM Semantic Router.</Translate>,
+    bio: <Translate id="team.members.akshayv.bio">Open-source contributor to Meliclaw Decision Router.</Translate>,
     memberType: 'committer',
   },
   {
@@ -481,7 +481,7 @@ export const allCommitterMembers: TeamMember[] = [
     company: 'Red Hat',
     avatar: 'https://github.com/mkoushni.png',
     github: 'https://github.com/mkoushni',
-    bio: <Translate id="team.members.MarinaKoushnir.bio">Open source contributor to vLLM Semantic Router.</Translate>,
+    bio: <Translate id="team.members.MarinaKoushnir.bio">Open source contributor to Meliclaw Decision Router.</Translate>,
     memberType: 'committer',
   },
   {
@@ -490,7 +490,7 @@ export const allCommitterMembers: TeamMember[] = [
     role: <Translate id="team.members.JaredforReal.role">Software Engineer</Translate>,
     avatar: 'https://github.com/JaredforReal.png',
     github: 'https://github.com/JaredforReal',
-    bio: <Translate id="team.members.JaredforReal.bio">Open source contributor to vLLM Semantic Router.</Translate>,
+    bio: <Translate id="team.members.JaredforReal.bio">Open source contributor to Meliclaw Decision Router.</Translate>,
     memberType: 'committer',
   },
   {
@@ -547,7 +547,7 @@ export const allCommitterMembers: TeamMember[] = [
     role: <Translate id="team.members.yuluo-yx.role">Individual Contributor</Translate>,
     avatar: 'https://github.com/yuluo-yx.png',
     github: 'https://github.com/yuluo-yx',
-    bio: <Translate id="team.members.yuluo-yx.bio">Open source contributor to vLLM Semantic Router.</Translate>,
+    bio: <Translate id="team.members.yuluo-yx.bio">Open source contributor to Meliclaw Decision Router.</Translate>,
     memberType: 'committer',
   },
   {
@@ -555,7 +555,7 @@ export const allCommitterMembers: TeamMember[] = [
     role: <Translate id="team.members.cryo-zd.role">Individual Contributor</Translate>,
     avatar: 'https://github.com/cryo-zd.png',
     github: 'https://github.com/cryo-zd',
-    bio: <Translate id="team.members.cryo-zd.bio">Open source contributor to vLLM Semantic Router.</Translate>,
+    bio: <Translate id="team.members.cryo-zd.bio">Open source contributor to Meliclaw Decision Router.</Translate>,
     memberType: 'committer',
   },
   {
@@ -563,7 +563,7 @@ export const allCommitterMembers: TeamMember[] = [
     role: <Translate id="team.members.OneZero-Y.role">Individual Contributor</Translate>,
     avatar: 'https://github.com/OneZero-Y.png',
     github: 'https://github.com/OneZero-Y',
-    bio: <Translate id="team.members.OneZero-Y.bio">Open source contributor to vLLM Semantic Router.</Translate>,
+    bio: <Translate id="team.members.OneZero-Y.bio">Open source contributor to Meliclaw Decision Router.</Translate>,
     memberType: 'committer',
   },
   {
@@ -571,7 +571,7 @@ export const allCommitterMembers: TeamMember[] = [
     role: <Translate id="team.members.aeft.role">Individual Contributor</Translate>,
     avatar: 'https://github.com/aeft.png',
     github: 'https://github.com/aeft',
-    bio: <Translate id="team.members.aeft.bio">Open source contributor to vLLM Semantic Router.</Translate>,
+    bio: <Translate id="team.members.aeft.bio">Open source contributor to Meliclaw Decision Router.</Translate>,
     memberType: 'committer',
   },
   {
@@ -579,7 +579,7 @@ export const allCommitterMembers: TeamMember[] = [
     role: <Translate id="team.members.HaoWu.role">Individual Contributor</Translate>,
     avatar: 'https://github.com/haowu1234.png',
     github: 'https://github.com/haowu1234',
-    bio: <Translate id="team.members.HaoWu.bio">Open source contributor to vLLM Semantic Router.</Translate>,
+    bio: <Translate id="team.members.HaoWu.bio">Open source contributor to Meliclaw Decision Router.</Translate>,
     memberType: 'committer',
   },
   {
@@ -588,7 +588,7 @@ export const allCommitterMembers: TeamMember[] = [
     avatar: 'https://github.com/ppppqp.png',
     github: 'https://github.com/ppppqp',
     linkedin: 'https://www.linkedin.com/in/qiping-pan-8662ab215/',
-    bio: <Translate id="team.members.QipingPan.bio">Open source contributor to vLLM Semantic Router.</Translate>,
+    bio: <Translate id="team.members.QipingPan.bio">Open source contributor to Meliclaw Decision Router.</Translate>,
     memberType: 'committer',
   },
 ]

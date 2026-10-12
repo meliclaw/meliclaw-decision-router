@@ -29,7 +29,7 @@ translation:
 
 ## 问题 {#problem}
 
-Semantic Router 目前通过 Envoy ExtProc 承接公开推理流量。该部署正确地将语义模型选择与上游传输分开，但若天真地把它扩展成独立网关，会带来两个问题：
+Decision Router 目前通过 Envoy ExtProc 承接公开推理流量。该部署正确地将语义模型选择与上游传输分开，但若天真地把它扩展成独立网关，会带来两个问题：
 
 1. 复用 `pkg/extproc` 会把 Envoy protobuf、改写响应和流回调拖进公开 HTTP 服务器——传输特定类型会变成共享 API。
 2. 新的 HTTP 监听器调用本地 ExtProc 会保留不必要的进程协议，重复请求生命周期状态，并迫使网关重建 Envoy 的改写/流行为。

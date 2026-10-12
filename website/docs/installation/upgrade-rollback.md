@@ -5,7 +5,7 @@ sidebar_position: 10
 # Upgrade and Rollback
 
 This runbook covers how to upgrade, pin, and roll back each release surface of
-the vLLM Semantic Router in a production environment.
+the Meliclaw Decision Router in a production environment.
 
 ---
 
@@ -179,7 +179,7 @@ pip install --upgrade vllm-sr
 
 #### Fleet Simulator is removed
 
-The Fleet Simulator (`vllm-sr-sim`) is no longer part of Semantic Router:
+The Fleet Simulator (`vllm-sr-sim`) is no longer part of Decision Router:
 releases publish neither its package nor its image, and the CLI never starts
 it. Installed copies keep working as they are. If an earlier `vllm-sr serve`
 started its sidecar automatically, remove that container once (substitute

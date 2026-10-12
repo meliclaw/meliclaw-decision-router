@@ -1,11 +1,11 @@
 ---
 title: Docker
-description: Run Semantic Router as a local or single-host container stack and connect model backends that you operate separately.
+description: Run Decision Router as a local or single-host container stack and connect model backends that you operate separately.
 ---
 
 # Deploy with Docker
 
-Docker is the shortest path from a Semantic Router configuration to a running
+Docker is the shortest path from a Decision Router configuration to a running
 stack. It is a good fit for evaluation, development, CI, edge hosts, and
 single-host deployments that do not need Kubernetes scheduling or failover.
 
@@ -134,4 +134,4 @@ Docker does not provide multi-node scheduling, rolling deployment control, or
 cluster-level recovery. Move to a Kubernetes path when you need multi-node Router replicas,
 declarative rollout, gateway integration, or platform-managed model discovery.
 The same canonical configuration can be deployed with the CLI and Helm or
-managed through the Semantic Router Operator.
+managed through the Decision Router Operator.

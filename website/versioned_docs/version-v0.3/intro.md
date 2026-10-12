@@ -1,11 +1,11 @@
 ---
 sidebar_position: 1
-description: Research-driven introduction to vLLM Semantic Router, an Envoy-based control plane for signal-aware LLM routing, policy enforcement, and token efficiency.
+description: Research-driven introduction to Meliclaw Decision Router, an Envoy-based control plane for signal-aware LLM routing, policy enforcement, and token efficiency.
 ---
 
-# vLLM Semantic Router
+# Meliclaw Decision Router
 
-vLLM Semantic Router is a research-driven project focused on frontier problems in
+Meliclaw Decision Router is a research-driven project focused on frontier problems in
 **LLMRouting** and **Token economy**. We build system-level intelligence for
 Mixture-of-Models (MoM): deciding how to capture the right signals, select the
 right model path, enforce the right policy, and spend the right token budget for

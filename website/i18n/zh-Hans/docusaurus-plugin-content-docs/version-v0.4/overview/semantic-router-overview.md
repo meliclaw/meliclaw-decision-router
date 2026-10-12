@@ -1,7 +1,7 @@
 ---
 sidebar_position: 2
 title: 系统概览
-description: vLLM Semantic Router 的数据面、控制面、配置模型和请求生命周期。
+description: Meliclaw Decision Router 的数据面、控制面、配置模型和请求生命周期。
 translation:
   source_commit: "a565be11ad49666c149840c91134ad1e4678e49b"
   source_file: "docs/overview/semantic-router-overview.md"
@@ -10,7 +10,7 @@ translation:
 
 # 系统概览
 
-vLLM Semantic Router 是 AI 客户端与模型后端之间的决策层。它按显式路由策略评估每次请求，再把请求转发到一个模型，或协调一条有界的多模型路径。
+Meliclaw Decision Router 是 AI 客户端与模型后端之间的决策层。它按显式路由策略评估每次请求，再把请求转发到一个模型，或协调一条有界的多模型路径。
 
 项目把高吞吐请求路径与用于配置和运维的工具分开。
 
@@ -19,7 +19,7 @@ vLLM Semantic Router 是 AI 客户端与模型后端之间的决策层。它按�
 ```mermaid
 flowchart LR
     Client["应用与 Agent"] --> Envoy["Envoy 数据面"]
-    Envoy <-->|"ExtProc"| Router["Semantic Router"]
+    Envoy <-->|"ExtProc"| Router["Decision Router"]
     Envoy --> Pool["模型与提供方池"]
 
     CLI["vllm-sr CLI"] --> Config["规范配置与配方"]
@@ -34,7 +34,7 @@ flowchart LR
 ### 数据面
 
 - **Envoy** 接受客户端流量，通过 External Processing 协议调用 Router，再把结果请求转发到上游。
-- **Semantic Router** 提取信号、评估策略、应用路由特定行为，并选择或协调模型候选。
+- **Decision Router** 提取信号、评估策略、应用路由特定行为，并选择或协调模型候选。
 - **后端** 是 OpenAI 兼容的模型服务或提供方端点。Router 不加载它们的模型权重。
 
 ### 控制面
@@ -76,9 +76,9 @@ flowchart LR
 
 ## 协议与部署边界
 
-Semantic Router 可以位于直接的 Envoy listener 之后，也可以与 Kubernetes 网关和推理平台部署集成。同一路由模型适用于本地 Docker、Kubernetes 和混合环境，但模型供给和容量管理仍由所选后端平台负责。
+Decision Router 可以位于直接的 Envoy listener 之后，也可以与 Kubernetes 网关和推理平台部署集成。同一路由模型适用于本地 Docker、Kubernetes 和混合环境，但模型供给和容量管理仍由所选后端平台负责。
 
-Router 可以考虑请求语义和已配置的运行时观测；它不替代后端调度器。因此，一次部署可以用 Semantic Router 选择模型类别，再用另一个组件选择该模型的健康副本。
+Router 可以考虑请求语义和已配置的运行时观测；它不替代后端调度器。因此，一次部署可以用 Decision Router 选择模型类别，再用另一个组件选择该模型的健康副本。
 
 客户端和所选后端不必使用相同的线格式。支持的客户端端点、后端格式和成对转换矩阵见[协议兼容性](../installation/protocol-compatibility)。
 

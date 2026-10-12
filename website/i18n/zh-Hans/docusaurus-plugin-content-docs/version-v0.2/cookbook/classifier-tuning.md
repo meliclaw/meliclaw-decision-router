@@ -9,7 +9,7 @@ translation:
 
 # 分类器调优
 
-本指南提供了在 vLLM Semantic Router 中调优分类阈值的快速配置方案。根据您的具体用例调整这些设置，以平衡 precision 和 recall。
+本指南提供了在 Meliclaw Decision Router 中调优分类阈值的快速配置方案。根据您的具体用例调整这些设置，以平衡 precision 和 recall。
 
 ## 类别分类器阈值
 

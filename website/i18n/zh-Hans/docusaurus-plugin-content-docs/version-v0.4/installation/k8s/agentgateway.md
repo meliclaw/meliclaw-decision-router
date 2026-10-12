@@ -1,6 +1,6 @@
 ---
 title: 使用 agentgateway 部署
-description: 将 Semantic Router 作为 ExtProc 服务接入 agentgateway 的 Kubernetes 数据面。
+description: 将 Decision Router 作为 ExtProc 服务接入 agentgateway 的 Kubernetes 数据面。
 translation:
   source_commit: "7c874be29871f6d00b36b2e21b3e549e846b98c5"
   source_file: "docs/installation/k8s/agentgateway.md"
@@ -9,13 +9,13 @@ translation:
 
 # 使用 agentgateway 部署
 
-当 [agentgateway](https://agentgateway.dev/) 负责 Kubernetes Gateway API 数据面时，使用此拓扑。Semantic Router 作为 Envoy ExtProc 服务运行：它评估所选配方，将选定的模型写入请求，再由 agentgateway 转发到 OpenAI 兼容后端。
+当 [agentgateway](https://agentgateway.dev/) 负责 Kubernetes Gateway API 数据面时，使用此拓扑。Decision Router 作为 Envoy ExtProc 服务运行：它评估所选配方，将选定的模型写入请求，再由 agentgateway 转发到 OpenAI 兼容后端。
 
 ## 职责划分
 
 部署包含：
 
-- **Semantic Router** 负责语义策略、模型选择，以及按配方处理请求或响应。
+- **Decision Router** 负责语义策略、模型选择，以及按配方处理请求或响应。
 - **agentgateway** 负责 Gateway、`HTTPRoute`、后端和 ExtProc 策略。
 - **模型服务器** 负责推理容量。下面的模拟器仅用于验证集成，不能用于生产推理。
 
@@ -93,7 +93,7 @@ kubectl wait --for=condition=Available deployment/agentgateway-proxy \
 
 ## 步骤 4：部署演示 LLM
 
-部署轻量级 OpenAI 兼容模拟器，提供 `base-model` 以及 Semantic Router 演示配置所选的 LoRA adapter 名称：
+部署轻量级 OpenAI 兼容模拟器，提供 `base-model` 以及 Decision Router 演示配置所选的 LoRA adapter 名称：
 
 ```bash
 kubectl apply -f- <<'EOF'
@@ -164,9 +164,9 @@ kubectl wait --for=condition=Available deployment/vllm-llama3-8b-instruct \
   --timeout=300s
 ```
 
-## 步骤 5：部署 vLLM Semantic Router
+## 步骤 5：部署 Meliclaw Decision Router
 
-将 Semantic Router 安装到 `agentgateway-system` 命名空间，以便 agentgateway ExtProc 策略可以直接引用 `semantic-router` 服务：
+将 Decision Router 安装到 `agentgateway-system` 命名空间，以便 agentgateway ExtProc 策略可以直接引用 `semantic-router` 服务：
 
 ```bash
 helm install semantic-router oci://ghcr.io/vllm-project/charts/semantic-router \
@@ -182,7 +182,7 @@ kubectl wait --for=condition=Available deployment/semantic-router \
   --timeout=600s
 ```
 
-values 文件将 Semantic Router 配置为把流量发到 `vllm-llama3-8b-instruct.default.svc.cluster.local:8000`，并选择 `math-expert`、`science-expert` 和 `general-expert` 等 adapter 名称。
+values 文件将 Decision Router 配置为把流量发到 `vllm-llama3-8b-instruct.default.svc.cluster.local:8000`，并选择 `math-expert`、`science-expert` 和 `general-expert` 等 adapter 名称。
 
 ## 步骤 6：创建 agentgateway 路由资源
 
@@ -220,11 +220,11 @@ spec:
 EOF
 ```
 
-有意省略 `openai.model` 字段，以便 agentgateway 使用请求体中的模型名。该名称由 Semantic Router 在选定目标模型或 LoRA adapter 后写入。
+有意省略 `openai.model` 字段，以便 agentgateway 使用请求体中的模型名。该名称由 Decision Router 在选定目标模型或 LoRA adapter 后写入。
 
-## 步骤 7：将 Semantic Router 接入为 ExtProc
+## 步骤 7：将 Decision Router 接入为 ExtProc
 
-创建 `AgentgatewayPolicy`，将请求和响应处理阶段发送到 Semantic Router ExtProc 服务：
+创建 `AgentgatewayPolicy`，将请求和响应处理阶段发送到 Decision Router ExtProc 服务：
 
 ```bash
 kubectl apply -f- <<'EOF'
@@ -255,7 +255,7 @@ spec:
 EOF
 ```
 
-附带的 agentgateway 示例显式启用全双工流式请求体。这是该示例的选择；其他代理默认值和示例可能仍使用缓冲请求体。上面的 Semantic Router Helm 命令显式启用 `global.router.streamed_body`，让 Router 累积请求分片，并在流结束时处理完整请求体。
+附带的 agentgateway 示例显式启用全双工流式请求体。这是该示例的选择；其他代理默认值和示例可能仍使用缓冲请求体。上面的 Decision Router Helm 命令显式启用 `global.router.streamed_body`，让 Router 累积请求分片，并在流结束时处理完整请求体。
 
 agentgateway 不支持 `Streamed` 模式；`FullDuplexStreamed` 是其流式选项。可部署的策略在 `deploy/kubernetes/agentgateway/extproc-policy.yaml`，匹配的 Router 配置通过步骤 5 的 Helm 命令传入。协议行为和验证清单见 [Streamed ExtProc 与立即响应](./streamed-extproc)。
 
@@ -282,7 +282,7 @@ curl -i -X POST http://localhost:8080/v1/chat/completions \
   }'
 ```
 
-Semantic Router 应分类该数学提示词，选择配置的数学路由，并在 agentgateway 将请求转发到 vLLM 兼容后端之前改写请求模型。使用 `-i` 检查 Semantic Router 响应头，例如所选模型元数据。
+Decision Router 应分类该数学提示词，选择配置的数学路由，并在 agentgateway 将请求转发到 vLLM 兼容后端之前改写请求模型。使用 `-i` 检查 Decision Router 响应头，例如所选模型元数据。
 
 ## 故障排查
 
@@ -301,7 +301,7 @@ kubectl describe httproute semantic-router-vllm -n agentgateway-system
 kubectl describe agentgatewaybackend semantic-router-vllm -n agentgateway-system
 ```
 
-**Semantic Router 未响应 ExtProc：**
+**Decision Router 未响应 ExtProc：**
 
 ```bash
 kubectl get pods -n agentgateway-system

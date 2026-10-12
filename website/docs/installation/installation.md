@@ -1,7 +1,7 @@
 ---
 sidebar_position: 1
 title: Quickstart
-description: Install vLLM Semantic Router and send your first routed request.
+description: Install Meliclaw Decision Router and send your first routed request.
 ---
 
 import Tabs from '@theme/Tabs'
@@ -18,7 +18,7 @@ import {
 
 # Quickstart
 
-Install vLLM Semantic Router, connect one model, and send your first routed
+Install Meliclaw Decision Router, connect one model, and send your first routed
 request. To serve typed decision questions without a Chat backend, follow the
 [System One quickstart](../model-runtime/quickstart.md) instead. Both paths use
 the same [frontend and model runtime](../overview/component-architecture).

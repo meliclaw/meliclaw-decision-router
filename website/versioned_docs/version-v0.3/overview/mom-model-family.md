@@ -1,6 +1,6 @@
 # What is MoM Model Family?
 
-The **MoM (Mixture of Models) Model Family** is a curated collection of specialized, lightweight models designed for intelligent routing, content safety, and semantic understanding. These models power the core capabilities of Semantic Router, enabling fast, accurate, and privacy-preserving AI operations.
+The **MoM (Mixture of Models) Model Family** is a curated collection of specialized, lightweight models designed for intelligent routing, content safety, and semantic understanding. These models power the core capabilities of Decision Router, enabling fast, accurate, and privacy-preserving AI operations.
 
 ## Overview
 

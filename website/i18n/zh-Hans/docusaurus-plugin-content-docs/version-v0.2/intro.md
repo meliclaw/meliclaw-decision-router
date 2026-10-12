@@ -7,7 +7,7 @@ translation:
 is_mtpe: true
 ---
 
-# vLLM Semantic Router
+# Meliclaw Decision Router
 
 **Mixture of Models (MoM) 的系统级智能** - 一个为 LLM 系统带来集体智能（Collective Intelligence）的智能路由层。作为 Envoy ExtProc（External Processor）运行，它利用 **Signal-Driven Decision Engine（信号驱动决策引擎）** 和 **Plugin Chain 架构（插件链架构）** 来捕获缺失的信号，做出更好的路由决策，并保护您的 LLM 基础设施。
 
@@ -63,7 +63,7 @@ import ZoomableMermaid from '@site/src/components/ZoomableMermaid';
 <ZoomableMermaid title="Signal-Driven Decision + Plugin Chain Architecture" defaultZoom={3.5}>
 {`graph TB
     Client[Client Request] --> Envoy[Envoy Proxy]
-    Envoy --> Router[Semantic Router ExtProc]
+    Envoy --> Router[Decision Router ExtProc]
 
     subgraph "Signal Extraction Layer"
         direction TB
@@ -175,7 +175,7 @@ import ZoomableMermaid from '@site/src/components/ZoomableMermaid';
 
 ### [概览](overview/goals.md)
 
-了解我们的目标、 Semantic Router 概念、Collective Intelligence 和 Signal-Driven Decision。
+了解我们的目标、 Decision Router 概念、Collective Intelligence 和 Signal-Driven Decision。
 
 ### [安装与配置](installation/installation.md)
 

@@ -1,6 +1,6 @@
 ---
 title: Recipes
-description: Define isolated routing policies that share provider models and platform services within one Semantic Router deployment.
+description: Define isolated routing policies that share provider models and platform services within one Decision Router deployment.
 ---
 
 # Recipes

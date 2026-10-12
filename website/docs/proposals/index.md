@@ -1,6 +1,6 @@
 ---
 title: Proposals
-description: Design proposals, proof-of-concept explorations, implementation records, and architectural decisions for vLLM Semantic Router.
+description: Design proposals, proof-of-concept explorations, implementation records, and architectural decisions for Meliclaw Decision Router.
 ---
 
 This collection records ideas and design decisions that need more context than a

@@ -297,7 +297,7 @@ export default function PaperViewerPage({
 }: PaperViewerPageProps): JSX.Element {
   const { siteConfig } = useDocusaurusContext()
   const ogImage = new URL(SITE_SOCIAL_PREVIEW_IMAGE_PATH, siteConfig.url).toString()
-  const resolvedSocialTitle = socialTitle ?? `${title} — vLLM Semantic Router`
+  const resolvedSocialTitle = socialTitle ?? `${title} — Meliclaw Decision Router`
 
   return (
     <Layout

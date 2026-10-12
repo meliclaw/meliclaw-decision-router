@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # Installation
 
-This guide will help you install and run the vLLM Semantic Router. The router runs entirely on CPU and does not require GPU for inference.
+This guide will help you install and run the Meliclaw Decision Router. The router runs entirely on CPU and does not require GPU for inference.
 
 ## System Requirements
 
@@ -19,7 +19,7 @@ No GPU required - the router runs efficiently on CPU using optimized BERT models
 
 ## Quick Start
 
-### 1. Install vLLM Semantic Router
+### 1. Install Meliclaw Decision Router
 
 ```bash
 # Create a virtual environment (recommended)

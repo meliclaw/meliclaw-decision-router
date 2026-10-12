@@ -1,7 +1,7 @@
 ---
 sidebar_position: 2
 title: Install with an agent
-description: Give an agent one prompt to install, configure, and verify vLLM Semantic Router through its CLI and Router API.
+description: Give an agent one prompt to install, configure, and verify Meliclaw Decision Router through its CLI and Router API.
 ---
 
 import CodeBlock from '@theme/CodeBlock'
@@ -13,7 +13,7 @@ import {
 # Install with an agent
 
 Paste this prompt into a coding agent that can use a terminal and access the
-machine where you want to run vLLM Semantic Router:
+machine where you want to run Meliclaw Decision Router:
 
 <CodeBlock language="text">{AGENT_INSTALL_PROMPT}</CodeBlock>
 

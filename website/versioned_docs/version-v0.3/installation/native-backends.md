@@ -5,7 +5,7 @@ description: Native backend capability and lifecycle contract for Candle, ONNX, 
 
 # Native Backends
 
-Semantic Router uses native Rust and CGo bindings for learned classifiers,
+Decision Router uses native Rust and CGo bindings for learned classifiers,
 embedding-backed signals, multimodal embedding, and MLP model selection. The
 router exposes the selected backend as a runtime capability contract through
 `CurrentNativeBackendCapabilities`; callers should use that contract instead of

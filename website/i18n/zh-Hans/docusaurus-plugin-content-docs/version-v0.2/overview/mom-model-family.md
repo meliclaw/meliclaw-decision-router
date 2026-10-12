@@ -7,7 +7,7 @@ translation:
 
 # 什么是 MoM 模型家族？
 
-**MoM (Mixture of Models) Model Family** 是一个精心挑选的专用轻量级模型集合，专为智能路由、内容安全和语义理解而设计。这些模型为 Semantic Router 的核心能力提供动力，实现快速、准确和隐私保护的 AI 操作。
+**MoM (Mixture of Models) Model Family** 是一个精心挑选的专用轻量级模型集合，专为智能路由、内容安全和语义理解而设计。这些模型为 Decision Router 的核心能力提供动力，实现快速、准确和隐私保护的 AI 操作。
 
 ## 概览
 

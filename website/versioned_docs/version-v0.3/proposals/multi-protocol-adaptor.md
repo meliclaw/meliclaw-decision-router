@@ -1,17 +1,17 @@
 # Design Doc: Multi-Protocol Adapter Architecture
 
-**Author:** vLLM Semantic Router Team  
+**Author:** Meliclaw Decision Router Team  
 **Status:** To be Implemented  
 **Created:** February 2026  
 **Last Updated:** February 2026
 
 ## Overview
 
-This document describes the design and implementation of the multi-protocol adapter architecture for vLLM Semantic Router, which abstracts the API layer to support multiple front-end protocols beyond Envoy ExtProc.
+This document describes the design and implementation of the multi-protocol adapter architecture for Meliclaw Decision Router, which abstracts the API layer to support multiple front-end protocols beyond Envoy ExtProc.
 
 ## Background
 
-The Semantic Router was tightly coupled to Envoy's External Processor (ExtProc) protocol via gRPC. While this provides powerful integration with Envoy, it created barriers for users who:
+The Decision Router was tightly coupled to Envoy's External Processor (ExtProc) protocol via gRPC. While this provides powerful integration with Envoy, it created barriers for users who:
 
 - Want to use the router without deploying Envoy
 - Prefer direct HTTP/REST API integration
@@ -678,7 +678,7 @@ adapters:
 
 - [OpenAI API Specification](https://platform.openai.com/docs/api-reference)
 - [Envoy ExtProc Documentation](https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/ext_proc_filter)
-- [vLLM Semantic Router Documentation](https://vllm-sr.ai)
+- [Meliclaw Decision Router Documentation](https://vllm-sr.ai)
 
 ## Appendix
 

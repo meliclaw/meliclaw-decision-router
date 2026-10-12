@@ -1,6 +1,6 @@
 ---
 title: Deployment Support
-description: See which deployment paths, integrations, examples, and hardware profiles the Semantic Router project maintains.
+description: See which deployment paths, integrations, examples, and hardware profiles the Decision Router project maintains.
 ---
 
 # Deployment Support
@@ -33,7 +33,7 @@ For each linked option:
 
 1. use an external platform version named in its guide; if none is named,
    treat your choice as unqualified until you test it;
-2. take every Semantic Router artifact you use—the CLI, chart, CRDs,
+2. take every Decision Router artifact you use—the CLI, chart, CRDs,
    controller, and images—from one release; and
 3. test that exact set in your environment before upgrading any one component.
 

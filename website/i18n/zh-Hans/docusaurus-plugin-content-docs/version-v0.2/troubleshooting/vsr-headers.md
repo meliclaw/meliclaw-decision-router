@@ -9,11 +9,11 @@ translation:
 
 # VSR 决策追踪 Header
 
-本文档描述了 VSR（Vector Semantic Router，向量 Semantic Router ）决策追踪 Header，这些 Header 会自动添加到成功的响应中，用于调试和监控目的。
+本文档描述了 VSR（Vector Decision Router，向量 Decision Router ）决策追踪 Header，这些 Header 会自动添加到成功的响应中，用于调试和监控目的。
 
 ## 概述
 
- Semantic Router 会自动添加响应 Header 以追踪 VSR 决策信息。这些 Header 帮助开发者和运维团队了解请求是如何被处理和路由的。
+ Decision Router 会自动添加响应 Header 以追踪 VSR 决策信息。这些 Header 帮助开发者和运维团队了解请求是如何被处理和路由的。
 
 **Header 仅在以下情况下添加：**
 

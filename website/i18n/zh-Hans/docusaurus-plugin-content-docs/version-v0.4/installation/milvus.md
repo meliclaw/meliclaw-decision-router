@@ -10,7 +10,7 @@ translation:
 
 # Milvus 向量库
 
-Milvus 是一个分布式向量数据库，Semantic Router 可以将其用于持久响应缓存和其他向量支持的功能。当数据集必须超出单个 Router 进程、在重启后保留，或由多个 Router 副本共享时，选择它。
+Milvus 是一个分布式向量数据库，Decision Router 可以将其用于持久响应缓存和其他向量支持的功能。当数据集必须超出单个 Router 进程、在重启后保留，或由多个 Router 副本共享时，选择它。
 
 对于小型本地部署，内存缓存更简单。当团队已经在运维其向量搜索扩展时，Valkey 或 Redis 可能更合适。Qdrant 是另一个专用向量存储选项。在选择后端之前，参见[数据与存储](storage-overview)。
 
@@ -74,7 +74,7 @@ global:
           timeout: 30
         collection:
           name: semantic_router_response_cache
-          description: Semantic Router response-cache vectors
+          description: Decision Router response-cache vectors
           vector_field:
             name: embedding
             dimension: 768

@@ -10,7 +10,7 @@ The router apiserver is the HTTP control and utility surface served on port 8080
 
 ## Server Status
 
-The router apiserver runs alongside the main Semantic Router ExtProc server:
+The router apiserver runs alongside the main Decision Router ExtProc server:
 
 - **Router Apiserver**: `http://localhost:8080` (HTTP REST API)
 - **ExtProc Server**: `http://localhost:50051` (gRPC for Envoy integration)

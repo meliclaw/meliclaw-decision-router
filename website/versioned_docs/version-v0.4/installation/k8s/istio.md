@@ -1,13 +1,13 @@
 ---
 title: Deploy with Istio Gateway
-description: Run Semantic Router as an ExtProc service behind an Istio Gateway and two model backends.
+description: Run Decision Router as an ExtProc service behind an Istio Gateway and two model backends.
 ---
 
 # Deploy with Istio Gateway
 
-This guide shows a reference topology for running Semantic Router as an
+This guide shows a reference topology for running Decision Router as an
 ExtProc service behind an Istio Gateway. Istio owns ingress and `HTTPRoute`
-processing; Semantic Router owns prompt-aware model selection. The supplied
+processing; Decision Router owns prompt-aware model selection. The supplied
 `EnvoyFilter` and `DestinationRule` are specific to this example, so do not
 reuse manifests from a different gateway integration without comparing its
 ExtProc mode.
@@ -16,8 +16,8 @@ ExtProc mode.
 
 The deployment consists of:
 
-- **Semantic Router** evaluates routing policy and selects a model.
-- **Istio Gateway** accepts client traffic and calls Semantic Router through
+- **Decision Router** evaluates routing policy and selects a model.
+- **Istio Gateway** accepts client traffic and calls Decision Router through
   ExtProc.
 - **Gateway API resources** map the selected model to a Kubernetes backend.
 - **The two vLLM deployments** are example inference backends and require
@@ -108,9 +108,9 @@ curl -O https://raw.githubusercontent.com/vllm-project/semantic-router/refs/head
 
 Ensure that the models in the config file match the models you are using. It is usually good to start with basic features of vsr such as prompt classification and model routing before experimenting with other features such as PromptGuard or ToolCalling.
 
-## Step 5: Deploy vLLM Semantic Router
+## Step 5: Deploy Meliclaw Decision Router
 
-Deploy Semantic Router with the integration values:
+Deploy Decision Router with the integration values:
 
 ```bash
 # Install semantic router using Helm from GHCR OCI registry
@@ -138,7 +138,7 @@ header-based `HTTPRoute` again.
 ## Step 6: Install additional Istio configuration
 
 Install the `DestinationRule` and gateway-scoped `EnvoyFilter` that connect the
-Istio gateway to Semantic Router over ExtProc:
+Istio gateway to Decision Router over ExtProc:
 
 ```bash
 kubectl apply -f https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/istio/destinationrule.yaml

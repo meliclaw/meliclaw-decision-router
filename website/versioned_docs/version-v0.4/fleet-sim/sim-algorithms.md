@@ -181,7 +181,7 @@ load tests when tail latency matters.
 | `RandomRouter` | Uniformly selects a pool | CLI baseline and library |
 
 `compare-routers` compares only length, compress-and-route with a fixed
-`gamma=1.5`, and random routing. It does not call the live vLLM Semantic Router.
+`gamma=1.5`, and random routing. It does not call the live Meliclaw Decision Router.
 
 ### Compress-and-route assumptions
 

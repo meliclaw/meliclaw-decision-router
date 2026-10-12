@@ -5,7 +5,7 @@ sidebar_position: 10
 # Upgrade and Rollback
 
 This runbook covers how to upgrade, pin, and roll back each release surface of
-the vLLM Semantic Router in a production environment.
+the Meliclaw Decision Router in a production environment.
 
 ---
 

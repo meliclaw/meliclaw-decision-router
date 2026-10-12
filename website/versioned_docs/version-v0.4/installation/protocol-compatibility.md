@@ -5,7 +5,7 @@ description: Match client-facing inference APIs to supported backend model proto
 
 # Protocol Compatibility Matrix
 
-Semantic Router supports three inference wire formats on both sides of the
+Decision Router supports three inference wire formats on both sides of the
 data plane. A client request is decoded into a protocol-neutral form, routing
 policy selects a model, and that model's `api_format` selects the backend codec.
 The response is translated back to the client's original format.

@@ -10,6 +10,7 @@ root_files:
     - .pre-commit-config.yaml
     - .prowlabels.yaml
     - AGENTS.md
+    - CHANGELOG.md
     - CODE_OF_CONDUCT.md
     - CONTRIBUTING.md
     - GOVERNANCE.md
@@ -20,6 +21,7 @@ root_files:
     - SECURITY.md
     - install.sh
     - netlify.toml
+    - onpspec.config.json
 
 ignore_globs:
   - website/**

@@ -1,35 +1,35 @@
 ---
 title: Integrate with NVIDIA Dynamo
 sidebar_label: NVIDIA Dynamo
-description: Put Semantic Router in front of a Dynamo-managed inference fleet on Kubernetes.
+description: Put Decision Router in front of a Dynamo-managed inference fleet on Kubernetes.
 ---
 
 # Integrate with NVIDIA Dynamo
 
 Use this integration when NVIDIA Dynamo already owns model serving and you want
-Semantic Router to choose the model or policy before Dynamo schedules the
+Decision Router to choose the model or policy before Dynamo schedules the
 request onto inference workers.
 
 The two routers make decisions at different layers:
 
 | Layer | Responsibility |
 |-------|----------------|
-| Semantic Router | Resolve an entrypoint, evaluate semantic signals and policy, run request plugins, and select a provider model. |
+| Decision Router | Resolve an entrypoint, evaluate semantic signals and policy, run request plugins, and select a provider model. |
 | Dynamo | Reconcile the inference graph, expose its OpenAI-compatible frontend, and select workers using its serving topology and cache-aware routing. |
 
-Semantic Router must select a model name that the Dynamo frontend serves.
+Decision Router must select a model name that the Dynamo frontend serves.
 Dynamo can then choose among the workers for that model.
 
 ```text
 Client
   -> Envoy Gateway
-     -> Semantic Router (ExtProc)
+     -> Decision Router (ExtProc)
         -> Dynamo frontend
            -> Dynamo router and inference workers
 ```
 
 Semantic response caching and Dynamo KV-cache routing are independent. A
-Semantic Router cache can reuse a prior response; Dynamo's router reuses or
+Decision Router cache can reuse a prior response; Dynamo's router reuses or
 predicts token-level prefix state while serving a new request.
 
 ## Prerequisites
@@ -94,7 +94,7 @@ kubectl get dynamographdeployments,dynamocomponentdeployments \
 kubectl get services --namespace "$DYNAMO_NAMESPACE"
 ```
 
-Record the values that Semantic Router will use:
+Record the values that Decision Router will use:
 
 ```bash
 export DYNAMO_FRONTEND_SERVICE=your-frontend-service
@@ -104,7 +104,7 @@ export DYNAMO_MODEL=your-served-model-name
 
 Before adding another routing layer, port-forward the frontend Service in a
 separate terminal and send a direct OpenAI-compatible request. This isolates
-Dynamo deployment problems from gateway or Semantic Router problems.
+Dynamo deployment problems from gateway or Decision Router problems.
 
 ```bash
 kubectl port-forward \
@@ -126,12 +126,12 @@ The `deploy/kubernetes/dynamo/helm-chart` and
 `dynamo-resources/dynamo-graph-deployment.yaml` examples in this repository
 target an older Dynamo API and runtime. Do not combine them unchanged with the
 1.4.0 platform. Use NVIDIA's current deployment guide for the Dynamo model
-resources; use the repository files below only for the Semantic Router and
+resources; use the repository files below only for the Decision Router and
 gateway integration.
 
 :::
 
-## 3. Configure Semantic Router for the Dynamo frontend
+## 3. Configure Decision Router for the Dynamo frontend
 
 Download the integration values and edit them before installing the chart:
 
@@ -152,7 +152,7 @@ Update every `modelRefs[].model` that refers to the sample model as well as
 `providers.defaults.model`. The names must match an entry returned by
 the Dynamo frontend.
 
-For development, install the continuously published Semantic Router chart:
+For development, install the continuously published Decision Router chart:
 
 ```bash
 export SEMANTIC_ROUTER_NAMESPACE=vllm-semantic-router-system
@@ -167,7 +167,7 @@ helm upgrade --install semantic-router \
 ```
 
 `0.0.0-latest` follows the main branch. For production, pin a tested release
-of the chart and an explicit Semantic Router image tag.
+of the chart and an explicit Decision Router image tag.
 
 ## 4. Connect Envoy Gateway
 
@@ -206,7 +206,7 @@ Before applying it, update these environment-specific references:
 - the `HTTPRoute` backend Service name, namespace, and port
 - the `ReferenceGrant` namespace when the Dynamo frontend is not in
   `dynamo-system`
-- the Semantic Router Service address when you changed its release name or
+- the Decision Router Service address when you changed its release name or
   namespace
 - the Gateway and route namespaces when `default` is not appropriate
 
@@ -244,7 +244,7 @@ curl -fsS -D - "$GATEWAY_URL/v1/chat/completions" \
   }'
 ```
 
-Correlate one request across the Gateway, Semantic Router, and Dynamo frontend
+Correlate one request across the Gateway, Decision Router, and Dynamo frontend
 logs. A successful HTTP response alone does not prove that the request passed
 through the intended route or reached the selected Dynamo deployment.
 
@@ -255,7 +255,7 @@ through the intended route or reached the selected Dynamo deployment.
 | Direct frontend request fails | Dynamo deployment status, GPU allocation, model credentials, and frontend logs |
 | Direct frontend works but Gateway fails | `HTTPRoute` backend name and port, `ReferenceGrant`, and Gateway address |
 | Patch policy is not accepted | Envoy Gateway extension setting, patch target namespace, and release compatibility |
-| Physical model works but `vllm-sr/auto` fails | Semantic Router entrypoint, provider model name, decisions, and classifier readiness |
+| Physical model works but `vllm-sr/auto` fails | Decision Router entrypoint, provider model name, decisions, and classifier readiness |
 | Request reaches the wrong Dynamo deployment | Selected-model headers, provider endpoint, Dynamo frontend model list, and both routing layers' logs |
 
 ## Cleanup
@@ -288,4 +288,4 @@ not delete shared namespaces or CRDs as part of routine application cleanup.
 - [NVIDIA Dynamo Kubernetes Quickstart](https://docs.nvidia.com/dynamo/dev/kubernetes/getting-started/quickstart)
 - [NVIDIA Dynamo model deployment overview](https://docs.nvidia.com/dynamo/dev/kubernetes/model-deployment/introduction)
 - [NVIDIA Dynamo release artifacts](https://docs.nvidia.com/dynamo/dev/reference/release-artifacts)
-- [Semantic Router Dynamo integration files](https://github.com/vllm-project/semantic-router/tree/main/deploy/kubernetes/dynamo)
+- [Decision Router Dynamo integration files](https://github.com/vllm-project/semantic-router/tree/main/deploy/kubernetes/dynamo)

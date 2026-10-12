@@ -1,18 +1,18 @@
 ---
 title: Integrate with AIBrix
-description: Combine Semantic Router model-pool selection with AIBrix model deployment and replica routing.
+description: Combine Decision Router model-pool selection with AIBrix model deployment and replica routing.
 ---
 
 # Integrate with AIBrix
 
 Use this topology when AIBrix owns model deployment, scaling, and replica-level
-routing, while Semantic Router should select a model pool from request meaning
+routing, while Decision Router should select a model pool from request meaning
 and policy.
 
-AIBrix releases independently from Semantic Router. Install it with the
+AIBrix releases independently from Decision Router. Install it with the
 [current AIBrix installation guide](https://aibrix.readthedocs.io/latest/getting_started/installation/installation.html)
 and use its maintained
-[Semantic Router sample](https://github.com/vllm-project/aibrix/tree/main/samples/semantic-router)
+[Decision Router sample](https://github.com/vllm-project/aibrix/tree/main/samples/semantic-router)
 for release-specific manifests. This page explains how the two control layers
 fit together.
 
@@ -20,11 +20,11 @@ fit together.
 
 | Component | Owns |
 | --- | --- |
-| Semantic Router | Signals, decisions, model-pool selection, and recipe-scoped plugins. |
+| Decision Router | Signals, decisions, model-pool selection, and recipe-scoped plugins. |
 | AIBrix | Model workloads, autoscaling, service discovery, and replica-level routing. |
-| Gateway API | Client traffic and the ExtProc call to Semantic Router. |
+| Gateway API | Client traffic and the ExtProc call to Decision Router. |
 
-Semantic Router selects the logical model. AIBrix then chooses a healthy
+Decision Router selects the logical model. AIBrix then chooses a healthy
 replica serving that model. Keep autoscaling and replica load policy in AIBrix;
 do not duplicate it in semantic decisions.
 
@@ -44,7 +44,7 @@ is suitable for production.
 ## 1. Deploy and verify AIBrix
 
 Follow the upstream installation guide and deploy the model services. Before
-adding Semantic Router, verify each served model through the AIBrix gateway:
+adding Decision Router, verify each served model through the AIBrix gateway:
 
 ```bash
 kubectl get pods -A
@@ -57,7 +57,7 @@ semantic policy.
 
 ## 2. Align model identities
 
-For each AIBrix model, create a Semantic Router provider model whose
+For each AIBrix model, create a Decision Router provider model whose
 `provider_model_id` is the name accepted by the AIBrix endpoint. Bind the
 backend to the stable Gateway or Service DNS name, not to a `ClusterIP`.
 
@@ -65,7 +65,7 @@ Then reference those provider names from model cards and decisions. The same
 identity must agree in four places:
 
 1. the request-facing virtual model or entrypoint;
-2. the Semantic Router provider model;
+2. the Decision Router provider model;
 3. the AIBrix/Gateway routing resource; and
 4. the model server's served model name.
 
@@ -75,7 +75,7 @@ Validate the complete Router document before deployment:
 vllm-sr config validate --config config.yaml
 ```
 
-## 3. Deploy Semantic Router and the Gateway policy
+## 3. Deploy Decision Router and the Gateway policy
 
 The upstream sample contains a complete integration for its current AIBrix
 release. If you adapt it instead of using the sample unchanged:
@@ -92,7 +92,7 @@ For large request bodies or immediate streamed responses, review
 ## 4. Verify the integration
 
 1. Send a direct request to each AIBrix model.
-2. Send requests through a Semantic Router virtual model.
+2. Send requests through a Decision Router virtual model.
 3. Inspect the Router selection headers.
 4. Confirm the selected AIBrix model and serving replica.
 

@@ -35,7 +35,7 @@ flowchart LR
 | `direct_search` | 在推理前搜索 vector store，并注入有界的检索内容。 | 路由需要同步、由路由器控制的检索。 |
 | `tool_based` | 向请求添加 OpenAI `file_search` 工具定义。 | 所选提供商和请求协议支持该工具工作流。 |
 
-`direct_search` 是默认值。在 `tool_based` 模式下，Semantic Router 会改写请求；它目前不会把响应注解变成注入上下文，以进行第二次模型调用。
+`direct_search` 是默认值。在 `tool_based` 模式下，Decision Router 会改写请求；它目前不会把响应注解变成注入上下文，以进行第二次模型调用。
 
 ## 配置边界 {#configuration-boundary}
 

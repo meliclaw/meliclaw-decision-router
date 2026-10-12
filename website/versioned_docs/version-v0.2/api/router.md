@@ -1,10 +1,10 @@
 # Router API Reference
 
-The Semantic Router provides a gRPC-based API that integrates seamlessly with Envoy's External Processing (ExtProc) protocol. This document covers the API endpoints, request/response formats, and integration patterns.
+The Decision Router provides a gRPC-based API that integrates seamlessly with Envoy's External Processing (ExtProc) protocol. This document covers the API endpoints, request/response formats, and integration patterns.
 
 ## API Overview
 
-The Semantic Router operates as an ExtProc server that processes HTTP requests through Envoy Proxy. It doesn't expose direct REST endpoints but rather processes OpenAI-compatible API requests routed through Envoy.
+The Decision Router operates as an ExtProc server that processes HTTP requests through Envoy Proxy. It doesn't expose direct REST endpoints but rather processes OpenAI-compatible API requests routed through Envoy.
 
 > Note: In addition to the ExtProc path, this project also starts a lightweight HTTP Classification API on port 8080 for health/info and classification utilities. The OpenAI-compatible `/v1/models` endpoint is provided by this HTTP API (8080) and can be optionally exposed through Envoy (8801) via routing rules.
 

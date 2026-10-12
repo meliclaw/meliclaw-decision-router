@@ -1,0 +1,209 @@
+{
+  "runId": "meliclaw-decision-router-rebrand-meliclaw-decision-router-mv480c4n",
+  "feature": "rebrand-meliclaw-decision-router",
+  "agent": "claude",
+  "modo": "paralelo",
+  "paralelizar": null,
+  "modeloForcado": null,
+  "esforcoForcado": null,
+  "geradoEm": "2026-10-11 19:32",
+  "branchTrabalho": "spec/rebrand-meliclaw-decision-router",
+  "baseDir": ".spec/features/rebrand-meliclaw-decision-router",
+  "specDir": ".spec",
+  "repoName": "meliclaw-decision-router",
+  "logsDir": "../onp-worktrees/meliclaw-decision-router-rebrand-meliclaw-decision-router-logs",
+  "ondas": [
+    [
+      "faixa-1",
+      "faixa-2",
+      "faixa-3"
+    ],
+    [
+      "faixa-4",
+      "faixa-5",
+      "faixa-6"
+    ],
+    [
+      "faixa-7",
+      "faixa-8"
+    ]
+  ],
+  "faixas": [
+    {
+      "id": "faixa-1",
+      "branch": "spec/rebrand-meliclaw-decision-router-faixa-1",
+      "worktree": "../onp-worktrees/meliclaw-decision-router-rebrand-meliclaw-decision-router-faixa-1",
+      "tarefas": [
+        {
+          "id": "T-001",
+          "titulo": "Script de rebrand sobre website/",
+          "modelo": "claude-sonnet-5",
+          "esforco": "medium",
+          "arquivos": [
+            "website/**/*.md",
+            "website/**/*.mdx",
+            "website/**/*.ts",
+            "website/**/*.tsx",
+            "website/docusaurus.config.ts"
+          ],
+          "refs": [
+            "US-001",
+            "AC-001"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "faixa-2",
+      "branch": "spec/rebrand-meliclaw-decision-router-faixa-2",
+      "worktree": "../onp-worktrees/meliclaw-decision-router-rebrand-meliclaw-decision-router-faixa-2",
+      "tarefas": [
+        {
+          "id": "T-002",
+          "titulo": "Rebrand manual dos 6 docs raiz",
+          "modelo": "claude-sonnet-5",
+          "esforco": "low",
+          "arquivos": [
+            "README.md",
+            "AGENTS.md",
+            "CONTRIBUTING.md",
+            "CODE_OF_CONDUCT.md",
+            "GOVERNANCE.md",
+            "SECURITY.md"
+          ],
+          "refs": [
+            "US-001",
+            "AC-002"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "faixa-3",
+      "branch": "spec/rebrand-meliclaw-decision-router-faixa-3",
+      "worktree": "../onp-worktrees/meliclaw-decision-router-rebrand-meliclaw-decision-router-faixa-3",
+      "tarefas": [
+        {
+          "id": "T-003",
+          "titulo": "Rebrand de texto em deploy/ (preservando CRD/Helm)",
+          "modelo": "claude-sonnet-5",
+          "esforco": "low",
+          "arquivos": [
+            "deploy/kserve/**",
+            "deploy/README.md"
+          ],
+          "refs": [
+            "US-001",
+            "AC-001",
+            "AC-003"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "faixa-4",
+      "branch": "spec/rebrand-meliclaw-decision-router-faixa-4",
+      "worktree": "../onp-worktrees/meliclaw-decision-router-rebrand-meliclaw-decision-router-faixa-4",
+      "tarefas": [
+        {
+          "id": "T-004",
+          "titulo": "Dockerfile local (ubuntu:26.04, arm64)",
+          "modelo": "claude-sonnet-5",
+          "esforco": "high",
+          "arquivos": [
+            "deploy/compose/Dockerfile.local"
+          ],
+          "refs": [
+            "US-002",
+            "AC-004"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "faixa-5",
+      "branch": "spec/rebrand-meliclaw-decision-router-faixa-5",
+      "worktree": "../onp-worktrees/meliclaw-decision-router-rebrand-meliclaw-decision-router-faixa-5",
+      "tarefas": [
+        {
+          "id": "T-005",
+          "titulo": "Config dev trimmed",
+          "modelo": "claude-sonnet-5",
+          "esforco": "medium",
+          "arquivos": [
+            "config/config.dev.yaml"
+          ],
+          "refs": [
+            "US-002",
+            "AC-004"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "faixa-6",
+      "branch": "spec/rebrand-meliclaw-decision-router-faixa-6",
+      "worktree": "../onp-worktrees/meliclaw-decision-router-rebrand-meliclaw-decision-router-faixa-6",
+      "tarefas": [
+        {
+          "id": "T-006",
+          "titulo": "Serviço no compose Orbstack",
+          "modelo": "claude-sonnet-5",
+          "esforco": "medium",
+          "arquivos": [
+            "../meliclaw-ai-gateway-core.yml"
+          ],
+          "refs": [
+            "US-002",
+            "AC-004"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "faixa-7",
+      "branch": "spec/rebrand-meliclaw-decision-router-faixa-7",
+      "worktree": "../onp-worktrees/meliclaw-decision-router-rebrand-meliclaw-decision-router-faixa-7",
+      "tarefas": [
+        {
+          "id": "T-007",
+          "titulo": "Compose de produção Scaleway",
+          "modelo": "claude-sonnet-5",
+          "esforco": "medium",
+          "arquivos": [
+            "deploy/compose/docker-compose.scaleway.yml",
+            "deploy/compose/README.md"
+          ],
+          "refs": [
+            "US-003",
+            "AC-005"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "faixa-8",
+      "branch": "spec/rebrand-meliclaw-decision-router-faixa-8",
+      "worktree": "../onp-worktrees/meliclaw-decision-router-rebrand-meliclaw-decision-router-faixa-8",
+      "tarefas": [
+        {
+          "id": "T-008",
+          "titulo": "CHANGELOG.md",
+          "modelo": "claude-sonnet-5",
+          "esforco": "low",
+          "arquivos": [
+            "CHANGELOG.md"
+          ],
+          "refs": [
+            "US-001",
+            "US-002",
+            "US-003"
+          ]
+        }
+      ]
+    }
+  ],
+  "sequenciais": [],
+  "concluidas": [],
+  "avisos": []
+}

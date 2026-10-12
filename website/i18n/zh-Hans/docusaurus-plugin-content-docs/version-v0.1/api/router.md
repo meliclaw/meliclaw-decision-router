@@ -7,11 +7,11 @@ translation:
 
 # Router API 参考
 
-Semantic Router 提供了一个基于 gRPC 的 API，可与 Envoy 的外部处理 (ExtProc) 协议无缝集成。本文档涵盖了 API endpoint、请求/响应格式和集成模式。
+Decision Router 提供了一个基于 gRPC 的 API，可与 Envoy 的外部处理 (ExtProc) 协议无缝集成。本文档涵盖了 API endpoint、请求/响应格式和集成模式。
 
 ## API 概览
 
-Semantic Router 作为一个 ExtProc 服务器运行，通过 Envoy 代理处理 HTTP 请求。它不直接公开 REST endpoint，而是处理通过 Envoy 路由的 OpenAI 兼容的 API 请求。
+Decision Router 作为一个 ExtProc 服务器运行，通过 Envoy 代理处理 HTTP 请求。它不直接公开 REST endpoint，而是处理通过 Envoy 路由的 OpenAI 兼容的 API 请求。
 
 > 注意：除了 ExtProc 路径外，该项目还在 8080 端口启动了一个轻量级的 HTTP Router Apiserver，用于健康检查、模型信息、分类工具和 Router 配置管理。OpenAI 兼容的 `/v1/models` 端点由该 HTTP API (8080) 提供，并可以通过路由规则在 Envoy (8801) 上有选择地公开。
 
@@ -42,7 +42,7 @@ Semantic Router 作为一个 ExtProc 服务器运行，通过 Envoy 代理处理
 sequenceDiagram
     participant Client as 客户端
     participant Envoy as Envoy 代理
-    participant Router as Semantic Router
+    participant Router as Decision Router
     participant Backend as 后端模型
     
     Client->>Envoy: POST /v1/chat/completions

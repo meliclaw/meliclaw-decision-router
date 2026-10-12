@@ -19,15 +19,15 @@
 
 ### 集成优势
 
-将 vLLM Semantic Router 与 AIBrix 集成提供了多项优势：
+将 Meliclaw Decision Router 与 AIBrix 集成提供了多项优势：
 
-1. **智能请求路由**：Semantic Router 基于内容理解分析传入请求并将其路由到最合适的模型，而 AIBrix 的网关高效管理跨模型副本的流量分配
+1. **智能请求路由**：Decision Router 基于内容理解分析传入请求并将其路由到最合适的模型，而 AIBrix 的网关高效管理跨模型副本的流量分配
 
-2. **增强的可扩展性**：AIBrix 的自动扩缩器与 Semantic Router 无缝协作，根据路由模式和实时需求动态调整资源
+2. **增强的可扩展性**：AIBrix 的自动扩缩器与 Decision Router 无缝协作，根据路由模式和实时需求动态调整资源
 
-3. **成本优化**：通过结合 Semantic Router 的智能路由与 AIBrix 的异构服务能力，您可以优化 GPU 利用率并降低基础设施成本，同时保持 SLO 保证
+3. **成本优化**：通过结合 Decision Router 的智能路由与 AIBrix 的异构服务能力，您可以优化 GPU 利用率并降低基础设施成本，同时保持 SLO 保证
 
-4. **生产就绪的基础设施**：AIBrix 提供企业级功能，如分布式 KV 缓存、GPU 故障检测和统一运行时管理，使在生产环境中部署 Semantic Router 更加容易
+4. **生产就绪的基础设施**：AIBrix 提供企业级功能，如分布式 KV 缓存、GPU 故障检测和统一运行时管理，使在生产环境中部署 Decision Router 更加容易
 
 5. **简化运维**：集成利用 Kubernetes 原生模式和 Gateway API 资源，为 DevOps 团队提供熟悉的运维模式
 
@@ -41,7 +41,7 @@
 
 ## 步骤 1：创建 Kind 集群（可选）
 
-创建针对 Semantic Router 工作负载优化的本地 Kubernetes 集群：
+创建针对 Decision Router 工作负载优化的本地 Kubernetes 集群：
 
 ```bash
 kind create cluster --name semantic-router-cluster
@@ -50,9 +50,9 @@ kind create cluster --name semantic-router-cluster
 kubectl wait --for=condition=Ready nodes --all --timeout=300s
 ```
 
-## 步骤 2：部署 vLLM Semantic Router 
+## 步骤 2：部署 Meliclaw Decision Router 
 
-使用 Helm 部署包含所有必需组件的 Semantic Router 服务：
+使用 Helm 部署包含所有必需组件的 Decision Router 服务：
 
 ```bash
 # 从 GHCR OCI 仓库安装自定义配置
@@ -70,7 +70,7 @@ kubectl wait --for=condition=Available deployment/semantic-router -n vllm-semant
 kubectl get pods -n vllm-semantic-router-system
 ```
 
-**注意**：values 文件包含 Semantic Router 的配置，包括模型设置、类别和路由规则。您可以从 [values.yaml](https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/aibrix/semantic-router-values/values.yaml) 下载并自定义。
+**注意**：values 文件包含 Decision Router 的配置，包括模型设置、类别和路由规则。您可以从 [values.yaml](https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/aibrix/semantic-router-values/values.yaml) 下载并自定义。
 
 ## 步骤 3：安装 vLLM AIBrix
 
@@ -90,7 +90,7 @@ kubectl wait --timeout=2m -n aibrix-system deployment/aibrix-controller-manager 
 
 ## 步骤 4：部署演示 LLM
 
-创建一个演示 LLM 作为 Semantic Router 的后端：
+创建一个演示 LLM 作为 Decision Router 的后端：
 
 ```bash
 # 部署演示 LLM
@@ -138,7 +138,7 @@ curl -i -X POST http://localhost:8080/v1/chat/completions \
   }'
 ```
 
-您将看到演示 LLM 的响应，以及 Semantic Router 注入的额外响应头。
+您将看到演示 LLM 的响应，以及 Decision Router 注入的额外响应头。
 
 ```bash
 HTTP/1.1 200 OK
@@ -166,7 +166,7 @@ transfer-encoding: chunked
 kubectl delete -f https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/aibrix/aigw-resources/gwapi-resources.yaml
 kubectl delete -f https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/aibrix/aigw-resources/base-model.yaml
 
-# 删除 Semantic Router 
+# 删除 Decision Router 
 helm uninstall semantic-router -n vllm-semantic-router-system
 
 # 删除 kind 集群（可选）
@@ -177,4 +177,4 @@ kind delete cluster --name semantic-router-cluster
 
 - 设置监控和可观测性
 - 实施身份验证和授权
-- 为生产工作负载扩展Semantic Router 部署
+- 为生产工作负载扩展Decision Router 部署

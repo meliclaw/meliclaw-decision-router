@@ -68,7 +68,7 @@ function BlogPostImage({
     return (
       <div className="site-blog-card__image-fallback" aria-hidden="true">
         <span>vLLM</span>
-        <strong>Semantic Router</strong>
+        <strong>Decision Router</strong>
       </div>
     )
   }
@@ -183,7 +183,7 @@ export default function BlogListPage(props: Props): React.ReactNode {
         <div className="site-blog-index">
           <div className="site-blog-index__header">
             <PageHeader
-              description="Deep dives into model routing, inference engineering, performance breakthroughs, and the latest from the vLLM Semantic Router community."
+              description="Deep dives into model routing, inference engineering, performance breakthroughs, and the latest from the Meliclaw Decision Router community."
               eyebrow="Blog"
               title="Engineering notes"
             />

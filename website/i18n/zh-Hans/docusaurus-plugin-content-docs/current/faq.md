@@ -1,7 +1,7 @@
 ---
 sidebar_position: 999
 title: 常见问题
-description: 了解 vLLM Semantic Router 的定位、它与 llm-d 和 AI 网关的区别，以及如何衡量路由价值和排查错误路由。
+description: 了解 Meliclaw Decision Router 的定位、它与 llm-d 和 AI 网关的区别，以及如何衡量路由价值和排查错误路由。
 translation:
   source_commit: "7f1b814c97035e96a3780a3b8780ea5d3b6a6b24"
   source_file: "docs/faq.md"
@@ -68,17 +68,17 @@ Harness 管理 Agent 循环、工具和任务状态。它调用稳定模型入�
 
 [sr-bench 1.0](benchmarking/sr-bench)定义了从固定用例到解读结果的完整测量协议。
 
-## 为什么有 llm-d 还需要 Semantic Router？ {#why-semantic-router-and-not-just-llm-d}
+## 为什么有 llm-d 还需要 Decision Router？ {#why-semantic-router-and-not-just-llm-d}
 
 两个系统解决的问题不同。
 
-| | Semantic Router | llm-d |
+| | Decision Router | llm-d |
 | --- | --- | --- |
 | 决定什么 | 使用哪个逻辑模型或**模型池** | 在该池中使用哪个健康**副本** |
 | 读取什么 | 请求内容、策略、语义证据 | 负载、前缀缓存局部性、副本健康状态 |
 | 所在层 | 请求期间的模型选择 | 调度与放置 |
 
-llm-d 不应决定业务策略，Semantic Router 也不负责选择 Pod。项目的规则是：**不要配置两个系统来做同一个决策。**
+llm-d 不应决定业务策略，Decision Router 也不负责选择 Pod。项目的规则是：**不要配置两个系统来做同一个决策。**
 
 [llm-d 集成指南](installation/k8s/llm-d)在部署上下文中解释了这个边界。
 
@@ -87,11 +87,11 @@ Router 自身的 Serving Engine 也会在任务模型的副本间分发请求。
 
 ## 如何避免与 llm-d 的决策冲突？ {#how-do-we-avoid-conflicts-with-llm-d}
 
-通过划分职责避免冲突。Semantic Router 先确定模型池，llm-d 再在池内选择副本。“哪个模型适合请求”与“哪个副本适合缓存局部性”处于不同层级；前一个决策约束后一个决策。
+通过划分职责避免冲突。Decision Router 先确定模型池，llm-d 再在池内选择副本。“哪个模型适合请求”与“哪个副本适合缓存局部性”处于不同层级；前一个决策约束后一个决策。
 
 运维时遵循两条规则：
 
-- **先独立部署和验证 llm-d，再加入 Semantic Router**；使用一个受支持的 llm-d 版本，不混用不同版本的清单。
+- **先独立部署和验证 llm-d，再加入 Decision Router**；使用一个受支持的 llm-d 版本，不混用不同版本的清单。
 - **让最终决策可见。** Router 将 `x-vsr-selected-model` 作为回执，将 `x-selected-model` 作为网关匹配值；`vllm-sr route probe --expect-selected-model` 用于断言回执。应读取这些值，而不是事后推测决策。
 
 部署与决策规则见[集成 llm-d](installation/k8s/llm-d)。

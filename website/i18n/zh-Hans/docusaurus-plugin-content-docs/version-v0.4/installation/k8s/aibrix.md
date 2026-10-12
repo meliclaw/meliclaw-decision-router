@@ -1,6 +1,6 @@
 ---
 title: 与 AIBrix 集成
-description: 将 Semantic Router 的模型池选择与 AIBrix 的模型部署和副本路由结合。
+description: 将 Decision Router 的模型池选择与 AIBrix 的模型部署和副本路由结合。
 translation:
   source_commit: "e56591a9cb24f073bf159927e87116ba6d278741"
   source_file: "docs/installation/k8s/aibrix.md"
@@ -9,19 +9,19 @@ translation:
 
 # 与 AIBrix 集成
 
-当 AIBrix 负责模型部署、扩缩容和副本级路由，而 Semantic Router 应根据请求含义和策略选择模型池时，使用此拓扑。
+当 AIBrix 负责模型部署、扩缩容和副本级路由，而 Decision Router 应根据请求含义和策略选择模型池时，使用此拓扑。
 
-AIBrix 与 Semantic Router 独立发布。请按[当前 AIBrix 安装指南](https://aibrix.readthedocs.io/latest/getting_started/installation/installation.html)安装，并使用其维护的 [Semantic Router 示例](https://github.com/vllm-project/aibrix/tree/main/samples/semantic-router) 获取特定版本的清单。本页说明两层控制如何配合。
+AIBrix 与 Decision Router 独立发布。请按[当前 AIBrix 安装指南](https://aibrix.readthedocs.io/latest/getting_started/installation/installation.html)安装，并使用其维护的 [Decision Router 示例](https://github.com/vllm-project/aibrix/tree/main/samples/semantic-router) 获取特定版本的清单。本页说明两层控制如何配合。
 
 ## 职责划分
 
 | 组件 | 负责 |
 | --- | --- |
-| Semantic Router | 信号、决策、模型池选择，以及按配方作用的插件。 |
+| Decision Router | 信号、决策、模型池选择，以及按配方作用的插件。 |
 | AIBrix | 模型工作负载、自动扩缩容、服务发现和副本级路由。 |
-| Gateway API | 客户端流量，以及对 Semantic Router 的 ExtProc 调用。 |
+| Gateway API | 客户端流量，以及对 Decision Router 的 ExtProc 调用。 |
 
-Semantic Router 选择逻辑模型。随后 AIBrix 选择服务该模型的健康副本。将自动扩缩容和副本负载策略留在 AIBrix；不要在语义决策中重复实现。
+Decision Router 选择逻辑模型。随后 AIBrix 选择服务该模型的健康副本。将自动扩缩容和副本负载策略留在 AIBrix；不要在语义决策中重复实现。
 
 ## 开始之前
 
@@ -36,7 +36,7 @@ Semantic Router 选择逻辑模型。随后 AIBrix 选择服务该模型的健�
 
 ## 1. 部署并验证 AIBrix
 
-按上游安装指南部署模型服务。在加入 Semantic Router 之前，通过 AIBrix 网关验证每个已服务模型：
+按上游安装指南部署模型服务。在加入 Decision Router 之前，通过 AIBrix 网关验证每个已服务模型：
 
 ```bash
 kubectl get pods -A
@@ -47,12 +47,12 @@ kubectl get services -A
 
 ## 2. 对齐模型标识
 
-对每个 AIBrix 模型，创建 Semantic Router 提供商模型，其 `provider_model_id` 为 AIBrix 端点接受的名称。将后端绑定到稳定的 Gateway 或 Service DNS 名称，不要绑定到 `ClusterIP`。
+对每个 AIBrix 模型，创建 Decision Router 提供商模型，其 `provider_model_id` 为 AIBrix 端点接受的名称。将后端绑定到稳定的 Gateway 或 Service DNS 名称，不要绑定到 `ClusterIP`。
 
 然后从模型卡和决策中引用这些提供商名称。同一标识必须在四处一致：
 
 1. 面向请求的虚拟模型或入口；
-2. Semantic Router 提供商模型；
+2. Decision Router 提供商模型；
 3. AIBrix/Gateway 路由资源；以及
 4. 模型服务器所服务的模型名称。
 
@@ -62,7 +62,7 @@ kubectl get services -A
 vllm-sr config validate --config config.yaml
 ```
 
-## 3. 部署 Semantic Router 和 Gateway 策略
+## 3. 部署 Decision Router 和 Gateway 策略
 
 上游示例为其当前 AIBrix 版本提供完整集成。若改编而非原样使用该示例：
 
@@ -76,7 +76,7 @@ vllm-sr config validate --config config.yaml
 ## 4. 验证集成
 
 1. 向每个 AIBrix 模型发送直接请求。
-2. 通过 Semantic Router 虚拟模型发送请求。
+2. 通过 Decision Router 虚拟模型发送请求。
 3. 检查 Router 选择头。
 4. 确认所选的 AIBrix 模型和正在服务的副本。
 

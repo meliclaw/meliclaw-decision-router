@@ -2,7 +2,7 @@
 
 ## Executive Summary
 
-This document describes a **Proof of Concept** for Agentic Memory in the Semantic Router. Agentic Memory enables AI agents to **remember information across sessions**, providing continuity and personalization.
+This document describes a **Proof of Concept** for Agentic Memory in the Decision Router. Agentic Memory enables AI agents to **remember information across sessions**, providing continuity and personalization.
 
 > **⚠️ POC Scope:** This is a proof of concept, not a production design. The goal is to validate the core memory flow (retrieve → inject → extract → store) with acceptable accuracy. Production hardening (error handling, scaling, monitoring) is out of scope.
 

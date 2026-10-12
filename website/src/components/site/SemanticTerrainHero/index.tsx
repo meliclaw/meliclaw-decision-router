@@ -40,7 +40,7 @@ function HeroFilm(): JSX.Element {
   const poster = useBaseUrl('/videos/vllm-sr-intro/vllm-sr-intro-poster.webp')
   const title = translate({
     id: 'homepage.hero.film.title',
-    message: 'Reintroducing vLLM Semantic Router',
+    message: 'Reintroducing Meliclaw Decision Router',
   })
 
   const start = () => {

@@ -1,7 +1,7 @@
 ---
 sidebar_position: 1
 title: Quickstart
-description: Install vLLM Semantic Router and send your first routed request.
+description: Install Meliclaw Decision Router and send your first routed request.
 ---
 
 import Tabs from '@theme/Tabs'
@@ -18,7 +18,7 @@ import {
 
 # Quickstart
 
-Install vLLM Semantic Router, start the local stack, and send one request.
+Install Meliclaw Decision Router, start the local stack, and send one request.
 
 ## Requirements
 

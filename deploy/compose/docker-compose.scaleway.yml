@@ -1,0 +1,44 @@
+name: meliclaw-decision-router
+
+# Production compose for a Scaleway VPS (arm64). Builds on the host — see
+# deploy/compose/README.md. Local/Orbstack dev uses the top-level
+# meliclaw-ai-gateway-core.yml instead of this file.
+services:
+  meliclaw-decision-router:
+    build:
+      context: ../..
+      dockerfile: deploy/compose/Dockerfile.local
+    image: ${MELICLAW_DECISION_ROUTER_IMAGE:-meliclaw-decision-router:scaleway}
+    container_name: meliclaw-decision-router
+    restart: unless-stopped
+    # No TLS certs provisioned yet (ASM-003 open) and no Envoy in front, so
+    # this runs config.dev.yaml (HTTP only) in standalone gateway mode, same
+    # as the local Orbstack service. Switch to config.yaml + real certs once
+    # TLS termination is decided — see deploy/compose/README.md.
+    entrypoint: ["/usr/local/bin/router"]
+    environment:
+      - VLLM_SR_MANAGEMENT_INTERNAL_LISTENER=true
+    command:
+      - -config=/app/config/config.dev.yaml
+      - -port=50051
+      - -enable-api=true
+      - -gateway=standalone
+      - -listener-address=0.0.0.0
+      - -api-bind=0.0.0.0
+    ports:
+      - "${MELICLAW_DECISION_ROUTER_PORT:-8899}:8899"
+      - "${MELICLAW_DECISION_ROUTER_API_PORT:-8880}:8080"
+      - "${MELICLAW_DECISION_ROUTER_GRPC_PORT:-50051}:50051"
+      - "127.0.0.1:${MELICLAW_DECISION_ROUTER_METRICS_PORT:-9190}:9190"
+    volumes:
+      - ../../config/config.dev.yaml:/app/config/config.dev.yaml:ro
+      - meliclaw-decision-router-models:/app/models
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8080/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 60s
+
+volumes:
+  meliclaw-decision-router-models:

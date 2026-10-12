@@ -1,6 +1,6 @@
 # Internationalization (i18n) Guide
 
-This directory contains translations for the vLLM Semantic Router documentation.
+This directory contains translations for the Meliclaw Decision Router documentation.
 
 ## Directory Structure
 

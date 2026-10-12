@@ -4,7 +4,7 @@ sidebar_position: 5
 
 # Milvus Semantic Cache
 
-This guide covers deploying Milvus as the semantic cache backend for the Semantic Router in Kubernetes. Milvus provides persistent, scalable vector storage compared to the default in-memory cache.
+This guide covers deploying Milvus as the semantic cache backend for the Decision Router in Kubernetes. Milvus provides persistent, scalable vector storage compared to the default in-memory cache.
 
 :::note
 Milvus is optional. The router works with the default memory backend out of the box. Use Milvus when you need persistence, horizontal scaling, or cache sharing across router replicas.
@@ -166,7 +166,7 @@ spec:
 EOF
 ```
 
-## Configure Semantic Router
+## Configure Decision Router
 
 ### Apply Milvus Client Config
 

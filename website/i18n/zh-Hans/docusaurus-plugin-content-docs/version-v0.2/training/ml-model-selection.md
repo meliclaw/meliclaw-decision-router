@@ -7,7 +7,7 @@ translation:
 
 # 基于 ML 的模型选择
 
-本文说明 Semantic Router 中基于 ML 的模型选择配置与实验数据。
+本文说明 Decision Router 中基于 ML 的模型选择配置与实验数据。
 
 ## 概述
 
@@ -29,7 +29,7 @@ translation:
 
 ## Dashboard GUI 设置
 
-**Semantic Router Dashboard** 提供图形化的三步配置向导。这是推荐的入门方式，完全免除 CLI 操作。
+**Decision Router Dashboard** 提供图形化的三步配置向导。这是推荐的入门方式，完全免除 CLI 操作。
 
 ### 打开向导
 

@@ -96,7 +96,7 @@ See [Plugins](../tutorials/plugin/overview).
 
 Providers bind logical model names to physical inference endpoints. A pool can
 contain local vLLM or Ollama services, Kubernetes-hosted models, or remote
-OpenAI-compatible providers. Semantic Router chooses the model path; the model
+OpenAI-compatible providers. Decision Router chooses the model path; the model
 server or backend scheduler executes it and owns replica placement.
 
 The decision models used by signals and selection algorithms have a separate

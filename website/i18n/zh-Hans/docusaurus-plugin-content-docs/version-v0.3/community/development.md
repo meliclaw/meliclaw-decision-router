@@ -1,6 +1,6 @@
 # 开发指南
 
-本指南介绍 vLLM Semantic Router 的环境要求、初始化设置和测试流程。
+本指南介绍 Meliclaw Decision Router 的环境要求、初始化设置和测试流程。
 
 ## 环境要求
 

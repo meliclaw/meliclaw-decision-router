@@ -1,6 +1,6 @@
 # Metrics & Monitoring
 
-Metrics collection and visualization for Semantic Router using Prometheus and Grafana.
+Metrics collection and visualization for Decision Router using Prometheus and Grafana.
 
 ---
 

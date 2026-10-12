@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# vLLM Semantic Router
+# Meliclaw Decision Router
 
 **System-Level Intelligence for Mixture-of-Models (MoM)** - An intelligent routing layer that brings collective intelligence to LLM systems. Acting as an Envoy External Processor (ExtProc), it uses a **signal-driven decision engine** and **plugin chain architecture** to capture missing signals, make better routing decisions, and secure your LLM infrastructure.
 
@@ -55,7 +55,7 @@ import ZoomableMermaid from '@site/src/components/ZoomableMermaid';
 <ZoomableMermaid title="Signal-Driven Decision + Plugin Chain Architecture" defaultZoom={3.5}>
 {`graph TB
     Client[Client Request] --> Envoy[Envoy Proxy]
-    Envoy --> Router[Semantic Router ExtProc]
+    Envoy --> Router[Decision Router ExtProc]
 
     subgraph "Signal Extraction Layer"
         direction TB

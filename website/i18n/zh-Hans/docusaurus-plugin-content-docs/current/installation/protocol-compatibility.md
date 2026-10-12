@@ -9,7 +9,7 @@ translation:
 
 # 协议兼容性矩阵
 
-Semantic Router 在数据平面两侧都支持三种推理线格式。客户端请求被解码为协议中立形式，路由策略选择模型，该模型的 `api_format` 选择后端编解码器。响应再被翻译回客户端的原始格式。
+Decision Router 在数据平面两侧都支持三种推理线格式。客户端请求被解码为协议中立形式，路由策略选择模型，该模型的 `api_format` 选择后端编解码器。响应再被翻译回客户端的原始格式。
 
 ```text
 client endpoint -> client codec -> routing -> backend codec -> model endpoint

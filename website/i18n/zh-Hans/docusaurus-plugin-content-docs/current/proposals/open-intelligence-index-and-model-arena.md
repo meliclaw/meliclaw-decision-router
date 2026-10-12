@@ -13,7 +13,7 @@ translation:
 
 ## 决策 {#decision}
 
-vLLM Semantic Router 为三类消费者使用同一版本化评估图：
+Meliclaw Decision Router 为三类消费者使用同一版本化评估图：
 
 1. Model Hub 保留每一条有效基准结果及其来源；
 2. Arena 从该图渲染 Overall、能力和基准排名；

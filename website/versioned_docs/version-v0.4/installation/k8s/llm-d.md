@@ -1,6 +1,6 @@
 ---
 title: Integrate with llm-d
-description: Let Semantic Router choose a model pool while llm-d schedules a replica inside that pool.
+description: Let Decision Router choose a model pool while llm-d schedules a replica inside that pool.
 ---
 
 # Integrate with llm-d
@@ -10,19 +10,19 @@ llm-d is one
 alongside vLLM Router and the [AIBrix gateway](aibrix). Use this topology when
 a request must make two different choices:
 
-1. **Semantic Router** chooses the logical model or model pool from request
+1. **Decision Router** chooses the logical model or model pool from request
    intent, policy, and recipe state.
 2. **llm-d** chooses a healthy replica inside that pool using load, prefix
    cache, or other endpoint information.
 
-Do not configure both systems to make the same decision. Semantic Router should
+Do not configure both systems to make the same decision. Decision Router should
 not choose a Pod, and llm-d should not decide which business policy or model
 family applies to the request.
 
 ```text
 client
   -> inference gateway
-  -> Semantic Router ExtProc
+  -> Decision Router ExtProc
   -> HTTPRoute selected by x-selected-model
   -> InferencePool
   -> llm-d endpoint picker
@@ -31,7 +31,7 @@ client
 
 ## Before you start
 
-Deploy and verify llm-d independently before adding Semantic Router. llm-d's
+Deploy and verify llm-d independently before adding Decision Router. llm-d's
 release artifacts, CRDs, charts, and plugin configuration evolve together, so
 use one supported llm-d release rather than mixing copied manifests from
 different versions.
@@ -43,7 +43,7 @@ different versions.
   for the matching Gateway API Inference Extension resources and charts.
 
 At this boundary you should already be able to send a request through the
-gateway to each `InferencePool` without Semantic Router.
+gateway to each `InferencePool` without Decision Router.
 
 ## Integration contract
 
@@ -51,8 +51,8 @@ Keep these names aligned across the two systems:
 
 | Name | Owner | Requirement |
 | --- | --- | --- |
-| Provider model | Semantic Router | `providers.models[].name` is the logical pool name selected by a recipe. |
-| Request header | Semantic Router | The Router writes the selected provider model to `x-selected-model`. |
+| Provider model | Decision Router | `providers.models[].name` is the logical pool name selected by a recipe. |
+| Request header | Decision Router | The Router writes the selected provider model to `x-selected-model`. |
 | Route match | Gateway API | An `HTTPRoute` matches that exact header value. |
 | Backend reference | Gateway API / llm-d | The route targets the intended `InferencePool`. |
 | Served model | Model server | The pool's replicas accept the model identity forwarded by the gateway. |
@@ -85,7 +85,7 @@ spec:
 The route does not configure the pool or endpoint picker. Those remain part of
 the llm-d deployment and must use the API version supported by that release.
 
-## Add Semantic Router
+## Add Decision Router
 
 1. Create a complete canonical Router config whose provider model names match
    the route values. Validate it before deployment:
@@ -94,11 +94,11 @@ the llm-d deployment and must use the API version supported by that release.
    vllm-sr config validate --config config.yaml
    ```
 
-2. Deploy Semantic Router with the Helm or Operator workflow described in
+2. Deploy Decision Router with the Helm or Operator workflow described in
    [Configuration workflows](../configuration-workflows). For direct Helm,
    use `configOverride` so the chart sample config is replaced atomically.
 
-3. Attach Semantic Router to the gateway as an ExtProc service. The exact
+3. Attach Decision Router to the gateway as an ExtProc service. The exact
    resource is gateway-specific; use
    [Gateway API Inference Extension](gateway-api-inference-extension) for the
    supported attachment patterns.
@@ -106,7 +106,7 @@ the llm-d deployment and must use the API version supported by that release.
 4. Keep `global.router.clear_route_cache: true` in the canonical Router config.
    The gateway must call ExtProc in the downstream request path, preserve its
    route-cache clearing response, and then re-evaluate the `HTTPRoute` after
-   Semantic Router writes `x-selected-model`.
+   Decision Router writes `x-selected-model`.
 
 ## Verify one layer at a time
 
@@ -143,12 +143,12 @@ Verify all three decisions rather than stopping at HTTP 200:
 | Route never matches | Compare `x-selected-model` with the `HTTPRoute` value, including case and namespace. |
 | `ResolvedRefs=False` | Check the `InferencePool` name, group, port, and cross-namespace permissions. |
 | Correct pool, wrong served model | Align the provider's model identity with the model name accepted by the replicas. |
-| Semantic Router is bypassed | Confirm the gateway invokes ExtProc before route matching. |
+| Decision Router is bypassed | Confirm the gateway invokes ExtProc before route matching. |
 | EPP has no endpoints | Diagnose the llm-d pool selector, Pod readiness, and release-matched plugin config. |
 
 ## Production boundaries
 
-- Pin Semantic Router, llm-d, the gateway, CRDs, and model-server images.
+- Pin Decision Router, llm-d, the gateway, CRDs, and model-server images.
 - Keep provider credentials out of Router YAML; use Secret-backed bindings at
   the component that owns the credential.
 - Define failure behavior explicitly. A fail-open ExtProc policy can bypass

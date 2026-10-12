@@ -137,7 +137,7 @@ CLI 目前不会从报告指标中去掉初始预热段。在尾延迟重要时�
 | `SemanticRouter` | 调用用户提供的分类器函数，输出未知时回退 | 库；CLI JSON 可以选择它，但不提供分类器函数 |
 | `RandomRouter` | 均匀选择一个池 | CLI 基线和库 |
 
-`compare-routers` 仅比较长度、固定 `gamma=1.5` 的压缩后路由，以及随机路由。它不会调用在线的 vLLM Semantic Router。
+`compare-routers` 仅比较长度、固定 `gamma=1.5` 的压缩后路由，以及随机路由。它不会调用在线的 Meliclaw Decision Router。
 
 ### 压缩后路由假设 {#compress-and-route-assumptions}
 

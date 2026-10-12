@@ -1,6 +1,6 @@
 ---
 title: Deployment Support
-description: See which deployment paths, integrations, examples, and hardware profiles the Semantic Router project maintains.
+description: See which deployment paths, integrations, examples, and hardware profiles the Decision Router project maintains.
 ---
 
 # Deployment Support
@@ -33,7 +33,7 @@ For each linked option:
 
 1. use an external platform version named in its guide; if none is named,
    treat your choice as unqualified until you test it;
-2. take every Semantic Router artifact you use—the CLI, chart, CRDs,
+2. take every Decision Router artifact you use—the CLI, chart, CRDs,
    controller, and images—from one release; and
 3. test that exact set in your environment before upgrading any one component.
 
@@ -47,6 +47,7 @@ external project.
 | [Helm chart](configuration-workflows#helm) | Maintained reference stack | **Contract.** Router, optional Dashboard, ingress, autoscaling, persistence, and observability resources. Gateways and storage remain external. |
 | [Local deployment](docker) | Maintained reference stack | **PR CI.** The CLI manages the Router, the Dashboard, and support services, and Envoy with `--gateway extproc`. You provide custom model endpoints and harden local defaults. |
 | [Kubernetes Operator](k8s/operator) | Maintained reference stack | **PR CI + Contract.** The project owns CRDs, reconciliation, Router workloads, Services, and routing APIs. Kubernetes schedules workloads; your gateway carries traffic. |
+| Compose deployment (local and single-host) | Experimental example | **Manual.** Docker Compose files for a local dev host and a single remote VPS host, standalone gateway mode. You provide the host, networking, and TLS termination. |
 
 ## Supported integrations
 

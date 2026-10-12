@@ -1,6 +1,7 @@
-# vLLM Semantic Router agent entry
+# Meliclaw Decision Router agent entry
 
-vLLM Semantic Router is an Envoy ExtProc router for LLM inference. A public
+Meliclaw Decision Router (fork of vLLM Semantic Router) is an Envoy ExtProc
+router for LLM inference. A public
 entrypoint resolves to an isolated recipe; its signals and projections feed a
 decision and algorithm, which select a backend and recipe-scoped plugins.
 

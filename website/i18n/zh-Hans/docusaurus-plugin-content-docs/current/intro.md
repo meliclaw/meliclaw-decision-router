@@ -15,7 +15,7 @@ import ThemedImage from '@theme/ThemedImage';
 <div className="docs-intro-brand">
  <ThemedImage
  className="docs-intro-brand__logo"
- alt="vLLM Semantic Router"
+ alt="Meliclaw Decision Router"
  sources={{
  light: '/img/vllm-sr-logo.light.png',
  dark: '/img/vllm-sr-logo.white.png',
@@ -24,7 +24,7 @@ import ThemedImage from '@theme/ThemedImage';
  <p className="docs-intro-brand__tagline">面向模型与算力的开放、可编程<strong>决策层</strong>。</p>
 </div>
 
-为 agent harness 提供稳定的模型 API。vLLM Semantic Router 在 OpenAI 或 Anthropic 兼容端点背后，通过显式策略选择或组合模型。模型与策略可以演进，无需重写 harness 集成。
+为 agent harness 提供稳定的模型 API。Meliclaw Decision Router 在 OpenAI 或 Anthropic 兼容端点背后，通过显式策略选择或组合模型。模型与策略可以演进，无需重写 harness 集成。
 
 应用也可以直接调用 [System One](model-runtime/quickstart) 获取类型化判断。Router 与
 Engine 模式共享 Frontend 和模型运行时，配方增加可选的路由层。模块边界与副本池见
@@ -58,4 +58,4 @@ Harness 负责任务循环、工具执行与任务状态；Router 负责每次�
 
 ## 项目
 
-vLLM Semantic Router 以 Apache 2.0 许可开源。要提出变更或加入社区，请参阅[贡献指南](https://github.com/vllm-project/semantic-router/blob/main/CONTRIBUTING.md)。
+Meliclaw Decision Router 以 Apache 2.0 许可开源。要提出变更或加入社区，请参阅[贡献指南](https://github.com/vllm-project/semantic-router/blob/main/CONTRIBUTING.md)。

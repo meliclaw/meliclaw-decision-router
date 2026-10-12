@@ -5,7 +5,7 @@ sidebar_label: Install with Operator
 
 # Install with Operator
 
-The Semantic Router Operator provides a Kubernetes-native way to deploy and manage vLLM Semantic Router instances using Custom Resource Definitions (CRDs). It simplifies deployment, configuration, and lifecycle management across Kubernetes and OpenShift platforms.
+The Decision Router Operator provides a Kubernetes-native way to deploy and manage Meliclaw Decision Router instances using Custom Resource Definitions (CRDs). It simplifies deployment, configuration, and lifecycle management across Kubernetes and OpenShift platforms.
 
 ## Features
 
@@ -559,7 +559,7 @@ Deploys semantic router with an **Envoy sidecar container** that acts as an ingr
 **Architecture:**
 
 ```text
-Client → Service (8080) → Envoy Sidecar → ExtProc gRPC → Semantic Router → vLLM
+Client → Service (8080) → Envoy Sidecar → ExtProc gRPC → Decision Router → vLLM
 ```
 
 **When to use:**
@@ -598,7 +598,7 @@ Current status: the controller resolves the referenced Gateway and switches the 
 **Architecture:**
 
 ```text
-Client → Gateway (Istio/Envoy) → user-managed HTTPRoute → Service (8080) → Semantic Router API → vLLM
+Client → Gateway (Istio/Envoy) → user-managed HTTPRoute → Service (8080) → Decision Router API → vLLM
 ```
 
 **When to use:**
@@ -1349,7 +1349,7 @@ kubectl explain semanticrouter.spec.config.global.stores.semantic_cache.milvus
 kubectl explain semanticrouter.spec.config.global.stores.semantic_cache.hnsw
 ```
 
-### Semantic Router Configuration
+### Decision Router Configuration
 
 Full semantic router configuration is embedded in the CR. See the complete examples above and in [`deploy/operator/config/samples/`](https://github.com/vllm-project/semantic-router/tree/main/deploy/operator/config/samples).
 

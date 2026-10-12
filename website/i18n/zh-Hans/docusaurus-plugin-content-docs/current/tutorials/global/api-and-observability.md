@@ -145,7 +145,7 @@ global:
 
 信号证据事件分别记录有限的实测值和置信度，保留真实零值，缺失数据不填零。投影事件记录实际分数和配置名称，聚合信号阶段不虚构置信度。Trace 不包含原始提示词、信号错误文本或检索异常原文；无法事后补全旧 trace。
 
-本地 `vllm-sr serve` 在 Grafana 中预置 **vLLM Semantic Router**。主面板覆盖公开推理结果、Recipe 流程、后端使用量、插件与响应缓存、遥测健康；折叠的成本和 MoM 面板区分模型上报用量与已支持的 Looper attempt 证据。Recipe 阶段耗时展示实测均值；投影计数展示评估次数，单次分数可在 Insights 查看。模型耗时使用观测均值，避免有限直方图桶把长请求的分位数截断。Prometheus 抓取 Router 和 Jaeger 的内部管理指标。缺少序列表示没有观测，不能当作零流量或健康结果；导出成功只表示 SDK 批次导出完成，不证明所有请求都被采样或持久保存。
+本地 `vllm-sr serve` 在 Grafana 中预置 **Meliclaw Decision Router**。主面板覆盖公开推理结果、Recipe 流程、后端使用量、插件与响应缓存、遥测健康；折叠的成本和 MoM 面板区分模型上报用量与已支持的 Looper attempt 证据。Recipe 阶段耗时展示实测均值；投影计数展示评估次数，单次分数可在 Insights 查看。模型耗时使用观测均值，避免有限直方图桶把长请求的分位数截断。Prometheus 抓取 Router 和 Jaeger 的内部管理指标。缺少序列表示没有观测，不能当作零流量或健康结果；导出成功只表示 SDK 批次导出完成，不证明所有请求都被采样或持久保存。
 
 本地 Jaeger 使用固定版本的 all-in-one 镜像、非 root Badger 存储及挂载到 `/tmp` 的栈专属命名卷 `<jaeger-container-name>-data`，保留 trace 七天。Grafana 使用镜像的非 root 用户，将数据库与偏好保存在 `/var/lib/grafana` 对应的 `<grafana-container-name>-data` 中。Prometheus 的本地 TSDB 保留十五天。替换容器会保留这些存储，删除遥测存储则开始新的历史；清理操作应与 benchmark、认证、Learning 和配置存储严格区分。
 

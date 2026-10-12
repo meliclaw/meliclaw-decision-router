@@ -1,11 +1,11 @@
 ---
 sidebar_position: 2
-description: Quickstart guide for installing and running vLLM Semantic Router on CPU with Docker, from system requirements to first local launch.
+description: Quickstart guide for installing and running Meliclaw Decision Router on CPU with Docker, from system requirements to first local launch.
 ---
 
 # Quickstart
 
-This guide will help you install and run the vLLM Semantic Router. The router runs entirely on CPU and does not require GPU for inference.
+This guide will help you install and run the Meliclaw Decision Router. The router runs entirely on CPU and does not require GPU for inference.
 
 ## System Requirements
 

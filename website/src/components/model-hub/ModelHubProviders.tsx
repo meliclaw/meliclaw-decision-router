@@ -129,7 +129,7 @@ export function ModelHubProviders({
   return (
     <div className={styles.providers}>
       <p className={styles.providerGuide}>
-        Every provider below can be connected to Semantic Router. Choose a built-in model when one
+        Every provider below can be connected to Decision Router. Choose a built-in model when one
         is listed, or enter any model ID that the provider serves.
       </p>
       <div className={styles.toolbar}>

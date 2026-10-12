@@ -1,6 +1,6 @@
 ---
 title: 选择部署方式
-description: 为部署 vLLM Semantic Router 选择 Docker、Kubernetes 或硬件专用路径。
+description: 为部署 Meliclaw Decision Router 选择 Docker、Kubernetes 或硬件专用路径。
 translation:
   source_commit: "a565be11ad49666c149840c91134ad1e4678e49b"
   source_file: "docs/installation/deployment-options.md"
@@ -11,7 +11,7 @@ translation:
 
 独立选择两件事：
 
-1. Semantic Router 在哪里运行；以及
+1. Decision Router 在哪里运行；以及
 2. 模型后端在哪里运行。
 
 Router 不会加载或预配自定义配置所引用的模型权重。它将请求发送到可到达的模型端点，这些端点可以运行在同一主机、集群中，或托管 API 之后。

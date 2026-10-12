@@ -73,7 +73,7 @@ flowchart LR
 
 ## 模型池：执行请求
 
-提供方把逻辑模型名绑定到物理推理端点。池中可以包含本地 vLLM 或 Ollama 服务、Kubernetes 托管模型，或远程 OpenAI 兼容提供方。Semantic Router 选择模型路径；模型服务器或后端调度器执行它，并拥有副本放置。
+提供方把逻辑模型名绑定到物理推理端点。池中可以包含本地 vLLM 或 Ollama 服务、Kubernetes 托管模型，或远程 OpenAI 兼容提供方。Decision Router 选择模型路径；模型服务器或后端调度器执行它，并拥有副本放置。
 
 需要模型的信号会使用模型运行时中的 deployment；多个任务可以共用同一部署和副本池。算法选择回答用户的后端模型，运行时副本池则为某个部署选择可用 worker，两者是不同的调度层。见[组件架构](component-architecture)。
 

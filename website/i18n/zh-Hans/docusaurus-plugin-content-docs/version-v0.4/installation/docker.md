@@ -1,6 +1,6 @@
 ---
 title: Docker 部署
-description: 将 Semantic Router 作为本地或单主机容器栈运行，并连接你单独运维的模型后端。
+description: 将 Decision Router 作为本地或单主机容器栈运行，并连接你单独运维的模型后端。
 translation:
   source_commit: "b2f672651b66f00e3410d5b58b5d6d8cb883cfad"
   source_file: "docs/installation/docker.md"
@@ -9,7 +9,7 @@ translation:
 
 # 使用 Docker 部署
 
-Docker 是从 Semantic Router 配置到运行中栈的最短路径。它适合评估、开发、CI、边缘主机，以及不需要 Kubernetes 调度或故障转移的单主机部署。
+Docker 是从 Decision Router 配置到运行中栈的最短路径。它适合评估、开发、CI、边缘主机，以及不需要 Kubernetes 调度或故障转移的单主机部署。
 
 CLI 会管理 Router、Envoy、控制面板，以及所选配置所需的支持服务。模型服务器保持独立：健康的 Router 栈并不意味着其 provider 端点已安装、正在运行或能够生成。
 
@@ -68,4 +68,4 @@ Envoy 默认使用安全的 `info` 日志级别。若要临时排查问题，在
 
 ## 何时迁移到 Kubernetes
 
-Docker 不提供多节点调度、滚动部署控制或集群级恢复。当你需要副本、声明式发布、网关集成或平台管理的模型发现时，迁移到 Kubernetes 路径。同一份 canonical 配置可以通过 CLI 和 Helm 部署，或通过 Semantic Router Operator 管理。
+Docker 不提供多节点调度、滚动部署控制或集群级恢复。当你需要副本、声明式发布、网关集成或平台管理的模型发现时，迁移到 Kubernetes 路径。同一份 canonical 配置可以通过 CLI 和 Helm 部署，或通过 Decision Router Operator 管理。

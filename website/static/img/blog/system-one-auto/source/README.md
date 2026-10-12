@@ -21,7 +21,7 @@ editable shapes, typography and connections; `generate_blog_assets.py` owns
 the measured charts and shared export checks. Regenerating these exports
 does not change the responsive article components.
 
-From the Semantic Router repository root:
+From the Decision Router repository root:
 
 ```bash
 python3 -m venv .venv-figures
@@ -46,7 +46,7 @@ an experimental figure. This offline generator neither regenerates nor
 overwrites the cover; its receipt includes only the charts and system diagrams.
 
 The current cover follows the v0.4 Hermes release identity: white, electric blue,
-amber and the full vLLM Semantic Router mark. The cover focuses on the
+amber and the full Meliclaw Decision Router mark. The cover focuses on the
 decision-model ecosystem; a separate responsive figure inside the article
 compares LLM routing and System One routing with their distinct protocols.
 The article links the

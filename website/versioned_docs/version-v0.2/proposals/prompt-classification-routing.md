@@ -2,7 +2,7 @@
 
 **Related Issues:** [#313](https://github.com/vllm-project/semantic-router/issues/313), [#200](https://github.com/vllm-project/semantic-router/issues/200)
 
-This proposal introduces a **unified content scanning and routing framework** that extends the vLLM Semantic Router with three complementary signal sources:
+This proposal introduces a **unified content scanning and routing framework** that extends the Meliclaw Decision Router with three complementary signal sources:
 
 1. **Keyword-Based Routing** - Deterministic, fast, Boolean logic for exact term matching
 2. **Regex Content Scanning** - Pattern-based detection for safety, compliance, and structured data
@@ -22,7 +22,7 @@ All three signals integrate with the existing **BERT-based classification** thro
 
 ### Current Limitations
 
-The vLLM Semantic Router currently relies exclusively on **ModernBERT classification** for semantic category detection. While powerful, this approach has several limitations:
+The Meliclaw Decision Router currently relies exclusively on **ModernBERT classification** for semantic category detection. While powerful, this approach has several limitations:
 
 #### From Issue #313: No Deterministic Routing
 

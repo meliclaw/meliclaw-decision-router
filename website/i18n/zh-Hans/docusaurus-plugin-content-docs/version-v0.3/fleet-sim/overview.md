@@ -8,7 +8,7 @@ translation:
 
 # Fleet Sim 概览
 
-Fleet Sim 是 vLLM Semantic Router 维护的机队模拟器。`vllm-sr-sim` 包提供其 CLI 与服务入口，用于在部署前规划 GPU 机队、比较路由与拆分策略，并在仪表盘中暴露这些工作流，而无需恢复单独的模拟器前端。
+Fleet Sim 是 Meliclaw Decision Router 维护的机队模拟器。`vllm-sr-sim` 包提供其 CLI 与服务入口，用于在部署前规划 GPU 机队、比较路由与拆分策略，并在仪表盘中暴露这些工作流，而无需恢复单独的模拟器前端。
 
 ## Fleet Sim 的用途
 

@@ -19,13 +19,13 @@ translation:
 
 ## 决策 {#decision}
 
-Semantic Router 保持逐查询。它根据请求含义、策略和已配置算法输入选择逻辑模型。
+Decision Router 保持逐查询。它根据请求含义、策略和已配置算法输入选择逻辑模型。
 
 容量、队列深度、副本健康和 worker 本地缓存状态仍是服务与负载均衡关注点：
 
 ```mermaid
 flowchart LR
-  Request --> Semantic["Semantic Router: logical model"]
+  Request --> Semantic["Decision Router: logical model"]
   Semantic --> Serving["Serving layer: eligible replica"]
   Serving --> Worker["Model worker"]
   Telemetry["Capacity and health"] --> Serving
@@ -47,7 +47,7 @@ flowchart LR
 
 ## 后果 {#consequences}
 
-Semantic Router 不能保证首选模型有即时容量。服务层可能排队、拒绝，或使用显式兼容的回退。跨模型回退仍需要自己的安全契约，因为更换逻辑模型不等于选择另一副本。
+Decision Router 不能保证首选模型有即时容量。服务层可能排队、拒绝，或使用显式兼容的回退。跨模型回退仍需要自己的安全契约，因为更换逻辑模型不等于选择另一副本。
 
 机队规模和容量规划仍是离线关注点，不在请求路径中。
 

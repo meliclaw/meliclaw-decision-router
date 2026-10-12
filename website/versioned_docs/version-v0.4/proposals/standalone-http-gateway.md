@@ -38,7 +38,7 @@ a local ExtProc, and not a copy of the ExtProc orchestration.
 
 ## Problem
 
-Semantic Router currently takes public inference traffic through Envoy
+Decision Router currently takes public inference traffic through Envoy
 ExtProc. That deployment correctly separates semantic model selection from
 upstream transport, but extending it into a standalone gateway naively
 creates two problems:

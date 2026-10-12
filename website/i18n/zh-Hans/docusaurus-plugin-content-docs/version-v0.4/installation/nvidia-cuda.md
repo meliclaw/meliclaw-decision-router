@@ -1,6 +1,6 @@
 ---
 title: NVIDIA CUDA 部署
-description: 在 NVIDIA GPU 上运行 vLLM 后端，并可选择用 CUDA 加速 Semantic Router 的本地信号模型。
+description: 在 NVIDIA GPU 上运行 vLLM 后端，并可选择用 CUDA 加速 Decision Router 的本地信号模型。
 translation:
   source_commit: "8d971517501f80107607162e8aebcc084ca71923"
   source_file: "docs/installation/nvidia-cuda.md"
@@ -9,19 +9,19 @@ translation:
 
 # 使用 NVIDIA CUDA 部署
 
-模型服务器和 Semantic Router 是独立服务。常见部署将 Router 保留在 CPU 上，并把 NVIDIA GPU 交给 vLLM。当本地嵌入或分类器也需要 GPU 加速时，使用 Router 的 CUDA 镜像。
+模型服务器和 Decision Router 是独立服务。常见部署将 Router 保留在 CPU 上，并把 NVIDIA GPU 交给 vLLM。当本地嵌入或分类器也需要 GPU 加速时，使用 Router 的 CUDA 镜像。
 
 `--platform nvidia` 仅影响本地 Router 栈。它选择 CUDA Router 镜像，将 NVIDIA GPU 传入 Router 容器，并更改其生成的运行时配置，使受支持的本地信号模型优先使用 CUDA。它**不会**下载语言模型或启动 vLLM 服务器。
 
 ## 前置条件
 
 - Linux，以及你计划运行的 vLLM 发行版所支持的 NVIDIA GPU；
-- 使用当前 Semantic Router CUDA 镜像时需要 x86-64 主机；
+- 使用当前 Decision Router CUDA 镜像时需要 x86-64 主机；
 - Router 镜像需要计算能力为 7.0 或更高的 GPU（Volta 及更新架构），其本地模型按该最低要求编译；构建时可通过 `CUDA_COMPUTE_CAP=<value>` 调整最低计算能力要求；
 - NVIDIA 驱动，以及传入 Router 容器的 GPU。CUDA Router 镜像直接链接驱动库，因此即使所有 Router 侧模型都配置为使用 CPU，没有 GPU 透传时仍无法启动；
 - Docker 和 NVIDIA Container Toolkit；
 - 有足够的 GPU 内存用于 vLLM 模型、KV cache 以及任何 Router 侧模型；以及
-- 一份完整的 Semantic Router 配置，并带有可到达的模型端点。
+- 一份完整的 Decision Router 配置，并带有可到达的模型端点。
 
 使用当前的 [vLLM NVIDIA 要求](https://docs.vllm.ai/en/latest/getting_started/installation/gpu/)了解受支持的硬件。按照 [NVIDIA Container Toolkit 指南](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html) 安装并配置运行时，然后同时验证主机驱动和容器访问：
 
@@ -152,7 +152,7 @@ curl --fail --include http://127.0.0.1:8899/v1/chat/completions \
 
 ### Docker 拒绝 `--gpus all`
 
-用 `nvidia-ctk` 配置 Docker，重启 Docker，并重复 NVIDIA 的示例容器命令。在调试 vLLM 或 Semantic Router 之前，先调试容器运行时。对于 CUDA Router 镜像，GPU 透传是必需的：它链接了驱动库，因此透传不可用时，容器会在启动时退出，并报告 `libcuda.so.1: cannot open shared object file`。
+用 `nvidia-ctk` 配置 Docker，重启 Docker，并重复 NVIDIA 的示例容器命令。在调试 vLLM 或 Decision Router 之前，先调试容器运行时。对于 CUDA Router 镜像，GPU 透传是必需的：它链接了驱动库，因此透传不可用时，容器会在启动时退出，并报告 `libcuda.so.1: cannot open shared object file`。
 
 ### Router 使用 CPU
 

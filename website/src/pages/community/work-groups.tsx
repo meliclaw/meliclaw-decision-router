@@ -17,7 +17,7 @@ export default function WorkGroups(): ReactNode {
   return (
     <Layout
       title="Working Groups"
-      description="Direction-based vLLM Semantic Router Working Groups"
+      description="Direction-based Meliclaw Decision Router Working Groups"
     >
       <CommunityLayout
         activeKey="work-groups"

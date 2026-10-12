@@ -133,7 +133,7 @@ const ContributorsPage: React.FC = () => {
       })}
       description={translate({
         id: 'community.contributors.pageDescription',
-        message: 'Explore vLLM Semantic Router contributors by commit and pull request review activity across release windows.',
+        message: 'Explore Meliclaw Decision Router contributors by commit and pull request review activity across release windows.',
       })}
     >
       <CommunityLayout

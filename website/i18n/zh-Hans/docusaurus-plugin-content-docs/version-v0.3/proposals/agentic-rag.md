@@ -7,7 +7,7 @@ translation:
 
 # OpenAI RAG 集成
 
-本指南说明如何在 Semantic Router 中使用 OpenAI 的 File Store 与 Vector Store API 实现 RAG（检索增强生成），流程参考 [OpenAI Responses API cookbook](https://cookbook.openai.com/examples/rag_on_pdfs_using_file_search)。
+本指南说明如何在 Decision Router 中使用 OpenAI 的 File Store 与 Vector Store API 实现 RAG（检索增强生成），流程参考 [OpenAI Responses API cookbook](https://cookbook.openai.com/examples/rag_on_pdfs_using_file_search)。
 
 ## 概述
 
@@ -25,7 +25,7 @@ OpenAI RAG 后端对接 OpenAI 的 File Store 与 Vector Store API，提供一�
        │
        ▼
 ┌─────────────────────────────────────┐
-│     Semantic Router                 │
+│     Decision Router                 │
 │  ┌───────────────────────────────┐  │
 │  │      RAG Plugin               │  │
 │  │  ┌─────────────────────────┐  │  │

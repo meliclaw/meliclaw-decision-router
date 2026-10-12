@@ -9,7 +9,7 @@ sidebar_position: 4
 
 # 配置
 
-本文说明 Semantic Router 的配置选项。系统通过单个 YAML 文件控制 **Signal-Driven Routing**、**Plugin Chain 处理**和**模型选择**。
+本文说明 Decision Router 的配置选项。系统通过单个 YAML 文件控制 **Signal-Driven Routing**、**Plugin Chain 处理**和**模型选择**。
 
 ## 架构概览
 
@@ -1916,7 +1916,7 @@ curl -X POST http://localhost:8801/v1/chat/completions \
 
 ## 配置生成
 
- Semantic Router 支持基于模型性能基准的自动配置生成。此工作流程使用 MMLU-Pro 评估结果来确定不同类别的最佳模型路由。
+ Decision Router 支持基于模型性能基准的自动配置生成。此工作流程使用 MMLU-Pro 评估结果来确定不同类别的最佳模型路由。
 
 ### 基准测试工作流程
 

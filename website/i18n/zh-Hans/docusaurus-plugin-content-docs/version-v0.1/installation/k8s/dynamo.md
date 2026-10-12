@@ -5,7 +5,7 @@ outdated: false
 
 # 使用 NVIDIA Dynamo 安装
 
-本指南提供了将 vLLM Semantic Router 与 NVIDIA Dynamo 集成的分步说明。
+本指南提供了将 Meliclaw Decision Router 与 NVIDIA Dynamo 集成的分步说明。
 
 ## 关于 NVIDIA Dynamo
 
@@ -22,11 +22,11 @@ outdated: false
 
 ### 集成优势
 
-将 vLLM Semantic Router 与 NVIDIA Dynamo 集成可提供以下优势：
+将 Meliclaw Decision Router 与 NVIDIA Dynamo 集成可提供以下优势：
 
-1. **双层智能**：Semantic Router 提供请求级智能（模型选择、分类），而 Dynamo 优化基础设施级效率（工作节点选择、KV 缓存复用）
+1. **双层智能**：Decision Router 提供请求级智能（模型选择、分类），而 Dynamo 优化基础设施级效率（工作节点选择、KV 缓存复用）
 
-2. **智能模型选择**：Semantic Router 分析传入请求，根据内容理解将其路由到最合适的模型，同时 Dynamo 的 KV 感知路由器高效选择最优工作节点
+2. **智能模型选择**：Decision Router 分析传入请求，根据内容理解将其路由到最合适的模型，同时 Dynamo 的 KV 感知路由器高效选择最优工作节点
 
 3. **双层缓存**：语义缓存（请求级，Milvus 支持）结合 KV 缓存（token 级，Dynamo 管理），最大程度降低延迟
 
@@ -263,7 +263,7 @@ echo "✅ GPU setup complete"
 ```
 
 :::tip[E2E 测试]
-Semantic Router 项目包含自动化 E2E 测试，可自动处理所有 GPU 设置。您可以运行：
+Decision Router 项目包含自动化 E2E 测试，可自动处理所有 GPU 设置。您可以运行：
 
 ```bash
 make e2e-test E2E_PROFILE=dynamo E2E_VERBOSE=true
@@ -297,7 +297,7 @@ kubectl wait --for=condition=Available deployment -l app.kubernetes.io/instance=
 
 ## 步骤 3：安装 Envoy Gateway
 
-部署启用 ExtensionAPIs 的 Envoy Gateway 以支持 Semantic Router 集成：
+部署启用 ExtensionAPIs 的 Envoy Gateway 以支持 Decision Router 集成：
 
 ```bash
 # 使用自定义值安装 Envoy Gateway
@@ -311,14 +311,14 @@ helm install envoy-gateway oci://docker.io/envoyproxy/gateway-helm \
 kubectl wait --for=condition=Available deployment/envoy-gateway -n envoy-gateway-system --timeout=300s
 ```
 
-**重要：** 该 values 文件启用了 `extensionApis.enableEnvoyPatchPolicy: true`，这是 Semantic Router ExtProc 集成所必需的。
+**重要：** 该 values 文件启用了 `extensionApis.enableEnvoyPatchPolicy: true`，这是 Decision Router ExtProc 集成所必需的。
 
-## 步骤 4：部署 vLLM Semantic Router
+## 步骤 4：部署 Meliclaw Decision Router
 
-使用 Dynamo 特定配置部署 Semantic Router：
+使用 Dynamo 特定配置部署 Decision Router：
 
 ```bash
-# 从 GHCR OCI 仓库安装 Semantic Router
+# 从 GHCR OCI 仓库安装 Decision Router
 helm install semantic-router oci://ghcr.io/vllm-project/charts/semantic-router \
   --version v0.0.0-latest \
   --namespace vllm-semantic-router-system \
@@ -332,11 +332,11 @@ kubectl wait --for=condition=Available deployment/semantic-router -n vllm-semant
 kubectl get pods -n vllm-semantic-router-system
 ```
 
-**注意：** 该 values 文件将 Semantic Router 配置为路由到由 Dynamo 工作节点服务的 TinyLlama 模型。
+**注意：** 该 values 文件将 Decision Router 配置为路由到由 Dynamo 工作节点服务的 TinyLlama 模型。
 
 ## 步骤 5：部署 RBAC 资源
 
-应用 RBAC 权限以允许 Semantic Router 访问 Dynamo CRDs：
+应用 RBAC 权限以允许 Decision Router 访问 Dynamo CRDs：
 
 ```bash
 kubectl apply -f https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/dynamo/dynamo-resources/rbac.yaml
@@ -423,10 +423,10 @@ transfer-encoding: chunked
 **成功指标：**
 
 - ✅ 请求使用 `model="MoM"` 发送
-- ✅ 响应显示 `model="TinyLlama/TinyLlama-1.1B-Chat-v1.0"`（由 Semantic Router 重写）
+- ✅ 响应显示 `model="TinyLlama/TinyLlama-1.1B-Chat-v1.0"`（由 Decision Router 重写）
 - ✅ 请求头显示类别分类和系统提示词注入
 
-### 检查 Semantic Router 日志
+### 检查 Decision Router 日志
 
 ```bash
 # 查看分类和路由决策
@@ -472,7 +472,7 @@ kubectl delete -f https://raw.githubusercontent.com/vllm-project/semantic-router
 # 删除 RBAC
 kubectl delete -f https://raw.githubusercontent.com/vllm-project/semantic-router/refs/heads/main/deploy/kubernetes/dynamo/dynamo-resources/rbac.yaml
 
-# 删除 Semantic Router
+# 删除 Decision Router
 helm uninstall semantic-router -n vllm-semantic-router-system
 
 # 删除 Envoy Gateway
@@ -523,4 +523,4 @@ resources:
 
 - [NVIDIA Dynamo GitHub](https://github.com/ai-dynamo/dynamo)
 - [Dynamo 文档](https://docs.nvidia.com/dynamo/latest/)
-- [演示视频：Semantic Router + Dynamo E2E](https://www.youtube.com/watch?v=rRULSR9gTds&list=PLmrddZ45wYcuPrXisC-yl7bMI39PLo4LO&index=2)
+- [演示视频：Decision Router + Dynamo E2E](https://www.youtube.com/watch?v=rRULSR9gTds&list=PLmrddZ45wYcuPrXisC-yl7bMI39PLo4LO&index=2)

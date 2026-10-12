@@ -112,7 +112,7 @@ python mmlu_pro_vllm_eval.py \
   --samples-per-category 10
   --use-cot 
 
-# 如果您已正确设置Semantic Router ，可以一次性运行
+# 如果您已正确设置Decision Router ，可以一次性运行
 python mmlu_pro_vllm_eval.py \
   --endpoint http://localhost:8801/v1 \
   --models qwen3-0.6B, phi4 \

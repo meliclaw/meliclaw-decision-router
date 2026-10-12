@@ -442,7 +442,7 @@ export const workGroups: WorkGroup[] = [
     name: 'Developer Experience & Ecosystem',
     label: 'wg/developer-experience-ecosystem',
     charterIssue: 2970,
-    goal: 'Make vLLM Semantic Router easy to adopt, configure, extend, diagnose, and contribute to.',
+    goal: 'Make Meliclaw Decision Router easy to adopt, configure, extend, diagnose, and contribute to.',
     scope: [
       'First-run CLI, configuration, recipes, errors, and troubleshooting',
       'Dashboard workflows built on canonical Router and deployment contracts',

@@ -15,7 +15,7 @@ translation:
 
 ## 问题 {#problem}
 
-vLLM Semantic Router 目前在几个独立位置描述模型支持：
+Meliclaw Decision Router 目前在几个独立位置描述模型支持：
 
 - Router 配置拥有逻辑模型卡片、后端绑定、定价、API 格式和运营方编写的推理族；
 - `pkg/config/helper.go` 拥有第二份提供商类型表，用于认证和请求路径；

@@ -1,18 +1,18 @@
 # Install with Envoy AI Gateway
 
-This guide provides step-by-step instructions for integrating the vLLM Semantic Router with Envoy AI Gateway on Kubernetes for advanced traffic management and AI-specific features.
+This guide provides step-by-step instructions for integrating the Meliclaw Decision Router with Envoy AI Gateway on Kubernetes for advanced traffic management and AI-specific features.
 
 ## Architecture Overview
 
 The deployment consists of:
 
-- **vLLM Semantic Router**: Provides intelligent request routing and semantic understanding
+- **Meliclaw Decision Router**: Provides intelligent request routing and semantic understanding
 - **Envoy Gateway**: Core gateway functionality and traffic management
 - **Envoy AI Gateway**: AI Gateway built on Envoy Gateway for LLM providers
 
 ## Benefits of Integration
 
-Integrating vLLM Semantic Router with Envoy AI Gateway provides enterprise-grade capabilities for production LLM deployments:
+Integrating Meliclaw Decision Router with Envoy AI Gateway provides enterprise-grade capabilities for production LLM deployments:
 
 ### 1. **Hybrid Model Selection**
 
@@ -97,7 +97,7 @@ kind create cluster --name semantic-router-cluster
 kubectl wait --for=condition=Ready nodes --all --timeout=300s
 ```
 
-## Step 2: Deploy vLLM Semantic Router
+## Step 2: Deploy Meliclaw Decision Router
 
 Deploy the semantic router service with all required components using Helm:
 

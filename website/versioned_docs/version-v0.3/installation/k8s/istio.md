@@ -1,12 +1,12 @@
 # Install with Istio Gateway
 
-This guide provides step-by-step instructions for deploying the vLLM Semantic Router (vsr) with Istio Gateway on Kubernetes. Istio Gateway uses Envoy under the covers so it is possible to use vsr with it. However there are differences between how different Envoy based Gateways process the ExtProc protocol, hence the deployment described here is different from the deployment of vsr alongwith other types of Envoy based Gateways as described in the other guides in this repo. There are multiple architecture options possible to combine Istio Gateway with vsr. This document describes one of the options.
+This guide provides step-by-step instructions for deploying the Meliclaw Decision Router (vsr) with Istio Gateway on Kubernetes. Istio Gateway uses Envoy under the covers so it is possible to use vsr with it. However there are differences between how different Envoy based Gateways process the ExtProc protocol, hence the deployment described here is different from the deployment of vsr alongwith other types of Envoy based Gateways as described in the other guides in this repo. There are multiple architecture options possible to combine Istio Gateway with vsr. This document describes one of the options.
 
 ## Architecture Overview
 
 The deployment consists of:
 
-- **vLLM Semantic Router**: Provides intelligent request routing and processing decisions to Envoy based Gateways
+- **Meliclaw Decision Router**: Provides intelligent request routing and processing decisions to Envoy based Gateways
 - **Istio Gateway**: Istio's implementation of Kubernetes Gateway API that uses an Envoy proxy under the covers
 - **Gateway API Inference Extension**: Additional APIs to extend the Gateway API for Inference via ExtProc servers
 - **Two instances of vLLM serving 1 model each**:  Example backend LLMs for illustrating semantic routing in this topology
@@ -114,7 +114,7 @@ curl -O https://raw.githubusercontent.com/vllm-project/semantic-router/refs/head
 
 Ensure that the models in the config file match the models you are using. It is usually good to start with basic features of vsr such as prompt classification and model routing before experimenting with other features such as PromptGuard or ToolCalling.
 
-## Step 5: Deploy vLLM Semantic Router
+## Step 5: Deploy Meliclaw Decision Router
 
 Deploy the semantic router service with all required components using Helm:
 
@@ -280,7 +280,7 @@ minikube delete
 
 ## Next Steps
 
-- Test/ experiment with different features of vLLM Semantic Router
+- Test/ experiment with different features of Meliclaw Decision Router
 - Additional use cases/ topologies with Istio Gateway (including with EPP and LLM-D)
 - Set up monitoring and observability
 - Implement authentication and authorization
